@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens. Source of truth: docs/design-tokens.md (shared with the Flutter app so the two read as one product).
+ * Warm neutrals, ONE accent (teal), amber reserved for ratings. Restraint over decoration.
+ */
+:root {
+  --background: #faf9f6;
+  --foreground: #14171c;
+  --card: #ffffff;
+  --card-foreground: #14171c;
+  --popover: #ffffff;
+  --popover-foreground: #14171c;
+  --primary: #0b7a66;
+  --primary-foreground: #ffffff;
+  --secondary: #f1efe9;
+  --secondary-foreground: #14171c;
+  --muted: #f1efe9;
+  --muted-foreground: #5b616d;
+  --accent: #e2f3ee;
+  --accent-foreground: #08594a;
+  --destructive: #c4302b;
+  --destructive-foreground: #ffffff;
+  --success: #11693a;
+  --warning: #8a4b00;
+  --info: #1d4ed8;
+  --star: #f59e0b;
+  --border: #e6e3dc;
+  --input: #d8d4cb;
+  --ring: #0b7a66;
+  --radius: 0.75rem;
+  --shadow-color: 20 23 28;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #0e1012;
+  --foreground: #eceef1;
+  --card: #15181c;
+  --card-foreground: #eceef1;
+  --popover: #1a1d22;
+  --popover-foreground: #eceef1;
+  --primary: #3fcfae;
+  --primary-foreground: #04211a;
+  --secondary: #1e2227;
+  --secondary-foreground: #eceef1;
+  --muted: #1e2227;
+  --muted-foreground: #9aa1ad;
+  --accent: #12332c;
+  --accent-foreground: #7ae3c9;
+  --destructive: #f0605b;
+  --destructive-foreground: #1c0605;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --info: #7aa2ff;
+  --star: #fbbf24;
+  --border: #272b31;
+  --input: #343a42;
+  --ring: #3fcfae;
+  --shadow-color: 0 0 0;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-star: var(--star);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ease-out: var(--ease-out);
+  --ease-drawer: var(--ease-drawer);
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+}
+
+/* ── Mobile-native baseline (see the mobile-native skill) ── */
+html {
+  -webkit-tap-highlight-color: transparent; /* we ship our own :active feedback */
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+}
+/* Inputs under 16px make iOS Safari zoom the page on focus; fix the cause, never disable zoom. */
+input, textarea, select { font-size: 16px; }
+@media (min-width: 768px) and (pointer: fine) { input, textarea, select { font-size: 14px; } }
+button, a, [role="button"], summary, label { touch-action: manipulation; }
+button, [role="button"], [role="tab"], [role="switch"] { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+
+* { border-color: var(--border); }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+/* Tabular figures wherever money / counts / dates line up. */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Optical type: big text tightens, small text breathes (apple-design §15). */
+h1, h2, h3 { letter-spacing: -0.02em; text-wrap: balance; }
+.display { letter-spacing: -0.035em; line-height: 1.02; }
+p { text-wrap: pretty; }
+
+/* Press feedback on every pressable thing: instant on pointer-down, 160ms ease-out (emil). */
+.pressable { transition: transform 160ms var(--ease-out), background-color 160ms, box-shadow 160ms; }
+.pressable:active { transform: scale(0.97); }
+
+/* Leaflet needs these to stay inside our stacking contexts. */
+.leaflet-container { font: inherit; background: var(--muted); z-index: 0; }
+.leaflet-pane, .leaflet-top, .leaflet-bottom { z-index: 1 !important; }
+.dark .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9); }
+
+/* Map price pills (Leaflet divIcons are plain HTML, so they are styled here). */
+.map-pin { display: flex; align-items: center; justify-content: center; height: 30px; padding: 0 10px; border-radius: 999px; background: var(--card); color: var(--foreground); border: 1px solid var(--border); box-shadow: 0 2px 8px rgb(var(--shadow-color) / 0.25); font: 600 13px/1 var(--font-sans); font-variant-numeric: tabular-nums; white-space: nowrap; transition: transform 160ms var(--ease-out), background-color 160ms; }
+.map-pin[data-active="true"] { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); transform: scale(1.12); }
+.leaflet-popup-content-wrapper { border-radius: 16px; padding: 0; overflow: hidden; background: var(--popover); color: var(--popover-foreground); }
+.leaflet-popup-content { margin: 0; width: 240px !important; }
+.leaflet-popup-tip { background: var(--popover); }
+.leaflet-container a.leaflet-popup-close-button { color: #fff; text-shadow: 0 1px 3px rgb(0 0 0 / .6); top: 8px; right: 8px; }
+
+/* Safe areas for fixed chrome (needs viewport-fit=cover, set in the viewport export). */
+.safe-bottom { padding-bottom: max(env(safe-area-inset-bottom, 0px), 0px); }
+.safe-top { padding-top: env(safe-area-inset-top, 0px); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

@@ -1,0 +1,10 @@
+import { authenticate } from '@/core/auth/authenticate';
+import { wrap } from '@/core/http/wrap';
+import { ok } from '@/core/http/response';
+import { notificationCenter } from '@/modules/notifications/notification-center.service';
+
+export const POST = wrap(async (ctx) => {
+  const actor = await authenticate(ctx.req);
+  const meta = { requestId: ctx.requestId };
+  return ok(await notificationCenter.markAllRead(actor), meta);
+});
