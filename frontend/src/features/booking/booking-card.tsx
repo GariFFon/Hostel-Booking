@@ -47,7 +47,7 @@ export function BookingCard({ className }: { className?: string }) {
       </div>
 
       <div className="rounded-xl border">
-        <DateRangeField checkIn={dates?.checkIn} checkOut={dates?.checkOut} onChange={b.setDates} className="rounded-b-none" />
+        <DateRangeField checkIn={b.draftDates.checkIn} checkOut={b.draftDates.checkOut} onChange={b.setDates} className="rounded-b-none" />
         <div className="h-px bg-border" />
         <GuestsField guests={b.guests} onChange={b.setGuests} className="rounded-t-none" />
       </div>

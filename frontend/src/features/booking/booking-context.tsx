@@ -36,6 +36,8 @@ function useBookingState(hostel: HostelDetail) {
   const pathname = usePathname();
   const ci = sp.get("checkIn"), co = sp.get("checkOut");
   const dates = ci && co && DATE.test(ci) && DATE.test(co) && co > ci && nightsBetween(ci, co) <= MAX_NIGHTS ? { checkIn: ci, checkOut: co } : null;
+  // What the calendar shows: the full range, or just the check-in while the guest is still choosing the check-out.
+  const draftDates: { checkIn?: string; checkOut?: string } = dates ?? { checkIn: ci && DATE.test(ci) ? ci : undefined };
   const guests = Math.min(30, Math.max(1, Math.trunc(Number(sp.get("guests"))) || 1));
   const [rawSel, setSel] = React.useState<Sel>(() => decodeItems(sp.get("items")));
   const [couponInput, setCouponInput] = React.useState(sp.get("coupon") ?? "");
@@ -105,7 +107,7 @@ function useBookingState(hostel: HostelDetail) {
   const canReserve = !issue && !!quote.data && !quote.isPlaceholderData && !quote.isFetching;
 
   return {
-    hostel, dates, nights, guests, items, totalUnits, capacity, sel, setUnits, rooms, availability, avail, quote, issue, canReserve,
+    hostel, dates, draftDates, nights, guests, items, totalUnits, capacity, sel, setUnits, rooms, availability, avail, quote, issue, canReserve,
     reserveHref: `/checkout/${hostel.slug}?${params}`,
     coupon, couponInput, setCouponInput, applyCode: (c: string) => { const v = c.trim().toUpperCase(); setCouponInput(v); setCoupon(v); }, applyCoupon: () => { const v = couponInput.trim().toUpperCase(); setCouponInput(v); setCoupon(v); }, clearCoupon: () => { setCoupon(""); setCouponInput(""); },
     setDates: (r: { checkIn?: string; checkOut?: string }) => writeUrl({ checkIn: r.checkIn, checkOut: r.checkOut }),
