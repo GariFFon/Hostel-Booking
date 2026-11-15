@@ -53,8 +53,11 @@ services:
       - { key: CLOUDINARY_API_KEY, sync: false }
       - { key: CLOUDINARY_API_SECRET, sync: false }
       - { key: MAIL_DRIVER, value: resend }
-      - { key: MAIL_FROM, value: "Hostel Booking <onboarding@resend.dev>" }
+      - { key: MAIL_FROM, value: "Hostel Booking <no-reply@gariffon.dev>" }
       - { key: RESEND_API_KEY, sync: false }
+      # Phone push (Firebase). Set PUSH_DRIVER=fcm and paste the service-account JSON once; until then push is off and nothing else changes.
+      - { key: PUSH_DRIVER, sync: false } # unset = off
+      - { key: FCM_SERVICE_ACCOUNT_JSON, sync: false }
       - { key: GEOCODER_USER_AGENT, sync: false }
 
   - type: web

@@ -2,3 +2,7 @@
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# Firebase service-account keys (they can send push to every user): never commit
+*firebase-adminsdk*.json
+serviceAccount*.json
