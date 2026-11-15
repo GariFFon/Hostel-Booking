@@ -26,7 +26,19 @@ const err = (status: number, code: string, message: string) => json(status, { er
 function sameOrigin(req: NextRequest) {
   if (["GET", "HEAD", "OPTIONS"].includes(req.method)) return true;
   const origin = req.headers.get("origin");
-  if (origin) return origin === req.nextUrl.origin;
+  if (origin) {
+    if (origin === req.nextUrl.origin) return true;
+    // Behind a reverse proxy (Render) nextUrl is the internal address; the browser's Origin is the public one.
+    // A cross-site page cannot forge the Host header the browser sends, so Host + forwarded proto is a sound match.
+    const host = req.headers.get("host");
+    const proto = req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ?? "https";
+    if (host && origin === `${proto}://${host}`) return true;
+    try {
+      const site = process.env.NEXT_PUBLIC_SITE_URL;
+      if (site && origin === new URL(site).origin) return true;
+    } catch { /* malformed site URL: fall through to reject */ }
+    return false;
+  }
   return req.headers.get("sec-fetch-site") === "same-origin"; // some non-browser clients omit Origin; browsers never do on POST
 }
 
