@@ -28,10 +28,10 @@ services:
     plan: free
     rootDir: backend
     buildCommand: pnpm install --frozen-lockfile --prod=false && pnpm db:generate && pnpm build
-    preDeployCommand: pnpm db:deploy
+    # Free tier has no pre-deploy hook, so migrations run at boot (prisma migrate deploy is idempotent).
     # Free tier has no background-worker type, so the BullMQ worker runs beside the API in the same instance.
     # If the API exits the instance restarts both; if only the worker dies, see the worker logs.
-    startCommand: pnpm exec tsx src/worker.ts & exec pnpm exec next start -p $PORT
+    startCommand: pnpm db:deploy && (pnpm exec tsx src/worker.ts &) && exec pnpm exec next start -p $PORT
     healthCheckPath: /api/v1/health/ready
     envVars:
       - { key: NODE_VERSION, value: "22" }
