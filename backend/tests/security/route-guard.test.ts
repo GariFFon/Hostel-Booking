@@ -37,7 +37,8 @@ const PUBLIC: Record<string, string[] | '*'> = {
   'search/suggest': ['GET'],
 };
 
-const modules = import.meta.glob('/src/app/api/v1/**/route.ts');
+// Vite's glob is typed by vite/client, which a clean checkout does not resolve (pnpm does not hoist it); type just what is used.
+const modules = (import.meta as unknown as { glob: (pattern: string) => Record<string, () => Promise<unknown>> }).glob('/src/app/api/v1/**/route.ts');
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 const UUID = '00000000-0000-4000-8000-000000000000';
 
