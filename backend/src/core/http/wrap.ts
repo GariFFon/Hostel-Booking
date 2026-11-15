@@ -5,6 +5,7 @@ import { env } from '../config/env';
 import { runWithContext, type RequestContext } from '../context/request-context';
 import { AppError, Errors } from '../errors/app-error';
 import { logger } from '../logger/logger';
+import { apiDebugEnabled, logApiException, logApiRequest, logApiResponse, readRequestForLog } from './debug-log';
 import { fail } from './response';
 
 export interface RouteContext {
@@ -43,6 +44,9 @@ export function wrap(handler: Handler) {
     const ctx: RequestContext = { requestId, ip, userAgent: req.headers.get('user-agent')?.slice(0, 300) ?? null, actor: null };
     const started = performance.now();
 
+    const debug = apiDebugEnabled();
+    if (debug) logApiRequest({ id: requestId, req, url: req.nextUrl, body: await readRequestForLog(req) });
+
     return runWithContext(ctx, async () => {
       let response: NextResponse;
       try {
@@ -59,6 +63,7 @@ export function wrap(handler: Handler) {
           response = fail(err, requestId);
         } else {
           logger.error({ err: e, requestId, path: req.nextUrl.pathname }, 'unhandled error');
+          if (debug) logApiException({ id: requestId, req, url: req.nextUrl, error: e, ms: Math.round(performance.now() - started) });
           response = fail(new AppError('INTERNAL', 'Something went wrong'), requestId);
         }
       }
@@ -67,6 +72,7 @@ export function wrap(handler: Handler) {
         { requestId, method: req.method, path: req.nextUrl.pathname, status: response.status, actor: ctx.actor?.id, ms: Math.round(performance.now() - started) },
         'request',
       );
+      if (debug) void logApiResponse({ id: requestId, req, url: req.nextUrl, res: response, ms: Math.round(performance.now() - started) });
       return response;
     });
   };

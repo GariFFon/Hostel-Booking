@@ -4,6 +4,9 @@ import { connection } from "next/server";
 import createClient from "openapi-fetch";
 import type { paths } from "@/lib/api/schema";
 import { API_V1 } from "./config";
+import { withApiLog } from "@/lib/api/debug-log";
+
+const loggedFetch = withApiLog((i, o) => fetch(i, o), "SSR→API");
 
 /**
  * Public (signed-out) reads for server components. Plain uncached requests: with Cache Components they stream in behind
@@ -12,7 +15,7 @@ import { API_V1 } from "./config";
  */
 const client = createClient<paths>({
   baseUrl: API_V1,
-  fetch: (req) => fetch(new Request(req, { cache: "no-store", signal: AbortSignal.timeout(10_000) })),
+  fetch: (req) => loggedFetch(new Request(req, { cache: "no-store", signal: AbortSignal.timeout(10_000) })),
 });
 
 async function safe<T>(call: () => Promise<{ data?: { data: T }; response: Response }>): Promise<T | null> {

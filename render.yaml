@@ -1,0 +1,72 @@
+# Render Blueprint (FREE tier): Postgres + Redis (Key Value) + API (with worker) + website, all in Singapore.
+# Free limits: services sleep after 15 min idle (~1 min cold start); free Postgres expires after 30 days.
+# Deploy: Render dashboard -> New -> Blueprint -> pick GariFFon/Hostel-Booking.
+# Service names fix the default URLs (https://<name>.onrender.com). If Render reports a name as taken,
+# rename it here and update the URLs below to match.
+
+databases:
+  - name: hostel-db
+    region: singapore
+    plan: free
+    postgresMajorVersion: "16"
+    databaseName: hostel
+    user: hostel
+
+services:
+  # BullMQ needs noeviction, otherwise Redis may drop queued jobs under memory pressure.
+  - type: keyvalue
+    name: hostel-redis
+    region: singapore
+    plan: free
+    maxmemoryPolicy: noeviction
+    ipAllowList: [] # private network only
+
+  - type: web
+    name: hostel-booking-api
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: backend
+    buildCommand: pnpm install --frozen-lockfile --prod=false && pnpm db:generate && pnpm build
+    preDeployCommand: pnpm db:deploy
+    # Free tier has no background-worker type, so the BullMQ worker runs beside the API in the same instance.
+    # If the API exits the instance restarts both; if only the worker dies, see the worker logs.
+    startCommand: pnpm exec tsx src/worker.ts & exec pnpm exec next start -p $PORT
+    healthCheckPath: /api/v1/health/ready
+    envVars:
+      - { key: NODE_VERSION, value: "22" }
+      - { key: NODE_ENV, value: production }
+      - { key: APP_ENV, value: production }
+      - { key: APP_URL, value: "https://hostel-booking-api.onrender.com" }
+      - { key: FRONTEND_URL, value: "https://hostel-booking-web.onrender.com" }
+      - { key: CORS_ALLOWED_ORIGINS, value: "https://hostel-booking-web.onrender.com" }
+      - { key: TRUST_PROXY, value: "true" }
+      - { key: TRUSTED_PROXY_HOPS, value: "1" }
+      - { key: DATABASE_URL, fromDatabase: { name: hostel-db, property: connectionString } }
+      - { key: REDIS_URL, fromService: { type: keyvalue, name: hostel-redis, property: connectionString } }
+      - { key: JWT_ACCESS_SECRET, generateValue: true }
+      - { key: DEMO_WEBHOOK_SECRET, generateValue: true }
+      # The only payment provider is the demo gateway; production refuses it unless this is set on purpose.
+      - { key: ALLOW_DEMO_PAYMENTS, value: "true" }
+      - { key: GOOGLE_CLIENT_IDS, sync: false }
+      - { key: CLOUDINARY_CLOUD_NAME, sync: false }
+      - { key: CLOUDINARY_API_KEY, sync: false }
+      - { key: CLOUDINARY_API_SECRET, sync: false }
+      - { key: MAIL_DRIVER, value: resend }
+      - { key: MAIL_FROM, value: "Hostel Booking <onboarding@resend.dev>" }
+      - { key: RESEND_API_KEY, sync: false }
+      - { key: GEOCODER_USER_AGENT, sync: false }
+
+  - type: web
+    name: hostel-booking-web
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: frontend
+    buildCommand: pnpm install --frozen-lockfile --prod=false && pnpm build
+    startCommand: pnpm start
+    healthCheckPath: /
+    envVars:
+      - { key: NODE_VERSION, value: "22" }
+      - { key: API_URL, value: "https://hostel-booking-api.onrender.com" }
+      - { key: NEXT_PUBLIC_SITE_URL, value: "https://hostel-booking-web.onrender.com" }

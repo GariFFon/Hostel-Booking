@@ -1,5 +1,8 @@
 import "server-only";
 import { API_V1 } from "./config";
+import { withApiLog } from "@/lib/api/debug-log";
+
+const loggedFetch = withApiLog((i, o) => fetch(i, o), "BFF→API");
 
 export interface BackendUser {
   id: string; email: string; fullName: string | null; phone: string | null; avatarUrl: string | null;
@@ -20,7 +23,7 @@ export function backend(path: string, init: BackendInit = {}): Promise<Response>
   const headers: Record<string, string> = { accept: "application/json", ...init.headers };
   if (init.token) headers.authorization = `Bearer ${init.token}`;
   if (init.contentType) headers["content-type"] = init.contentType;
-  return fetch(`${API_V1}/${path.replace(/^\//, "")}`, {
+  return loggedFetch(`${API_V1}/${path.replace(/^\//, "")}`, {
     method: init.method ?? "GET",
     headers,
     body: init.body ?? undefined,

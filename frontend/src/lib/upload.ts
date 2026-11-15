@@ -1,5 +1,6 @@
 import { api, unwrapData } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/errors";
+import { logExternalCall } from "@/lib/api/debug-log";
 
 export type UploadPurpose = "HOSTEL_IMAGE" | "ROOM_IMAGE" | "AVATAR" | "KYC_DOCUMENT";
 
@@ -20,11 +21,12 @@ export async function uploadToCloudinary(file: File, purpose: UploadPurpose, opt
 
   await new Promise<void>((resolve, reject) => {
     const xhr = new XMLHttpRequest();
+    const log = logExternalCall("BROWSER", "POST", sig.uploadUrl, { ...sig.fields, file: `[File ${file.name} · ${file.type || "unknown type"} · ${file.size} bytes]` });
     xhr.open("POST", sig.uploadUrl);
     xhr.upload.onprogress = (e) => { if (e.lengthComputable) opts.onProgress?.(Math.round((e.loaded / e.total) * 100)); };
-    xhr.onload = () => (xhr.status >= 200 && xhr.status < 300 ? resolve() : reject(new ApiError(502, "UPLOAD_FAILED", "The upload didn't go through. Please try again.")));
-    xhr.onerror = () => reject(new TypeError("network"));
-    opts.signal?.addEventListener("abort", () => { xhr.abort(); reject(new DOMException("Aborted", "AbortError")); });
+    xhr.onload = () => { log.end(xhr.status, xhr.statusText, xhr.responseText); if (xhr.status >= 200 && xhr.status < 300) resolve(); else reject(new ApiError(502, "UPLOAD_FAILED", "The upload didn't go through. Please try again.")); };
+    xhr.onerror = () => { log.fail("NETWORK FAILURE", "XMLHttpRequest error"); reject(new TypeError("network")); };
+    opts.signal?.addEventListener("abort", () => { log.fail("ABORTED", "Upload cancelled"); xhr.abort(); reject(new DOMException("Aborted", "AbortError")); });
     xhr.send(form);
   });
   opts.onProgress?.(100);

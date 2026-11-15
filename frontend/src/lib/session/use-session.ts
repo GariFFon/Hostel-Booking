@@ -1,6 +1,9 @@
 "use client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ApiError } from "@/lib/api/errors";
+import { withApiLog } from "@/lib/api/debug-log";
+
+const loggedFetch = withApiLog((i, o) => fetch(i, o), "BROWSER");
 import type { SessionUser } from "@/lib/api/types";
 
 export type { SessionUser };
@@ -9,7 +12,7 @@ export const sessionKey = ["session"] as const;
 
 /** null = signed out. Everything that depends on "who am I" reads this one query. */
 export async function fetchSession(): Promise<SessionUser | null> {
-  const res = await fetch("/api/session", { credentials: "same-origin", headers: { accept: "application/json" } });
+  const res = await loggedFetch("/api/session", { credentials: "same-origin", headers: { accept: "application/json" } });
   if (!res.ok) throw new ApiError(res.status, "SESSION_UNAVAILABLE", "Could not check your session");
   return ((await res.json()) as { data: SessionUser | null }).data;
 }

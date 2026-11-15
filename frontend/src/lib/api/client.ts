@@ -1,12 +1,13 @@
 import createClient from "openapi-fetch";
 import type { paths } from "./schema";
 import { ApiError } from "./errors";
+import { withApiLog } from "./debug-log";
 
 export type Paths = paths;
 export interface Meta { requestId: string; nextCursor?: string | null; total?: number }
 
 /** The browser always talks to its own origin; /api/bff attaches the session and forwards to the backend. */
-export const api = createClient<paths>({ baseUrl: "/api/bff" });
+export const api = createClient<paths>({ baseUrl: "/api/bff", fetch: withApiLog((i, o) => fetch(i, o), "BROWSER") });
 
 type Result<T> = { data?: { data: T; meta: Meta } | undefined; error?: unknown; response: Response };
 
