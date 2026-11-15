@@ -1,11 +1,11 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, CalendarCheck, Heart, Star, UserCog } from "lucide-react";
+import { Bell, CalendarCheck, Heart, House, Star, UserCog, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
-  { href: "/account/bookings", label: "Trips", Icon: CalendarCheck }, { href: "/account/wishlist", label: "Saved", Icon: Heart },
+  { href: "/account/bookings", label: "Trips", Icon: CalendarCheck }, { href: "/account/stay", label: "My stay", Icon: House }, { href: "/account/complaints", label: "Complaints", Icon: Wrench }, { href: "/account/wishlist", label: "Saved", Icon: Heart },
   { href: "/account/reviews", label: "Reviews", Icon: Star }, { href: "/account/notifications", label: "Notifications", Icon: Bell }, { href: "/account/profile", label: "Settings", Icon: UserCog },
 ];
 

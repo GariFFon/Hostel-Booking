@@ -3,7 +3,7 @@ import { authFile } from "./global-setup";
 
 /** Phone layout: nothing scrolls sideways, and the bottom edge belongs to the right control on each screen. */
 const ROUTES = ["/", "/search?city=Goa", "/hostels/palolem-beach-nomads-goa", "/host", "/login", "/register"];
-const SIGNED_IN: [string, "guest3" | "owner1" | "admin"][] = [["/account/bookings", "guest3"], ["/account/profile", "guest3"], ["/owner", "owner1"], ["/owner/hostels/new", "owner1"], ["/owner/calendar", "owner1"], ["/admin/audit", "admin"]];
+const SIGNED_IN: [string, "guest3" | "owner1" | "admin"][] = [["/account/bookings", "guest3"], ["/account/profile", "guest3"], ["/account/complaints", "guest3"], ["/owner", "owner1"], ["/owner/complaints", "owner1"], ["/owner/staff", "owner1"], ["/owner/audit", "owner1"], ["/owner/reports", "owner1"], ["/owner/hostels/new", "owner1"], ["/owner/calendar", "owner1"], ["/admin/audit", "admin"]];
 
 async function noSidewaysScroll(page: import("@playwright/test").Page, path: string) {
   await page.goto(path, { waitUntil: "networkidle" });

@@ -8,6 +8,7 @@ import { WishlistButton } from "@/features/wishlist/wishlist-button";
 import { money } from "@/lib/format";
 import type { SearchItem } from "@/lib/api/types";
 import { cn } from "@/lib/utils";
+import { propertyLabel } from "@/lib/property";
 
 const GENDER: Record<string, string> = { MALE_ONLY: "Men only", FEMALE_ONLY: "Women only" };
 
@@ -57,7 +58,7 @@ export function HostelCard({ h, href, className, onHover, priority = false }: { 
           <RatingBadge rating={h.avgRating} count={h.reviewCount} className="shrink-0" />
         </div>
         <p title={[h.locality, h.city].filter(Boolean).join(", ")} className="mt-0.5 line-clamp-1 text-sm text-muted-foreground">{[h.locality, h.city].filter(Boolean).join(", ")}{h.distanceKm !== null && h.distanceKm !== undefined ? ` · ${h.distanceKm.toFixed(h.distanceKm < 10 ? 1 : 0)} km away` : ""}</p>
-        <p className="mt-0.5 line-clamp-1 text-sm text-muted-foreground">{h.propertyType === "PG" ? "PG" : "Hostel"}{h.roomKinds.length ? ` · ${h.roomKinds.map((k) => (k === "DORM" ? "Dorm beds" : "Private rooms")).join(" & ")}` : ""}</p>
+        <p className="mt-0.5 line-clamp-1 text-sm text-muted-foreground">{propertyLabel(h.propertyType)}{h.roomKinds.length ? ` · ${h.roomKinds.map((k) => (k === "DORM" ? "Dorm beds" : "Private rooms")).join(" & ")}` : ""}</p>
         <p className="tnum mt-1.5 text-[15px]">
           {h.fromPricePaise === null ? <span className="text-muted-foreground">Price on request</span> : dated
             ? <><span className="font-semibold">{money(h.stayFromPricePaise)}</span><span className="text-muted-foreground"> total from</span></>

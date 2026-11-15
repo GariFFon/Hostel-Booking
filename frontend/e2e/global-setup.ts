@@ -1,7 +1,7 @@
 import { request, type FullConfig } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 
-export const ACCOUNTS = { guest3: "guest3@hostel.dev", guest4: "guest4@hostel.dev", guest2: "guest2@hostel.dev", owner1: "owner1@hostel.dev", owner2: "owner2@hostel.dev", owner3: "owner3@hostel.dev", admin: "admin@hostel.dev" } as const;
+export const ACCOUNTS = { guest3: "guest3@hostel.dev", guest4: "guest4@hostel.dev", guest5: "guest5@hostel.dev", guest2: "guest2@hostel.dev", owner1: "owner1@hostel.dev", owner2: "owner2@hostel.dev", owner3: "owner3@hostel.dev", admin: "admin@hostel.dev" } as const;
 export const authFile = (name: keyof typeof ACCOUNTS) => `e2e/.auth/${name}.json`;
 
 /**

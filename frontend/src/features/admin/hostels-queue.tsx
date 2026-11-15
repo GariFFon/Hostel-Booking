@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/common/page-header";
 import { StatusBadge } from "@/components/common/status-badge";
 import { api, unwrap } from "@/lib/api/client";
 import { money, plural, timeAgo } from "@/lib/format";
+import { propertyLabel } from "@/lib/property";
 
 const TABS = ["PENDING_REVIEW", "APPROVED", "REJECTED", "SUSPENDED", "DRAFT"] as const;
 const LABEL: Record<string, string> = { PENDING_REVIEW: "In review", APPROVED: "Live", REJECTED: "Rejected", SUSPENDED: "Suspended", DRAFT: "Drafts" };
@@ -36,7 +37,7 @@ export function HostelsQueue() {
             <div className="size-20 shrink-0 overflow-hidden rounded-xl bg-muted sm:size-24">{h.coverUrl &&   <img src={h.coverUrl} alt="" loading="lazy" className="size-full object-cover" />}</div>
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">
               <div className="flex items-start justify-between gap-2"><h3 className="line-clamp-2 min-w-0 font-semibold [overflow-wrap:anywhere]">{h.name}</h3><StatusBadge status={h.status} /></div>
-              <p className="truncate text-sm text-muted-foreground">{h.city} · {h.propertyType === "PG" ? "PG" : "Hostel"} · {h.owner.ownerProfile?.businessName ?? h.owner.profile?.fullName ?? h.owner.email}</p>
+              <p className="truncate text-sm text-muted-foreground">{h.city} · {propertyLabel(h.propertyType)} · {h.owner.ownerProfile?.businessName ?? h.owner.profile?.fullName ?? h.owner.email}</p>
               <p className="mt-auto text-xs text-muted-foreground">{plural(h.roomTypeCount, "room type")} · {plural(h.mediaCount, "photo")}{h.minPricePaise !== null ? ` · from ${money(h.minPricePaise)}` : ""} · updated {timeAgo(h.updatedAt)}</p>
             </div>
           </Link></li>

@@ -51,7 +51,7 @@ function Body({ onOpenChange, filters, onApply }: { onOpenChange: (o: boolean) =
           {priceBad && <p role="alert" className="text-[13px] text-destructive">Minimum can&apos;t be more than maximum.</p>}
         </section>
         <section className="grid gap-2.5"><h3 className="text-sm font-semibold">Type of place</h3>
-          <Chips label="Type of place" value={d.propertyType} onChange={(v) => set("propertyType", v)} options={[{ v: undefined, label: "Any" }, { v: "HOSTEL", label: "Hostel" }, { v: "PG", label: "PG" }]} /></section>
+          <Chips label="Type of place" value={d.propertyType} onChange={(v) => set("propertyType", v)} options={[{ v: undefined, label: "Any" }, { v: "HOSTEL", label: "Hostel" }, { v: "PG", label: "PG" }, { v: "HOTEL", label: "Hotel" }]} /></section>
         <section className="grid gap-2.5"><h3 className="text-sm font-semibold">Bed or room</h3>
           <Chips label="Bed or room" value={d.roomKind} onChange={(v) => set("roomKind", v)} options={[{ v: undefined, label: "Any" }, { v: "DORM", label: "Dorm bed" }, { v: "PRIVATE", label: "Private room" }]} /></section>
         <section className="grid gap-2.5"><h3 className="text-sm font-semibold">Who is staying</h3>

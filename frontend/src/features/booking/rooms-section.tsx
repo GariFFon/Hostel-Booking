@@ -41,7 +41,6 @@ export function RoomsSection() {
               <p className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1"><Users className="size-3.5" />{r.kind === "DORM" ? "1 per bed" : `Sleeps ${r.maxOccupancyPerUnit}`}</span>
                 {r.minStayNights > 1 && <span>Min {plural(r.minStayNights, "night")}</span>}
-                {r.priceUnit === "MONTH" && <span>Billed per night (monthly rent ÷ 30)</span>}
               </p>
               <div className="mt-auto flex flex-wrap items-end justify-between gap-3 pt-1">
                 <div className="tnum">

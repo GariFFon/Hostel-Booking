@@ -7,7 +7,7 @@ const loggedFetch = withApiLog((i, o) => fetch(i, o), "BROWSER");
 import type { SessionUser } from "@/lib/api/types";
 
 export type { SessionUser };
-export type Role = "GUEST" | "OWNER" | "ADMIN";
+export type Role = "GUEST" | "OWNER" | "ADMIN" | "STAFF";
 export const sessionKey = ["session"] as const;
 
 /** null = signed out. Everything that depends on "who am I" reads this one query. */

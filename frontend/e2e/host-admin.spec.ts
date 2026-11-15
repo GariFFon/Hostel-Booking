@@ -20,6 +20,7 @@ test.describe("host and admin", () => {
     // ── create the draft ──
     await p.goto("/owner/hostels/new");
     await p.getByLabel(/Property name/).fill(name);
+    await p.getByRole("radio", { name: /^Hotel/ }).click(); // this test drives the nightly flow (special prices, booking by date); hostels and PGs are long-term
     await p.getByLabel(/^Description/).fill("A tidy test hostel with friendly staff, bright dorms and a quiet common room for travellers.");
     await p.locator(".leaflet-container").click({ position: { x: 200, y: 140 } }); // drops the pin
     await expect(p.getByText(/Pinned at/)).toBeVisible();
@@ -90,13 +91,13 @@ test.describe("host and admin", () => {
 
   test("request-to-book: the guest asks, the host accepts, the guest pays", async ({ browser }) => {
     const guest = await as(browser, "guest2");
-    const host = await as(browser, "owner3"); // Koregaon Park Students PG is hosted by the third seed owner
+    const host = await as(browser, "owner1"); // Old Manali Peaks Hostel (a nightly, request-to-book hotel) is hosted by the first seed owner
     const g = guest.page, h = host.page;
     await cancelOpenBookings(g);
 
-    // the guest requests a 7-night stay at the (men-only, request-to-book) PG
-    await g.goto("/search?city=Pune");
-    await g.getByRole("link", { name: /Koregaon Park Students PG/ }).first().click();
+    // the guest requests a 7-night stay at the request-to-book hotel
+    await g.goto("/search?city=Manali");
+    await g.getByRole("link", { name: /Old Manali Peaks Hostel/ }).first().click();
     await g.waitForURL(/\/hostels\//);
     const base = new URL(g.url()).pathname;
     await g.goto(`${base}?checkIn=${inDays(80)}&checkOut=${inDays(87)}&guests=1`);
@@ -105,7 +106,7 @@ test.describe("host and admin", () => {
     await expect(g.getByRole("heading", { name: "Request to book" })).toBeVisible();
     await expect(g.getByText(/You pay only if they accept/).first()).toBeVisible();
     await g.getByLabel("Full name (as on ID)").first().fill("Guest Two");
-    await g.getByLabel("Gender").click(); // men-only property: gender is required for every guest
+    await g.getByLabel("Gender").click();
     await g.getByRole("option", { name: "Male", exact: true }).click();
     await g.getByLabel(/Mobile number/).fill("+919876543212");
     await g.getByRole("button", { name: "Send request" }).first().click();

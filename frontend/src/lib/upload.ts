@@ -2,15 +2,15 @@ import { api, unwrapData } from "@/lib/api/client";
 import { ApiError } from "@/lib/api/errors";
 import { logExternalCall } from "@/lib/api/debug-log";
 
-export type UploadPurpose = "HOSTEL_IMAGE" | "ROOM_IMAGE" | "AVATAR" | "KYC_DOCUMENT";
+export type UploadPurpose = "HOSTEL_IMAGE" | "ROOM_IMAGE" | "AVATAR" | "KYC_DOCUMENT" | "COMPLAINT_IMAGE" | "DEPOSIT_PROOF";
 
 /**
  * Direct-to-Cloudinary upload. Our server signs the exact parameters (folder, formats, size) and the file goes straight
  * from the browser to Cloudinary: the API secret never leaves the backend and big files never pass through our servers.
  * Returns the public_id to hand back to the API, which re-verifies the asset with Cloudinary before trusting it.
  */
-export async function uploadToCloudinary(file: File, purpose: UploadPurpose, opts: { hostelId?: string; onProgress?: (pct: number) => void; signal?: AbortSignal } = {}) {
-  const sig = await unwrapData(api.POST("/uploads/signature", { body: { purpose, ...(opts.hostelId ? { hostelId: opts.hostelId } : {}) } }));
+export async function uploadToCloudinary(file: File, purpose: UploadPurpose, opts: { hostelId?: string; complaintId?: string; tenancyId?: string; onProgress?: (pct: number) => void; signal?: AbortSignal } = {}) {
+  const sig = await unwrapData(api.POST("/uploads/signature", { body: { purpose, ...(opts.hostelId ? { hostelId: opts.hostelId } : {}), ...(opts.complaintId ? { complaintId: opts.complaintId } : {}), ...(opts.tenancyId ? { tenancyId: opts.tenancyId } : {}) } }));
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
   if (file.size > sig.maxBytes) throw new ApiError(422, "VALIDATION_FAILED", `That file is too large. The limit is ${Math.round(sig.maxBytes / 1_048_576)} MB.`);
   if (!sig.allowedFormats.includes(ext)) throw new ApiError(422, "VALIDATION_FAILED", `Unsupported file type. Use ${sig.allowedFormats.join(", ").toUpperCase()}.`);

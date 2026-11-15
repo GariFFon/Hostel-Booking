@@ -6,8 +6,8 @@ import { authFile } from "./global-setup";
 const PUBLIC = ["/", "/search?city=Goa", "/hostels/palolem-beach-nomads-goa", "/host", "/login", "/register", "/forgot-password"];
 const SIGNED_IN: [string, "guest3" | "owner1" | "admin"][] = [
   ["/account/bookings", "guest3"], ["/account/wishlist", "guest3"], ["/account/notifications", "guest3"], ["/account/profile", "guest3"],
-  ["/owner", "owner1"], ["/owner/hostels", "owner1"], ["/owner/bookings", "owner1"], ["/owner/coupons", "owner1"], ["/owner/verification", "owner1"],
-  ["/admin", "admin"], ["/admin/hostels", "admin"], ["/admin/audit", "admin"],
+  ["/account/complaints", "guest3"], ["/staff", "guest3"], ["/owner", "owner1"], ["/owner/complaints", "owner1"], ["/owner/staff", "owner1"], ["/owner/audit", "owner1"], ["/owner/reports", "owner1"], ["/owner/hostels", "owner1"], ["/owner/bookings", "owner1"], ["/owner/coupons", "owner1"], ["/owner/verification", "owner1"],
+  ["/admin", "admin"], ["/admin/hostels", "admin"], ["/admin/audit", "admin"], ["/admin/complaints", "admin"], ["/admin/rent", "admin"], ["/admin/staff", "admin"],
 ];
 
 async function scan(page: import("@playwright/test").Page, path: string) {

@@ -102,7 +102,7 @@ export function HostelEditor() {
           </div>
         </TabsContent>
         <TabsContent value="photos" className="mt-6"><PhotosTab hostelId={id} /></TabsContent>
-        <TabsContent value="rooms" className="mt-6"><RoomsTab hostelId={id} /></TabsContent>
+        <TabsContent value="rooms" className="mt-6"><RoomsTab hostelId={id} propertyType={h?.propertyType ?? "HOTEL"} /></TabsContent>
       </Tabs>
 
       <ConfirmDialog open={confirm === "submit"} onOpenChange={(o) => !o && setConfirm(null)} title="Submit for review?" confirmLabel="Submit" description="Our team checks every listing before it goes live, usually within a day or two." onConfirm={() => submit.mutateAsync()} />

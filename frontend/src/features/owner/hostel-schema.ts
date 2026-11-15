@@ -7,7 +7,7 @@ const optional = (re: RegExp, msg: string) => z.union([z.literal(""), z.string()
 /** Mirrors the backend rules so people see the problem next to the field; the backend stays the authority. */
 export const hostelFormSchema = z.object({
   name: z.string().trim().min(3, "Give it a name of at least 3 characters").max(100),
-  propertyType: z.enum(["HOSTEL", "PG"]),
+  propertyType: z.enum(["HOSTEL", "PG", "HOTEL"]),
   description: z.string().trim().min(20, "Describe your property in at least 20 characters").max(4000),
   addressLine1: z.string().trim().min(3, "Enter the street address").max(200),
   addressLine2: z.string().trim().max(200).optional(),

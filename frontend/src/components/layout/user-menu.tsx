@@ -2,7 +2,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Bell, CalendarCheck, Heart, LayoutDashboard, LogOut, Settings, ShieldCheck, Star } from "lucide-react";
+import { Bell, CalendarCheck, Heart, LayoutDashboard, LogOut, Settings, ShieldCheck, Star, Wrench } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -57,8 +57,10 @@ export function UserMenu() {
         <DropdownMenuItem asChild><Link href="/account/wishlist"><Heart /> Saved</Link></DropdownMenuItem>
         <DropdownMenuItem asChild><Link href="/account/notifications"><Bell /> Notifications</Link></DropdownMenuItem>
         <DropdownMenuItem asChild><Link href="/account/reviews"><Star /> My reviews</Link></DropdownMenuItem>
-        {(hasRole("OWNER") || hasRole("ADMIN")) && <DropdownMenuSeparator />}
+        <DropdownMenuItem asChild><Link href="/account/complaints"><Wrench /> Complaints</Link></DropdownMenuItem>
+        {(hasRole("OWNER") || hasRole("ADMIN") || hasRole("STAFF")) && <DropdownMenuSeparator />}
         {hasRole("OWNER") && <DropdownMenuItem asChild><Link href="/owner"><LayoutDashboard /> Host dashboard</Link></DropdownMenuItem>}
+        {hasRole("STAFF") && <DropdownMenuItem asChild><Link href="/staff"><Wrench /> My jobs</Link></DropdownMenuItem>}
         {hasRole("ADMIN") && <DropdownMenuItem asChild><Link href="/admin"><ShieldCheck /> Admin</Link></DropdownMenuItem>}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild><Link href="/account/profile"><Settings /> Account settings</Link></DropdownMenuItem>

@@ -53,7 +53,7 @@ export function HostelForm({ initial, submitLabel, onSubmit }: { initial?: Hoste
       {error && <Alert tone="danger">{error}</Alert>}
       <Section title="The basics">
         <FormField label="Property name" htmlFor="name" error={errors.name?.message} required><Input {...register("name")} {...describe("name", errors.name?.message)} maxLength={100} placeholder="e.g. Palolem Beach Nomads" /></FormField>
-        <FormField label="Type"><Controller control={control} name="propertyType" render={({ field }) => <Choice label="Type" value={field.value} onChange={field.onChange} options={[{ v: "HOSTEL", title: "Hostel", desc: "Dorm beds and private rooms for travellers" }, { v: "PG", title: "PG", desc: "Paying-guest accommodation, usually longer stays" }]} />} /></FormField>
+        <FormField label="Type"><Controller control={control} name="propertyType" render={({ field }) => <Choice label="Type" value={field.value} onChange={field.onChange} options={[{ v: "HOSTEL", title: "Hostel", desc: "Long-term beds and rooms for students and residents, with monthly rent" }, { v: "PG", title: "PG", desc: "Paying-guest accommodation with monthly rent" }, { v: "HOTEL", title: "Hotel", desc: "Short stays booked by the night" }]} />} /></FormField>
         <FormField label="Description" htmlFor="description" error={errors.description?.message} hint="What makes it special? Vibe, neighbourhood, what's nearby." required><Textarea {...register("description")} {...describe("description", errors.description?.message, true)} rows={6} maxLength={4000} /></FormField>
       </Section>
 

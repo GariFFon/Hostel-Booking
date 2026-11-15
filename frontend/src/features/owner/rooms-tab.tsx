@@ -14,19 +14,22 @@ import { ErrorState } from "@/components/common/error-state";
 import { api, unwrapData } from "@/lib/api/client";
 import { errorMessage } from "@/lib/api/errors";
 import { money, plural } from "@/lib/format";
+import { isLongTerm, type PropertyType } from "@/lib/property";
 import type { Item } from "@/lib/api/types";
 import { PriceRulesDialog } from "./price-rules-dialog";
 import { RoomDialog } from "./room-dialog";
+import { UnitsDialog } from "./units-dialog";
 
 export type RoomType = Item<"/owner/hostels/{id}/room-types">;
 
-export function RoomsTab({ hostelId }: { hostelId: string }) {
+export function RoomsTab({ hostelId, propertyType }: { hostelId: string; propertyType: PropertyType }) {
   const qc = useQueryClient();
   const key = ["owner", "rooms", hostelId];
   const q = useQuery({ queryKey: key, queryFn: () => unwrapData(api.GET("/owner/hostels/{id}/room-types", { params: { path: { id: hostelId } } })) });
   const [edit, setEdit] = React.useState<RoomType | "new" | null>(null);
   const [rules, setRules] = React.useState<RoomType | null>(null);
   const [del, setDel] = React.useState<RoomType | null>(null);
+  const [units, setUnits] = React.useState<RoomType | null>(null);
   const sync = () => { qc.invalidateQueries({ queryKey: key }); qc.invalidateQueries({ queryKey: ["owner", "hostel", hostelId] }); };
   const toggle = useMutation({ mutationFn: (r: RoomType) => unwrapData(api.PATCH("/owner/room-types/{id}", { params: { path: { id: r.id } }, body: { isActive: !r.isActive } })), onSuccess: sync, onError: (e) => toast.error(errorMessage(e)) });
   const remove = useMutation({ mutationFn: (id: string) => unwrapData(api.DELETE("/owner/room-types/{id}", { params: { path: { id } } })), onSuccess: () => { sync(); toast.success("Room type removed"); } });
@@ -42,18 +45,19 @@ export function RoomsTab({ hostelId }: { hostelId: string }) {
           <li key={r.id} className="grid gap-3 rounded-2xl border bg-card p-4 sm:grid-cols-[1fr_auto] sm:p-5">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold [overflow-wrap:anywhere]">{r.name}</h3><Badge tone="outline">{r.kind === "DORM" ? <><BedDouble />Dorm bed</> : <><DoorOpen />Private room</>}</Badge>{r.gender !== "MIXED" && <Badge tone="primary">{r.gender === "FEMALE" ? "Women" : "Men"} only</Badge>}{!r.isActive && <Badge tone="warning">Hidden from guests</Badge>}</div>
-              <p className="tnum mt-1.5 text-sm text-muted-foreground"><b className="text-foreground">{money(r.basePricePaise)}</b> {r.priceUnit === "MONTH" ? "per month" : "per night"} · {plural(r.totalUnits, r.kind === "DORM" ? "bed" : "room")}{r.kind === "PRIVATE" ? ` · sleeps ${r.maxOccupancyPerUnit}` : ""} · stays of {r.minStayNights}–{r.maxStayNights} nights</p>
+              <p className="tnum mt-1.5 text-sm text-muted-foreground"><b className="text-foreground">{money(r.basePricePaise)}</b> {r.priceUnit === "MONTH" ? "per month" : "per night"} · {plural(r.totalUnits, r.kind === "DORM" ? "bed" : "room")}{r.kind === "PRIVATE" ? ` · sleeps ${r.maxOccupancyPerUnit}` : ""}{r.priceUnit === "NIGHT" ? ` · stays of ${r.minStayNights}–${r.maxStayNights} nights` : ""}</p>
               {r.description && <p className="mt-1 line-clamp-2 text-sm text-muted-foreground [overflow-wrap:anywhere]">{r.description}</p>}
             </div>
             <div className="flex flex-wrap items-center gap-2 sm:justify-end">
               <label className="mr-1 flex items-center gap-2 text-sm text-muted-foreground"><Switch checked={r.isActive} onCheckedChange={() => toggle.mutate(r)} aria-label={`${r.name} is bookable`} />Bookable</label>
-              <Button variant="outline" size="sm" onClick={() => setRules(r)}><CalendarRange />Special prices</Button>
+              {isLongTerm(propertyType) ? <Button variant="outline" size="sm" onClick={() => setUnits(r)}><DoorOpen />{r.kind === "DORM" ? "Beds" : "Rooms"}</Button> : <Button variant="outline" size="sm" onClick={() => setRules(r)}><CalendarRange />Special prices</Button>}
               <Button variant="outline" size="sm" onClick={() => setEdit(r)}><Pencil />Edit</Button>
               <Button variant="ghost" size="icon-sm" aria-label={`Delete ${r.name}`} className="text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => setDel(r)}><Trash2 /></Button>
             </div>
           </li>
         ))}</ul>}
-      {edit && <RoomDialog hostelId={hostelId} room={edit === "new" ? null : edit} open onOpenChange={(o) => !o && setEdit(null)} onSaved={sync} />}
+      {units && <UnitsDialog room={units} open onOpenChange={(o) => !o && setUnits(null)} />}
+      {edit && <RoomDialog hostelId={hostelId} propertyType={propertyType} room={edit === "new" ? null : edit} open onOpenChange={(o) => !o && setEdit(null)} onSaved={sync} />}
       {rules && <PriceRulesDialog room={rules} open onOpenChange={(o) => !o && setRules(null)} />}
       <ConfirmDialog open={!!del} onOpenChange={(o) => !o && setDel(null)} destructive title={`Delete ${del?.name ?? "this room type"}?`} confirmLabel="Delete room type" description="Guests will no longer see it. This is blocked while it has upcoming bookings: hide it instead." onConfirm={() => remove.mutateAsync(del!.id)} />
       <Alert tone="info">Need to close dates for maintenance or a private event? Use the <a className="font-medium underline" href="/owner/calendar">calendar</a>.</Alert>

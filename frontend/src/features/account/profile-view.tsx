@@ -127,6 +127,9 @@ function Preferences() {
   const rows = [
     ["inAppBookings", "Booking updates in the app", "Confirmations, payments, refunds and reminders in your inbox."],
     ["inAppReviews", "Review activity in the app", "Review requests, new reviews and host replies."],
+    ["inAppRent", "Stay, rent and deposit updates in the app", "Move-in, rent bills and reminders, payments, notice, move-out and your deposit settlement."],
+    ["emailRent", "Rent bill and reminder emails", "New rent bills, due soon and overdue emails. Receipts and invoice corrections are always emailed."],
+    ["inAppComplaints", "Complaint updates in the app", "A complaint being filed, assigned, updated or resolved, and visit times."],
     ["emailBookings", "Pre-stay reminder emails", "A note the day before check-in. Confirmations and receipts are always emailed."],
     ["emailMarketing", "Tips and offers by email", "Occasional deals. Off unless you turn it on."],
   ] as const;

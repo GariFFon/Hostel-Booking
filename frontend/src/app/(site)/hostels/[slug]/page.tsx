@@ -9,6 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { RatingBadge } from "@/components/common/rating";
 import { BookingCard } from "@/features/booking/booking-card";
 import { BookingProvider } from "@/features/booking/booking-context";
+import { ApplyCard } from "@/features/tenancy/apply-card";
+import { LongTermRooms } from "@/features/booking/long-term-rooms";
 import { MobileBookingBar } from "@/features/booking/mobile-bar";
 import { RoomsSection } from "@/features/booking/rooms-section";
 import { AmenityIcon } from "@/features/hostel/amenity-icon";
@@ -16,6 +18,7 @@ import { Gallery } from "@/features/hostel/gallery";
 import { ReviewsSection } from "@/features/hostel/reviews-section";
 import { HostelMap } from "@/features/discovery/hostel-map";
 import { WishlistButton } from "@/features/wishlist/wishlist-button";
+import { isLongTerm, propertyLabel } from "@/lib/property";
 import { getHostel, getReviewSummary } from "@/lib/server/public-api";
 
 type Props = PageProps<"/hostels/[slug]">;
@@ -40,6 +43,7 @@ async function Detail({ params }: { params: Props["params"] }) {
   const { slug } = await params;
   const [h, summary] = await Promise.all([getHostel(slug), getReviewSummary(slug)]);
   if (!h) notFound();
+  const longTerm = isLongTerm(h.propertyType);
   const gender = h.genderPolicy === "MIXED" ? null : h.genderPolicy === "FEMALE_ONLY" ? "Women only" : "Men only";
   const jsonLd = {
     "@context": "https://schema.org", "@type": "Hostel", name: h.name, description: h.description, image: h.media.slice(0, 5).map((m) => m.fullUrl),
@@ -68,7 +72,7 @@ async function Detail({ params }: { params: Props["params"] }) {
           <div className="grid min-w-0 gap-10">
             <section className="grid gap-4">
               <div className="flex flex-wrap items-center gap-2">
-                <Badge tone="outline">{h.propertyType === "PG" ? "PG" : "Hostel"}</Badge>
+                <Badge tone="outline">{propertyLabel(h.propertyType)}</Badge>
                 {h.bookingMode === "INSTANT" ? <Badge tone="primary"><Zap className="fill-current" />Instant booking</Badge> : <Badge tone="warning"><Clock />Host approval required</Badge>}
                 {gender && <Badge tone="primary">{gender}</Badge>}
                 {h.host.name && <span className="text-sm text-muted-foreground">Hosted by <b className="font-semibold text-foreground">{h.host.name}</b></span>}
@@ -81,8 +85,8 @@ async function Detail({ params }: { params: Props["params"] }) {
             </section>
 
             <section aria-labelledby="rooms-h" className="grid scroll-mt-24 gap-4">
-              <div><h2 id="rooms-h" className="flex items-center gap-2 text-xl font-semibold"><BedDouble className="size-5 text-muted-foreground" />Choose your bed or room</h2></div>
-              <RoomsSection />
+              <div><h2 id="rooms-h" className="flex items-center gap-2 text-xl font-semibold"><BedDouble className="size-5 text-muted-foreground" />{longTerm ? "Beds and rooms" : "Choose your bed or room"}</h2></div>
+              {longTerm ? <LongTermRooms rooms={h.roomTypes} /> : <RoomsSection />}
             </section>
 
             {h.amenities.length > 0 && (
@@ -116,10 +120,10 @@ async function Detail({ params }: { params: Props["params"] }) {
             </section>
           </div>
 
-          <aside className="hidden lg:block"><div className="sticky top-24"><BookingCard /></div></aside>
+          <aside className="hidden lg:block"><div className="sticky top-24">{longTerm ? <ApplyCard hostel={h} /> : <BookingCard />}</div></aside>
         </div>
       </div>
-      <MobileBookingBar />
+      {longTerm ? <div className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:hidden"><ApplyCard hostel={h} /></div> : <MobileBookingBar />}
     </BookingProvider>
   );
 }

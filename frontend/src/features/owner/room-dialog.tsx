@@ -11,6 +11,7 @@ import { FormField, describe } from "@/components/common/form-field";
 import { ResponsiveDialog } from "@/components/common/responsive-dialog";
 import { api, unwrapData } from "@/lib/api/client";
 import { errorMessage, isApiError } from "@/lib/api/errors";
+import { isLongTerm, priceUnitFor, type PropertyType } from "@/lib/property";
 import type { RoomType } from "./rooms-tab";
 
 const int = (min: number, max: number, msg: string) => z.string().trim().regex(/^\d+$/, msg).refine((v) => Number(v) >= min && Number(v) <= max, msg);
@@ -32,18 +33,19 @@ const schema = z.object({
 });
 type V = z.infer<typeof schema>;
 
-export function RoomDialog({ hostelId, room, open, onOpenChange, onSaved }: { hostelId: string; room: RoomType | null; open: boolean; onOpenChange: (o: boolean) => void; onSaved: () => void }) {
+export function RoomDialog({ hostelId, propertyType, room, open, onOpenChange, onSaved }: { hostelId: string; propertyType: PropertyType; room: RoomType | null; open: boolean; onOpenChange: (o: boolean) => void; onSaved: () => void }) {
   const [error, setError] = React.useState<string | null>(null);
   const f = useForm<V>({
     resolver: zodResolver(schema),
     defaultValues: room ? { name: room.name, description: room.description ?? "", kind: room.kind, gender: room.gender, totalUnits: String(room.totalUnits), maxOccupancyPerUnit: String(room.maxOccupancyPerUnit), priceRupees: String(room.basePricePaise / 100), priceUnit: room.priceUnit, minStayNights: String(room.minStayNights), maxStayNights: String(room.maxStayNights) }
-      : { name: "", description: "", kind: "DORM", gender: "MIXED", totalUnits: "6", maxOccupancyPerUnit: "1", priceRupees: "", priceUnit: "NIGHT", minStayNights: "1", maxStayNights: "30" },
+      : { name: "", description: "", kind: "DORM", gender: "MIXED", totalUnits: "6", maxOccupancyPerUnit: "1", priceRupees: "", priceUnit: priceUnitFor(propertyType), minStayNights: "1", maxStayNights: isLongTerm(propertyType) ? "365" : "30" },
   });
   const { register, control, handleSubmit, setValue, setError: setFieldError, formState: { errors, isSubmitting } } = f;
   const kind = useWatch({ control, name: "kind" });
+  const monthly = isLongTerm(propertyType); // hostels and PGs are rented per month: no per-night unit or night limits
   async function submit(v: V) {
     setError(null);
-    const body = { name: v.name, description: v.description || null, kind: v.kind, gender: v.gender, totalUnits: Number(v.totalUnits), maxOccupancyPerUnit: Number(v.maxOccupancyPerUnit), basePricePaise: Math.round(Number(v.priceRupees) * 100), priceUnit: v.priceUnit, minStayNights: Number(v.minStayNights), maxStayNights: Number(v.maxStayNights) };
+    const body = { name: v.name, description: v.description || null, kind: v.kind, gender: v.gender, totalUnits: Number(v.totalUnits), maxOccupancyPerUnit: Number(v.maxOccupancyPerUnit), basePricePaise: Math.round(Number(v.priceRupees) * 100), priceUnit: priceUnitFor(propertyType), minStayNights: monthly ? 1 : Number(v.minStayNights), maxStayNights: monthly ? 365 : Number(v.maxStayNights) };
     try {
       if (room) await unwrapData(api.PATCH("/owner/room-types/{id}", { params: { path: { id: room.id } }, body }));
       else await unwrapData(api.POST("/owner/hostels/{id}/room-types", { params: { path: { id: hostelId } }, body }));
@@ -68,12 +70,9 @@ export function RoomDialog({ hostelId, room, open, onOpenChange, onSaved }: { ho
             )} /></FormField>
             <FormField label={kind === "DORM" ? "Number of beds" : "Number of rooms"} htmlFor="units" error={errors.totalUnits?.message}><Input {...register("totalUnits")} {...describe("units", errors.totalUnits?.message)} inputMode="numeric" /></FormField>
             {kind === "PRIVATE" && <FormField label="Sleeps (per room)" htmlFor="occ" error={errors.maxOccupancyPerUnit?.message}><Input {...register("maxOccupancyPerUnit")} {...describe("occ", errors.maxOccupancyPerUnit?.message)} inputMode="numeric" /></FormField>}
-            <FormField label="Price (₹, before GST)" htmlFor="price" error={errors.priceRupees?.message} required><Input {...register("priceRupees")} {...describe("price", errors.priceRupees?.message)} inputMode="decimal" placeholder="850" /></FormField>
-            <FormField label="Priced per" htmlFor="punit"><Controller control={control} name="priceUnit" render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}><SelectTrigger id="punit"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="NIGHT">Night</SelectItem><SelectItem value="MONTH">Month (PG rent)</SelectItem></SelectContent></Select>
-            )} /></FormField>
-            <FormField label="Minimum stay (nights)" htmlFor="minstay" error={errors.minStayNights?.message}><Input {...register("minStayNights")} {...describe("minstay", errors.minStayNights?.message)} inputMode="numeric" /></FormField>
-            <FormField label="Maximum stay (nights)" htmlFor="maxstay" error={errors.maxStayNights?.message}><Input {...register("maxStayNights")} {...describe("maxstay", errors.maxStayNights?.message)} inputMode="numeric" /></FormField>
+            <FormField label={monthly ? "Rent per month (₹)" : "Price (₹, before GST)"} htmlFor="price" error={errors.priceRupees?.message} required><Input {...register("priceRupees")} {...describe("price", errors.priceRupees?.message)} inputMode="decimal" placeholder="850" /></FormField>
+            {!monthly && <FormField label="Minimum stay (nights)" htmlFor="minstay" error={errors.minStayNights?.message}><Input {...register("minStayNights")} {...describe("minstay", errors.minStayNights?.message)} inputMode="numeric" /></FormField>}
+            {!monthly && <FormField label="Maximum stay (nights)" htmlFor="maxstay" error={errors.maxStayNights?.message}><Input {...register("maxStayNights")} {...describe("maxstay", errors.maxStayNights?.message)} inputMode="numeric" /></FormField>}
           </div>
           <FormField label="Description" htmlFor="rdesc" error={errors.description?.message}><Textarea {...register("description")} {...describe("rdesc", errors.description?.message)} rows={3} maxLength={1000} placeholder="Bed type, bathroom, what's included…" /></FormField>
         </div>

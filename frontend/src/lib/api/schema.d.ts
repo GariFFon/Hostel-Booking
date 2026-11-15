@@ -58,7 +58,7 @@ export interface paths {
                                     fullName: string | null;
                                     phone: string | null;
                                     avatarUrl: string | null;
-                                    roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                    roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                     emailVerified: boolean;
                                     hasPassword: boolean;
                                     googleLinked: boolean;
@@ -193,7 +193,7 @@ export interface paths {
                                     fullName: string | null;
                                     phone: string | null;
                                     avatarUrl: string | null;
-                                    roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                    roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                     emailVerified: boolean;
                                     hasPassword: boolean;
                                     googleLinked: boolean;
@@ -327,7 +327,7 @@ export interface paths {
                                     fullName: string | null;
                                     phone: string | null;
                                     avatarUrl: string | null;
-                                    roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                    roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                     emailVerified: boolean;
                                     hasPassword: boolean;
                                     googleLinked: boolean;
@@ -1055,7 +1055,7 @@ export interface paths {
                                     fullName: string | null;
                                     phone: string | null;
                                     avatarUrl: string | null;
-                                    roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                    roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                     emailVerified: boolean;
                                     hasPassword: boolean;
                                     googleLinked: boolean;
@@ -1191,7 +1191,7 @@ export interface paths {
                                 fullName: string | null;
                                 phone: string | null;
                                 avatarUrl: string | null;
-                                roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                 emailVerified: boolean;
                                 hasPassword: boolean;
                                 googleLinked: boolean;
@@ -1298,7 +1298,7 @@ export interface paths {
                                 fullName: string | null;
                                 phone: string | null;
                                 avatarUrl: string | null;
-                                roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                 emailVerified: boolean;
                                 hasPassword: boolean;
                                 googleLinked: boolean;
@@ -1428,7 +1428,7 @@ export interface paths {
                                     fullName: string | null;
                                     phone: string | null;
                                     avatarUrl: string | null;
-                                    roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                    roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                     emailVerified: boolean;
                                     hasPassword: boolean;
                                     googleLinked: boolean;
@@ -1550,7 +1550,7 @@ export interface paths {
                                 fullName: string | null;
                                 phone: string | null;
                                 avatarUrl: string | null;
-                                roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                 emailVerified: boolean;
                                 hasPassword: boolean;
                                 googleLinked: boolean;
@@ -1658,9 +1658,13 @@ export interface paths {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        purpose: "HOSTEL_IMAGE" | "ROOM_IMAGE" | "AVATAR" | "KYC_DOCUMENT";
+                        purpose: "HOSTEL_IMAGE" | "ROOM_IMAGE" | "AVATAR" | "KYC_DOCUMENT" | "COMPLAINT_IMAGE" | "DEPOSIT_PROOF";
                         /** Format: uuid */
                         hostelId?: string;
+                        /** Format: uuid */
+                        complaintId?: string;
+                        /** Format: uuid */
+                        tenancyId?: string;
                     };
                 };
             };
@@ -1851,7 +1855,7 @@ export interface paths {
                                 fullName: string | null;
                                 phone: string | null;
                                 avatarUrl: string | null;
-                                roles: ("GUEST" | "OWNER" | "ADMIN")[];
+                                roles: ("GUEST" | "OWNER" | "ADMIN" | "STAFF")[];
                                 emailVerified: boolean;
                                 hasPassword: boolean;
                                 googleLinked: boolean;
@@ -2779,7 +2783,7 @@ export interface paths {
                                 name: string;
                                 city: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 coverUrl: string | null;
@@ -2884,7 +2888,7 @@ export interface paths {
                          * @default HOSTEL
                          * @enum {string}
                          */
-                        propertyType?: "HOSTEL" | "PG";
+                        propertyType?: "HOSTEL" | "PG" | "HOTEL";
                         /**
                          * @default INSTANT
                          * @enum {string}
@@ -2943,7 +2947,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -3178,7 +3182,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -3472,7 +3476,7 @@ export interface paths {
                         name?: string;
                         description?: string;
                         /** @enum {string} */
-                        propertyType?: "HOSTEL" | "PG";
+                        propertyType?: "HOSTEL" | "PG" | "HOTEL";
                         /** @enum {string} */
                         bookingMode?: "INSTANT" | "APPROVAL";
                         /** @enum {string} */
@@ -3518,7 +3522,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -3751,7 +3755,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -3972,7 +3976,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -4308,10 +4312,7 @@ export interface paths {
                         /** @default 1 */
                         maxOccupancyPerUnit?: number;
                         basePricePaise: number;
-                        /**
-                         * @default NIGHT
-                         * @enum {string}
-                         */
+                        /** @enum {string} */
                         priceUnit?: "NIGHT" | "MONTH";
                         /** @default 1 */
                         minStayNights?: number;
@@ -6892,7 +6893,7 @@ export interface paths {
                                 name: string;
                                 city: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 coverUrl: string | null;
@@ -7035,7 +7036,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -7281,7 +7282,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -7537,7 +7538,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -7809,7 +7810,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -8075,7 +8076,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 status: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" | "SUSPENDED";
                                 /** @enum {string} */
@@ -8892,7 +8893,7 @@ export interface paths {
                     minPrice?: number | null;
                     maxPrice?: number | null;
                     amenities?: string;
-                    propertyType?: "HOSTEL" | "PG";
+                    propertyType?: "HOSTEL" | "PG" | "HOTEL";
                     roomKind?: "DORM" | "PRIVATE";
                     gender?: "MALE" | "FEMALE";
                     minRating?: number | null;
@@ -8920,7 +8921,7 @@ export interface paths {
                                 slug: string;
                                 name: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 city: string;
                                 state: string;
                                 locality: string | null;
@@ -9018,7 +9019,7 @@ export interface paths {
                     minPrice?: number | null;
                     maxPrice?: number | null;
                     amenities?: string;
-                    propertyType?: "HOSTEL" | "PG";
+                    propertyType?: "HOSTEL" | "PG" | "HOTEL";
                     roomKind?: "DORM" | "PRIVATE";
                     gender?: "MALE" | "FEMALE";
                     minRating?: number | null;
@@ -9044,7 +9045,7 @@ export interface paths {
                                 slug: string;
                                 name: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 latitude: number;
                                 longitude: number;
                                 fromPricePaise: number | null;
@@ -9134,7 +9135,7 @@ export interface paths {
                                 name: string;
                                 description: string;
                                 /** @enum {string} */
-                                propertyType: "HOSTEL" | "PG";
+                                propertyType: "HOSTEL" | "PG" | "HOTEL";
                                 /** @enum {string} */
                                 bookingMode: "INSTANT" | "APPROVAL";
                                 /** @enum {string} */
@@ -17271,7 +17272,7 @@ export interface paths {
                                     slug: string;
                                     name: string;
                                     /** @enum {string} */
-                                    propertyType: "HOSTEL" | "PG";
+                                    propertyType: "HOSTEL" | "PG" | "HOTEL";
                                     city: string;
                                     state: string;
                                     locality: string | null;
@@ -19412,7 +19413,7 @@ export interface paths {
                     limit?: number;
                     cursor?: string;
                     unread?: "true" | "false";
-                    type?: "BOOKING_CREATED" | "BOOKING_CONFIRMED" | "BOOKING_APPROVAL_REQUESTED" | "BOOKING_APPROVED" | "BOOKING_REJECTED" | "BOOKING_EXPIRED" | "BOOKING_CANCELLED" | "BOOKING_REMINDER" | "PAYMENT_SUCCEEDED" | "PAYMENT_FAILED" | "REFUND_PROCESSED" | "REVIEW_REQUESTED" | "REVIEW_RECEIVED" | "REVIEW_REPLIED" | "HOSTEL_APPROVED" | "HOSTEL_REJECTED" | "KYC_APPROVED" | "KYC_REJECTED" | "SYSTEM";
+                    type?: "BOOKING_CREATED" | "BOOKING_CONFIRMED" | "BOOKING_APPROVAL_REQUESTED" | "BOOKING_APPROVED" | "BOOKING_REJECTED" | "BOOKING_EXPIRED" | "BOOKING_CANCELLED" | "BOOKING_REMINDER" | "PAYMENT_SUCCEEDED" | "PAYMENT_FAILED" | "REFUND_PROCESSED" | "REVIEW_REQUESTED" | "REVIEW_RECEIVED" | "REVIEW_REPLIED" | "HOSTEL_APPROVED" | "HOSTEL_REJECTED" | "KYC_APPROVED" | "KYC_REJECTED" | "TENANCY_REQUESTED" | "TENANCY_APPROVED" | "TENANCY_REJECTED" | "TENANCY_INVITED" | "TENANCY_STARTED" | "TENANCY_NOTICE" | "TENANCY_ENDED" | "RENT_INVOICE_ISSUED" | "RENT_DUE_SOON" | "RENT_OVERDUE" | "RENT_PAID" | "DEPOSIT_SETTLED" | "COMPLAINT_CREATED" | "COMPLAINT_ASSIGNED" | "COMPLAINT_UPDATED" | "COMPLAINT_RESOLVED" | "STAFF_INVITED" | "SYSTEM";
                 };
                 header?: never;
                 path?: never;
@@ -19431,7 +19432,7 @@ export interface paths {
                                 /** Format: uuid */
                                 id: string;
                                 /** @enum {string} */
-                                type: "BOOKING_CREATED" | "BOOKING_CONFIRMED" | "BOOKING_APPROVAL_REQUESTED" | "BOOKING_APPROVED" | "BOOKING_REJECTED" | "BOOKING_EXPIRED" | "BOOKING_CANCELLED" | "BOOKING_REMINDER" | "PAYMENT_SUCCEEDED" | "PAYMENT_FAILED" | "REFUND_PROCESSED" | "REVIEW_REQUESTED" | "REVIEW_RECEIVED" | "REVIEW_REPLIED" | "HOSTEL_APPROVED" | "HOSTEL_REJECTED" | "KYC_APPROVED" | "KYC_REJECTED" | "SYSTEM";
+                                type: "BOOKING_CREATED" | "BOOKING_CONFIRMED" | "BOOKING_APPROVAL_REQUESTED" | "BOOKING_APPROVED" | "BOOKING_REJECTED" | "BOOKING_EXPIRED" | "BOOKING_CANCELLED" | "BOOKING_REMINDER" | "PAYMENT_SUCCEEDED" | "PAYMENT_FAILED" | "REFUND_PROCESSED" | "REVIEW_REQUESTED" | "REVIEW_RECEIVED" | "REVIEW_REPLIED" | "HOSTEL_APPROVED" | "HOSTEL_REJECTED" | "KYC_APPROVED" | "KYC_REJECTED" | "TENANCY_REQUESTED" | "TENANCY_APPROVED" | "TENANCY_REJECTED" | "TENANCY_INVITED" | "TENANCY_STARTED" | "TENANCY_NOTICE" | "TENANCY_ENDED" | "RENT_INVOICE_ISSUED" | "RENT_DUE_SOON" | "RENT_OVERDUE" | "RENT_PAID" | "DEPOSIT_SETTLED" | "COMPLAINT_CREATED" | "COMPLAINT_ASSIGNED" | "COMPLAINT_UPDATED" | "COMPLAINT_RESOLVED" | "STAFF_INVITED" | "SYSTEM";
                                 title: string;
                                 body: string;
                                 data: {
@@ -19727,7 +19728,7 @@ export interface paths {
                                 /** Format: uuid */
                                 id: string;
                                 /** @enum {string} */
-                                type: "BOOKING_CREATED" | "BOOKING_CONFIRMED" | "BOOKING_APPROVAL_REQUESTED" | "BOOKING_APPROVED" | "BOOKING_REJECTED" | "BOOKING_EXPIRED" | "BOOKING_CANCELLED" | "BOOKING_REMINDER" | "PAYMENT_SUCCEEDED" | "PAYMENT_FAILED" | "REFUND_PROCESSED" | "REVIEW_REQUESTED" | "REVIEW_RECEIVED" | "REVIEW_REPLIED" | "HOSTEL_APPROVED" | "HOSTEL_REJECTED" | "KYC_APPROVED" | "KYC_REJECTED" | "SYSTEM";
+                                type: "BOOKING_CREATED" | "BOOKING_CONFIRMED" | "BOOKING_APPROVAL_REQUESTED" | "BOOKING_APPROVED" | "BOOKING_REJECTED" | "BOOKING_EXPIRED" | "BOOKING_CANCELLED" | "BOOKING_REMINDER" | "PAYMENT_SUCCEEDED" | "PAYMENT_FAILED" | "REFUND_PROCESSED" | "REVIEW_REQUESTED" | "REVIEW_RECEIVED" | "REVIEW_REPLIED" | "HOSTEL_APPROVED" | "HOSTEL_REJECTED" | "KYC_APPROVED" | "KYC_REJECTED" | "TENANCY_REQUESTED" | "TENANCY_APPROVED" | "TENANCY_REJECTED" | "TENANCY_INVITED" | "TENANCY_STARTED" | "TENANCY_NOTICE" | "TENANCY_ENDED" | "RENT_INVOICE_ISSUED" | "RENT_DUE_SOON" | "RENT_OVERDUE" | "RENT_PAID" | "DEPOSIT_SETTLED" | "COMPLAINT_CREATED" | "COMPLAINT_ASSIGNED" | "COMPLAINT_UPDATED" | "COMPLAINT_RESOLVED" | "STAFF_INVITED" | "SYSTEM";
                                 title: string;
                                 body: string;
                                 data: {
@@ -19959,6 +19960,9 @@ export interface paths {
                                 emailMarketing: boolean;
                                 inAppBookings: boolean;
                                 inAppReviews: boolean;
+                                inAppRent: boolean;
+                                emailRent: boolean;
+                                inAppComplaints: boolean;
                             };
                             meta: {
                                 requestId: string;
@@ -20038,6 +20042,9 @@ export interface paths {
                         emailMarketing?: boolean;
                         inAppBookings?: boolean;
                         inAppReviews?: boolean;
+                        inAppRent?: boolean;
+                        emailRent?: boolean;
+                        inAppComplaints?: boolean;
                     };
                 };
             };
@@ -20054,6 +20061,9 @@ export interface paths {
                                 emailMarketing: boolean;
                                 inAppBookings: boolean;
                                 inAppReviews: boolean;
+                                inAppRent: boolean;
+                                emailRent: boolean;
+                                inAppComplaints: boolean;
                             };
                             meta: {
                                 requestId: string;
@@ -20361,6 +20371,17896 @@ export interface paths {
                 };
             };
         };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/room-types/{id}/units": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Physical beds/rooms of a long-term room type */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                roomTypeId: string;
+                                label: string;
+                                floor: number | null;
+                                /** @enum {string} */
+                                status: "ACTIVE" | "MAINTENANCE" | "RETIRED";
+                                notes: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** Add units (capacity cannot exceed the room type total) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        labels: string[];
+                        floor?: number | null;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                roomTypeId: string;
+                                label: string;
+                                floor: number | null;
+                                /** @enum {string} */
+                                status: "ACTIVE" | "MAINTENANCE" | "RETIRED";
+                                notes: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/room-types/{id}/free-units": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Beds of a long-term room type that nobody holds (active and without a live tenancy) */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                roomTypeId: string;
+                                label: string;
+                                floor: number | null;
+                                /** @enum {string} */
+                                status: "ACTIVE" | "MAINTENANCE" | "RETIRED";
+                                notes: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/units/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove a unit (its label becomes reusable) */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                deleted: boolean;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** Rename a unit, set its floor, or mark it maintenance/retired */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        label?: string;
+                        floor?: number | null;
+                        /** @enum {string} */
+                        status?: "ACTIVE" | "MAINTENANCE" | "RETIRED";
+                        notes?: string | null;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                roomTypeId: string;
+                                label: string;
+                                floor: number | null;
+                                /** @enum {string} */
+                                status: "ACTIVE" | "MAINTENANCE" | "RETIRED";
+                                notes: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/hostels/{idOrSlug}/tenancy-terms": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Terms of a long-term property and the free beds per room type */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    idOrSlug: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                depositMonths: number;
+                                noticeDays: number;
+                                rentDueDay: number;
+                                rentGraceDays: number;
+                                rentGstBps: number;
+                                rentLateFeePaise: number;
+                                rooms: {
+                                    /** Format: uuid */
+                                    roomTypeId: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                    /** @enum {string} */
+                                    gender: "MIXED" | "MALE" | "FEMALE";
+                                    rentPaise: number;
+                                    freeUnits: number;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/hostels/{idOrSlug}/tenancy-applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Ask for a bed at a hostel or PG (verified email required) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    idOrSlug: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        roomTypeId: string;
+                        moveInDate: string;
+                        tenureMonths?: number;
+                        /** @enum {string} */
+                        gender?: "MALE" | "FEMALE" | "OTHER";
+                        occupation?: string;
+                        message?: string;
+                        emergencyContactName: string;
+                        emergencyContactPhone: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancy-applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My requests for a bed */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancy-applications/{id}/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Withdraw an open request */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My stays */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One of my stays */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Accept an invitation from an owner */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/decline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Decline a stay that has not started */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancy-invites/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Accept an invitation sent to an email address using the emailed token */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        token: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancy-applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Requests for beds at my properties */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancy-applications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One request */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancy-applications/{id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Approve: reserves a free bed and creates the stay */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        unitId?: string;
+                        rentPaise?: number;
+                        depositPaise?: number;
+                        startDate?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancy-applications/{id}/reject": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Decline a request with a reason */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        reason: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "REQUESTED" | "APPROVED" | "REJECTED" | "WITHDRAWN" | "EXPIRED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                applicant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                moveInDate: string;
+                                tenureMonths: number | null;
+                                gender: string | null;
+                                occupation: string | null;
+                                message: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                };
+                                decisionNote: string | null;
+                                /** Format: date-time */
+                                decidedAt: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("withdraw" | "approve" | "reject")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Stays at my properties */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** Add or invite a tenant by email */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        roomTypeId: string;
+                        /** Format: uuid */
+                        unitId?: string;
+                        /** Format: email */
+                        tenantEmail: string;
+                        startDate: string;
+                        rentPaise?: number;
+                        depositPaise?: number;
+                        depositReceived?: {
+                            /** @enum {string} */
+                            method: "CASH" | "UPI" | "BANK";
+                            reference?: string;
+                        };
+                        emergencyContactName?: string;
+                        emergencyContactPhone?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One stay */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change terms before move-in */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        rentPaise?: number;
+                        depositPaise?: number;
+                        startDate?: string;
+                        dueDay?: number;
+                        graceDays?: number;
+                        noticeDays?: number;
+                        expectedVersion?: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/deposit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Record that the deposit was received (cash, UPI or bank) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        method: "CASH" | "UPI" | "BANK";
+                        reference?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Record move-in (needs the deposit) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel a stay before move-in */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        reason: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/hostels/{id}/tenancy-terms": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Default deposit, notice and rent-due terms of a long-term property */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                depositMonths: number;
+                                noticeDays: number;
+                                rentDueDay: number;
+                                rentGraceDays: number;
+                                rentGstBps: number;
+                                rentLateFeePaise: number;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Change the defaults for future stays (existing stays keep theirs) */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        depositMonths?: number;
+                        noticeDays?: number;
+                        rentDueDay?: number;
+                        rentGraceDays?: number;
+                        rentGstBps?: number;
+                        rentLateFeePaise?: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                depositMonths: number;
+                                noticeDays: number;
+                                rentDueDay: number;
+                                rentGraceDays: number;
+                                rentGstBps: number;
+                                rentLateFeePaise: number;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/admin/tenancies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** All stays (oversight) */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/tenancies/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One stay */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/notice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Give notice: choose the day I will have moved out (at least the stay's notice period away) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        moveOutDate: string;
+                        reason?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/notice/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Withdraw the notice I gave */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/deposit/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Start (or resume) an online payment of the security deposit. Complete it through the rent-order endpoints. */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "RENT" | "DEPOSIT";
+                                /** Format: uuid */
+                                invoiceId: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                provider: string;
+                                amountPaise: number;
+                                currency: string;
+                                /** @enum {string} */
+                                status: "CREATED" | "PENDING" | "CAPTURED" | "FAILED" | "PARTIALLY_REFUNDED" | "REFUNDED";
+                                method: string | null;
+                                failureCode: string | null;
+                                failureReason: string | null;
+                                /** Format: date-time */
+                                capturedAt: string | null;
+                                attempts: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "INITIATED" | "PENDING" | "SUCCEEDED" | "FAILED";
+                                    instrument: string;
+                                    method: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                checkout: {
+                                    /** @enum {string} */
+                                    type: "demo";
+                                    instruments: ("DEMO_SUCCESS" | "DEMO_FAIL" | "DEMO_PENDING" | "DEMO_TIMEOUT")[];
+                                } | null;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/settlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** The deposit settlement the owner sent me */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/settlement/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Accept the deposit settlement (silence for 7 days counts as acceptance) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/settlement/dispute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Dispute the deposit settlement, saying what is wrong */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        note: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/notice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Serve notice on a running stay */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        moveOutDate: string;
+                        reason?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/notice/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Withdraw notice I served */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/move-out": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Record that the tenant has left: ends the stay, frees the bed and starts the deposit settlement */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        movedOutOn?: string;
+                        note?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "INVITED" | "PENDING_MOVE_IN" | "ACTIVE" | "NOTICE" | "ENDED" | "CANCELLED";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    slug: string;
+                                    name: string;
+                                    city: string;
+                                    addressLine: string;
+                                };
+                                roomType: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** @enum {string} */
+                                    kind: "DORM" | "PRIVATE";
+                                };
+                                unit: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    label: string;
+                                    floor: number | null;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                } | null;
+                                inviteEmail: string | null;
+                                startDate: string;
+                                endDate: string | null;
+                                rentPaise: number;
+                                depositPaise: number;
+                                dueDay: number;
+                                graceDays: number;
+                                noticeDays: number;
+                                gstRateBps: number;
+                                lateFeePaise: number;
+                                deposit: {
+                                    /** @enum {string} */
+                                    status: "NONE" | "DUE" | "RECEIVED";
+                                    /** Format: date-time */
+                                    receivedAt: string | null;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | null;
+                                    reference: string | null;
+                                };
+                                depositWarning: string | null;
+                                emergencyContact: {
+                                    name: string;
+                                    phone: string;
+                                } | null;
+                                /** Format: date-time */
+                                activatedAt: string | null;
+                                /** Format: date-time */
+                                cancelledAt: string | null;
+                                cancelReason: string | null;
+                                /** Format: uuid */
+                                applicationId: string | null;
+                                notice: {
+                                    /** Format: date-time */
+                                    givenAt: string;
+                                    /** @enum {string} */
+                                    by: "TENANT" | "OWNER";
+                                    reason: string | null;
+                                    moveOutDate: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                movedOutAt: string | null;
+                                settlement: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                    refundPaise: number;
+                                } | null;
+                                version: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                actions: ("accept" | "decline" | "edit" | "record_deposit" | "activate" | "cancel" | "give_notice" | "withdraw_notice" | "pay_deposit" | "serve_notice" | "move_out" | "settle")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/settlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** The deposit settlement of an ended stay (a draft is made on first look, with unpaid rent pre-filled) */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        /** Save the itemised deductions (replaces the list) */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        deductions: {
+                            /** @enum {string} */
+                            type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                            description: string;
+                            amountPaise: number;
+                            /** Format: uuid */
+                            invoiceId?: string;
+                        }[];
+                        note?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/settlement/proofs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Attach a photo uploaded with a DEPOSIT_PROOF signature */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        publicId: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/settlement/proofs/{proofId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove a proof photo */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                    proofId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/settlement/propose": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send the settlement to the tenant (7 days to respond) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/settlement/retract": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Take a proposal back to a draft */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/settlement/payout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Record how a cash/UPI/bank deposit refund was paid */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        method: "CASH" | "UPI" | "BANK";
+                        reference?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/tenancies/{id}/settlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** A deposit settlement (oversight) */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/tenancies/{id}/settlement/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Settle a disputed deposit settlement: the admin's itemisation is final */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        deductions: {
+                            /** @enum {string} */
+                            type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                            description: string;
+                            amountPaise: number;
+                            /** Format: uuid */
+                            invoiceId?: string;
+                        }[];
+                        note: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                tenancyId: string;
+                                /** @enum {string} */
+                                status: "DRAFT" | "PROPOSED" | "DISPUTED" | "AGREED" | "COMPLETED";
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                };
+                                depositPaise: number;
+                                deductionsPaise: number;
+                                refundPaise: number;
+                                note: string | null;
+                                disputeNote: string | null;
+                                /** Format: date-time */
+                                proposedAt: string | null;
+                                /** Format: date-time */
+                                respondBy: string | null;
+                                /** Format: date-time */
+                                respondedAt: string | null;
+                                /** Format: date-time */
+                                agreedAt: string | null;
+                                autoAgreed: boolean;
+                                /** Format: date-time */
+                                completedAt: string | null;
+                                payout: {
+                                    online: boolean;
+                                    /** @enum {string|null} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT" | null;
+                                    reference: string | null;
+                                };
+                                deductions: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "UNPAID_RENT" | "DAMAGE" | "CLEANING" | "UTILITIES" | "OTHER";
+                                    description: string;
+                                    amountPaise: number;
+                                    /** Format: uuid */
+                                    invoiceId: string | null;
+                                }[];
+                                proofs: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                openInvoices: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    balancePaise: number;
+                                }[];
+                                version: number;
+                                actions: ("edit" | "add_proof" | "propose" | "retract" | "accept" | "dispute" | "record_payout" | "resolve")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My rent invoices */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                    tenancyId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-invoices/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One of my invoices, with its payments and receipts */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-invoices/{id}/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Start (or resume) an online payment of the invoice balance */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "RENT" | "DEPOSIT";
+                                /** Format: uuid */
+                                invoiceId: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                provider: string;
+                                amountPaise: number;
+                                currency: string;
+                                /** @enum {string} */
+                                status: "CREATED" | "PENDING" | "CAPTURED" | "FAILED" | "PARTIALLY_REFUNDED" | "REFUNDED";
+                                method: string | null;
+                                failureCode: string | null;
+                                failureReason: string | null;
+                                /** Format: date-time */
+                                capturedAt: string | null;
+                                attempts: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "INITIATED" | "PENDING" | "SUCCEEDED" | "FAILED";
+                                    instrument: string;
+                                    method: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                checkout: {
+                                    /** @enum {string} */
+                                    type: "demo";
+                                    instruments: ("DEMO_SUCCESS" | "DEMO_FAIL" | "DEMO_PENDING" | "DEMO_TIMEOUT")[];
+                                } | null;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-orders/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Status of an online rent payment */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "RENT" | "DEPOSIT";
+                                /** Format: uuid */
+                                invoiceId: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                provider: string;
+                                amountPaise: number;
+                                currency: string;
+                                /** @enum {string} */
+                                status: "CREATED" | "PENDING" | "CAPTURED" | "FAILED" | "PARTIALLY_REFUNDED" | "REFUNDED";
+                                method: string | null;
+                                failureCode: string | null;
+                                failureReason: string | null;
+                                /** Format: date-time */
+                                capturedAt: string | null;
+                                attempts: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "INITIATED" | "PENDING" | "SUCCEEDED" | "FAILED";
+                                    instrument: string;
+                                    method: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                checkout: {
+                                    /** @enum {string} */
+                                    type: "demo";
+                                    instruments: ("DEMO_SUCCESS" | "DEMO_FAIL" | "DEMO_PENDING" | "DEMO_TIMEOUT")[];
+                                } | null;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-orders/{id}/demo-checkout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Demo gateway: complete the payment with a test instrument */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        instrument: "DEMO_SUCCESS" | "DEMO_FAIL" | "DEMO_PENDING" | "DEMO_TIMEOUT";
+                        /**
+                         * @default UPI
+                         * @enum {string}
+                         */
+                        method?: "UPI" | "CARD" | "NETBANKING" | "WALLET";
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "RENT" | "DEPOSIT";
+                                /** Format: uuid */
+                                invoiceId: string | null;
+                                /** Format: uuid */
+                                tenancyId: string | null;
+                                provider: string;
+                                amountPaise: number;
+                                currency: string;
+                                /** @enum {string} */
+                                status: "CREATED" | "PENDING" | "CAPTURED" | "FAILED" | "PARTIALLY_REFUNDED" | "REFUNDED";
+                                method: string | null;
+                                failureCode: string | null;
+                                failureReason: string | null;
+                                /** Format: date-time */
+                                capturedAt: string | null;
+                                attempts: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "INITIATED" | "PENDING" | "SUCCEEDED" | "FAILED";
+                                    instrument: string;
+                                    method: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                checkout: {
+                                    /** @enum {string} */
+                                    type: "demo";
+                                    instruments: ("DEMO_SUCCESS" | "DEMO_FAIL" | "DEMO_PENDING" | "DEMO_TIMEOUT")[];
+                                } | null;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-payments/{id}/receipt-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to the PDF receipt of one of my payments */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Rent invoices of my properties (filter by status, month, overdue) */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                    tenancyId?: string;
+                    hostelId?: string;
+                    overdue?: "true" | "false";
+                    month?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-invoices/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One invoice */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-invoices/{id}/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Record rent received outside the app (cash, UPI, bank) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        amountPaise: number;
+                        /** @enum {string} */
+                        method: "CASH" | "UPI" | "BANK";
+                        reference?: string;
+                        note?: string;
+                        receivedOn?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-invoices/{id}/lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add a charge (electricity, maintenance, adjustment) or a credit to an open invoice */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        type: "ELECTRICITY" | "MAINTENANCE" | "ADJUSTMENT" | "CREDIT";
+                        description: string;
+                        amountPaise: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-invoices/{id}/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Cancel an unpaid invoice */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        reason: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-payments/{id}/reverse": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Undo a payment recorded by mistake (not for online payments) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        reason: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-payments/{id}/refund": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Refund part or all of an online rent payment to the tenant */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        amountPaise: number;
+                        reason: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-payments/{id}/receipt-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to the PDF receipt of a payment */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-roll": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Billed, collected and outstanding rent for a month, per property */
+        get: {
+            parameters: {
+                query?: {
+                    month?: string;
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                month: string;
+                                activeTenants: number;
+                                totals: {
+                                    invoices: number;
+                                    invoicedPaise: number;
+                                    collectedPaise: number;
+                                    collectedOnlinePaise: number;
+                                    collectedOfflinePaise: number;
+                                    outstandingPaise: number;
+                                    overdueCount: number;
+                                    overduePaise: number;
+                                };
+                                byHostel: {
+                                    invoices: number;
+                                    invoicedPaise: number;
+                                    collectedPaise: number;
+                                    collectedOnlinePaise: number;
+                                    collectedOfflinePaise: number;
+                                    outstandingPaise: number;
+                                    overdueCount: number;
+                                    overduePaise: number;
+                                    /** Format: uuid */
+                                    hostelId: string;
+                                    name: string;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/rent-invoices": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** All rent invoices (oversight) */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                    tenancyId?: string;
+                    hostelId?: string;
+                    overdue?: "true" | "false";
+                    month?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/rent-invoices/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One rent invoice, with its payments and refunds */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/rent-roll": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Billed, collected and outstanding rent across the platform for a month, per property */
+        get: {
+            parameters: {
+                query?: {
+                    month?: string;
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                month: string;
+                                activeTenants: number;
+                                totals: {
+                                    invoices: number;
+                                    invoicedPaise: number;
+                                    collectedPaise: number;
+                                    collectedOnlinePaise: number;
+                                    collectedOfflinePaise: number;
+                                    outstandingPaise: number;
+                                    overdueCount: number;
+                                    overduePaise: number;
+                                };
+                                byHostel: {
+                                    invoices: number;
+                                    invoicedPaise: number;
+                                    collectedPaise: number;
+                                    collectedOnlinePaise: number;
+                                    collectedOfflinePaise: number;
+                                    outstandingPaise: number;
+                                    overdueCount: number;
+                                    overduePaise: number;
+                                    /** Format: uuid */
+                                    hostelId: string;
+                                    name: string;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/rent-payments/{id}/refund": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Refund part or all of an online rent payment to the tenant */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        amountPaise: number;
+                        reason: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** @enum {string} */
+                                status: "DUE" | "PARTIALLY_PAID" | "PAID" | "VOID";
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                tenancy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    code: string;
+                                    unitLabel: string;
+                                };
+                                tenant: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                };
+                                periodStart: string;
+                                periodEnd: string;
+                                dueDate: string;
+                                lines: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    type: "RENT" | "ELECTRICITY" | "MAINTENANCE" | "LATE_FEE" | "ADJUSTMENT" | "CREDIT";
+                                    description: string;
+                                    amountPaise: number;
+                                }[];
+                                subtotalPaise: number;
+                                taxPaise: number;
+                                gstRateBps: number;
+                                totalPaise: number;
+                                paidPaise: number;
+                                balancePaise: number;
+                                overdue: {
+                                    isOverdue: boolean;
+                                    days: number;
+                                };
+                                payments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    receiptNo: string;
+                                    amountPaise: number;
+                                    /** @enum {string} */
+                                    method: "CASH" | "UPI" | "BANK" | "ONLINE" | "DEPOSIT";
+                                    reference: string | null;
+                                    receivedOn: string;
+                                    reversed: boolean;
+                                    reverseReason: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    canReverse: boolean;
+                                    refundedPaise: number;
+                                    refundablePaise: number;
+                                    canRefund: boolean;
+                                    refunds: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        amountPaise: number;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "PROCESSED" | "FAILED";
+                                        reason: string;
+                                        byRole: string;
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: date-time */
+                                        processedAt: string | null;
+                                    }[];
+                                }[];
+                                openOrder: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "CREATED" | "PENDING";
+                                    amountPaise: number;
+                                } | null;
+                                /** Format: date-time */
+                                issuedAt: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                voidReason: string | null;
+                                version: number;
+                                actions: ("pay" | "record_payment" | "add_line" | "void")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/rent-payments/{id}/receipt-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to the PDF receipt of a payment */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/receipts/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** The PDF receipt behind a signed link (application/pdf; the signed token in the path is the credential) */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    token: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: string;
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/rent-invoices/{id}/pdf-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to one of my invoices as a PDF */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/rent-invoices/{id}/pdf-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to an invoice of mine as a PDF */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/rent-invoices/{id}/pdf-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to an invoice as a PDF */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/tenancies/{id}/deposit-receipt-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to my security-deposit receipt as a PDF (once the deposit was received) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/tenancies/{id}/deposit-receipt-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to the security-deposit receipt of a stay as a PDF */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/tenancies/{id}/deposit-receipt-link": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** A five-minute link to the security-deposit receipt of a stay as a PDF */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                url: string;
+                                /** Format: date-time */
+                                expiresAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/complaints": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My complaints */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** File a complaint (needs a running stay). It is auto-assigned to matching staff when there are any */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                        /**
+                         * @default MEDIUM
+                         * @enum {string}
+                         */
+                        priority?: "LOW" | "MEDIUM" | "HIGH";
+                        title: string;
+                        description: string;
+                        location?: string;
+                        /** Format: date-time */
+                        availableFrom: string;
+                        /** Format: date-time */
+                        availableTo: string;
+                        /** @default false */
+                        allowEntryIfAway?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/me/complaints/{id}/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Tenant actions: close (confirm fixed or withdraw), reopen within 7 days, rate */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        action: "close";
+                    } | {
+                        /** @enum {string} */
+                        action: "reopen";
+                        reason: string;
+                        /** Format: date-time */
+                        availableFrom?: string;
+                        /** Format: date-time */
+                        availableTo?: string;
+                        allowEntryIfAway?: boolean;
+                    } | {
+                        /** @enum {string} */
+                        action: "set_availability";
+                        /** Format: date-time */
+                        availableFrom: string;
+                        /** Format: date-time */
+                        availableTo: string;
+                        /** @default false */
+                        allowEntryIfAway?: boolean;
+                    } | {
+                        /** @enum {string} */
+                        action: "rate";
+                        rating: number;
+                        feedback?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/complaints/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** One complaint, shaped for who is asking (tenant, owner, assigned staff, admin). Internal notes are hidden from the tenant */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/complaints/{id}/comments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add a message (owners and staff may mark it internal) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        body: string;
+                        /** @default false */
+                        internal?: boolean;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 403 */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/complaints/{id}/media": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Attach a photo uploaded with a COMPLAINT_IMAGE signature */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        publicId: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 403 */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/complaints": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Complaints at my properties (filter by status, priority, staff, unassigned, overdue) */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                    hostelId?: string;
+                    priority?: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                    assignedStaffId?: string;
+                    unassigned?: "true" | "false";
+                    overdue?: "true" | "false";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/complaints/{id}/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Owner actions: acknowledge, assign, unassign, reject, resolve, change priority */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        action: "acknowledge";
+                    } | {
+                        /** @enum {string} */
+                        action: "assign";
+                        /** Format: uuid */
+                        staffUserId: string;
+                        note?: string;
+                    } | {
+                        /** @enum {string} */
+                        action: "unassign";
+                    } | {
+                        /** @enum {string} */
+                        action: "reject";
+                        reason: string;
+                    } | {
+                        /** @enum {string} */
+                        action: "resolve";
+                        note: string;
+                    } | {
+                        /** @enum {string} */
+                        action: "priority";
+                        /** @enum {string} */
+                        priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                    } | {
+                        /** @enum {string} */
+                        action: "schedule";
+                        /** Format: date-time */
+                        visitStart: string;
+                        /** Format: date-time */
+                        visitEnd: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/staff/complaints": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Jobs assigned to me */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                    open?: "true" | "false";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/staff/complaints/{id}/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Staff actions: start, put on hold (with a reason), resolve (with a note) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        action: "start";
+                    } | {
+                        /** @enum {string} */
+                        action: "hold";
+                        reason: string;
+                    } | {
+                        /** @enum {string} */
+                        action: "resolve";
+                        note: string;
+                    } | {
+                        /** @enum {string} */
+                        action: "schedule";
+                        /** Format: date-time */
+                        visitStart: string;
+                        /** Format: date-time */
+                        visitEnd: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                description: string;
+                                /** Format: date-time */
+                                acknowledgedAt: string | null;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                resolutionNote: string | null;
+                                /** Format: date-time */
+                                closedAt: string | null;
+                                feedback: string | null;
+                                media: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    url: string;
+                                    /** @enum {string} */
+                                    uploadedByRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                comments: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    authorName: string;
+                                    /** @enum {string} */
+                                    authorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    body: string;
+                                    internal: boolean;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                history: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string|null} */
+                                    fromStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED" | null;
+                                    /** @enum {string} */
+                                    toStatus: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                    /** @enum {string} */
+                                    actorRole: "TENANT" | "OWNER" | "STAFF" | "ADMIN" | "SYSTEM";
+                                    note: string | null;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                /** @enum {string} */
+                                viewer: "TENANT" | "OWNER" | "STAFF" | "ADMIN";
+                                version: number;
+                                actions: ("comment" | "add_photo" | "close" | "reopen" | "rate" | "acknowledge" | "assign" | "unassign" | "reject" | "resolve" | "set_priority" | "start" | "hold" | "schedule" | "set_availability")[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/complaints": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** All complaints (oversight, read-only) */
+        get: {
+            parameters: {
+                query?: {
+                    limit?: number;
+                    cursor?: string;
+                    status?: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                    hostelId?: string;
+                    priority?: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                    assignedStaffId?: string;
+                    unassigned?: "true" | "false";
+                    overdue?: "true" | "false";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                code: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "ACKNOWLEDGED" | "ASSIGNED" | "IN_PROGRESS" | "ON_HOLD" | "RESOLVED" | "CLOSED" | "REOPENED" | "REJECTED";
+                                /** @enum {string} */
+                                category: "ELECTRICAL" | "PLUMBING" | "CARPENTRY" | "CLEANING" | "FOOD" | "WIFI" | "SECURITY" | "BEHAVIOUR" | "OTHER";
+                                /** @enum {string} */
+                                priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+                                title: string;
+                                location: string | null;
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                };
+                                unitLabel: string;
+                                raisedBy: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    phone: string | null;
+                                    email: string | null;
+                                };
+                                assignedStaff: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string | null;
+                                    trade: string | null;
+                                } | null;
+                                /** Format: date-time */
+                                slaDueAt: string;
+                                slaBreached: boolean;
+                                availability: {
+                                    /** Format: date-time */
+                                    from: string;
+                                    /** Format: date-time */
+                                    to: string;
+                                    allowEntryIfAway: boolean;
+                                } | null;
+                                visit: {
+                                    /** Format: date-time */
+                                    start: string;
+                                    /** Format: date-time */
+                                    end: string;
+                                } | null;
+                                mediaCount: number;
+                                commentCount: number;
+                                rating: number | null;
+                                reopenCount: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/staff/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My staff profile: trade, employer and the properties I work at */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                userId: string;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                /** @enum {string} */
+                                kind: "OWN" | "VENDOR";
+                                /** @enum {string} */
+                                status: "ACTIVE" | "INACTIVE";
+                                employer: string | null;
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                }[];
+                                openJobs: number;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 403 */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/staff-invites/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Accept an invitation to become staff (grants the STAFF role; sign in again to refresh your session) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        token: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                userId: string;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                /** @enum {string} */
+                                kind: "OWN" | "VENDOR";
+                                /** @enum {string} */
+                                status: "ACTIVE" | "INACTIVE";
+                                employer: string | null;
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    city: string;
+                                }[];
+                                openJobs: number;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/staff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My staff, engaged vendors and pending invitations */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                staff: {
+                                    /** Format: uuid */
+                                    userId: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                    /** @enum {string} */
+                                    trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                    /** @enum {string} */
+                                    kind: "OWN" | "VENDOR";
+                                    /** @enum {string} */
+                                    status: "ACTIVE" | "INACTIVE";
+                                    hostels: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                    }[];
+                                    openJobs: number;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                invites: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    email: string;
+                                    /** @enum {string} */
+                                    trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                    /** @enum {string} */
+                                    kind: "OWN" | "VENDOR";
+                                    hostels: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    expiresAt: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/staff/vendors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Platform vendors I can engage */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                userId: string;
+                                name: string | null;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/staff/invites": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Invite someone by email to be my staff at some of my hostels or PGs */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: email */
+                        email: string;
+                        /** @enum {string} */
+                        trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                        hostelIds: string[];
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                email: string;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                /** @enum {string} */
+                                kind: "OWN" | "VENDOR";
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                                /** Format: date-time */
+                                expiresAt: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/staff/invites/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Cancel a pending invitation */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                cancelled: boolean;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/staff/{id}/hostels": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Set exactly which of my properties a staff member or vendor works at (removing one hands back their open jobs there) */
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        hostelIds: string[];
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                staff: {
+                                    /** Format: uuid */
+                                    userId: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                    /** @enum {string} */
+                                    trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                    /** @enum {string} */
+                                    kind: "OWN" | "VENDOR";
+                                    /** @enum {string} */
+                                    status: "ACTIVE" | "INACTIVE";
+                                    hostels: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                    }[];
+                                    openJobs: number;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                invites: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    email: string;
+                                    /** @enum {string} */
+                                    trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                    /** @enum {string} */
+                                    kind: "OWN" | "VENDOR";
+                                    hostels: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    expiresAt: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/staff/{id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Deactivate or reactivate my own staff member (deactivating hands back all their open jobs) */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status: "ACTIVE" | "INACTIVE";
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                staff: {
+                                    /** Format: uuid */
+                                    userId: string;
+                                    name: string | null;
+                                    email: string;
+                                    phone: string | null;
+                                    /** @enum {string} */
+                                    trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                    /** @enum {string} */
+                                    kind: "OWN" | "VENDOR";
+                                    /** @enum {string} */
+                                    status: "ACTIVE" | "INACTIVE";
+                                    hostels: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                    }[];
+                                    openJobs: number;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                                invites: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    email: string;
+                                    /** @enum {string} */
+                                    trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                    /** @enum {string} */
+                                    kind: "OWN" | "VENDOR";
+                                    hostels: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        name: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    expiresAt: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/staff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** All staff and vendors */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                userId: string;
+                                name: string | null;
+                                email: string;
+                                phone: string | null;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                /** @enum {string} */
+                                kind: "OWN" | "VENDOR";
+                                /** @enum {string} */
+                                status: "ACTIVE" | "INACTIVE";
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                                openJobs: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                ownerName: string | null;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/staff/invites": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Invite a platform vendor that owners can engage */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: email */
+                        email: string;
+                        /** @enum {string} */
+                        trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                id: string;
+                                email: string;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                /** @enum {string} */
+                                kind: "OWN" | "VENDOR";
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                                /** Format: date-time */
+                                expiresAt: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/staff/invites/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Cancel a pending invitation */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                cancelled: boolean;
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/admin/staff/{id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Deactivate or reactivate any staff member or vendor */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status: "ACTIVE" | "INACTIVE";
+                    };
+                };
+            };
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                /** Format: uuid */
+                                userId: string;
+                                name: string | null;
+                                email: string;
+                                phone: string | null;
+                                /** @enum {string} */
+                                trade: "ELECTRICIAN" | "PLUMBER" | "CARPENTER" | "CLEANER" | "COOK" | "SECURITY" | "WARDEN" | "NETWORK" | "OTHER";
+                                /** @enum {string} */
+                                kind: "OWN" | "VENDOR";
+                                /** @enum {string} */
+                                status: "ACTIVE" | "INACTIVE";
+                                hostels: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                                openJobs: number;
+                                /** Format: date-time */
+                                createdAt: string;
+                                ownerName: string | null;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 409 */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 422 */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/audit-logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** The audit trail of my own properties (newest first, filterable, keyset pagination). No network addresses or device details. */
+        get: {
+            parameters: {
+                query?: {
+                    hostelId?: string;
+                    action?: string;
+                    entityType?: string;
+                    outcome?: "SUCCESS" | "FAILURE" | "DENIED";
+                    from?: string;
+                    to?: string;
+                    limit?: number;
+                    cursor?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                id: string;
+                                /** Format: date-time */
+                                at: string;
+                                action: string;
+                                entityType: string;
+                                entityId: string | null;
+                                /** @enum {string} */
+                                outcome: "SUCCESS" | "FAILURE" | "DENIED";
+                                actor: {
+                                    /** Format: uuid */
+                                    id: string | null;
+                                    name: string | null;
+                                    role: string | null;
+                                };
+                                hostel: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                } | null;
+                                before?: unknown;
+                                after?: unknown;
+                                metadata?: unknown;
+                            }[];
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 403 */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/reports/occupancy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Beds by state (lived in, on notice, reserved, out of service, free) per property and room type, and who is leaving soon */
+        get: {
+            parameters: {
+                query?: {
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                asOf: string;
+                                totals: {
+                                    units: number;
+                                    occupied: number;
+                                    onNotice: number;
+                                    reserved: number;
+                                    maintenance: number;
+                                    vacant: number;
+                                    occupancyPct: number;
+                                };
+                                byHostel: {
+                                    /** Format: uuid */
+                                    hostelId: string;
+                                    name: string;
+                                    city: string;
+                                    propertyType: string;
+                                    units: number;
+                                    occupied: number;
+                                    onNotice: number;
+                                    reserved: number;
+                                    maintenance: number;
+                                    vacant: number;
+                                    occupancyPct: number;
+                                    byRoom: {
+                                        /** Format: uuid */
+                                        roomTypeId: string;
+                                        name: string;
+                                        units: number;
+                                        occupied: number;
+                                        onNotice: number;
+                                        reserved: number;
+                                        maintenance: number;
+                                        vacant: number;
+                                    }[];
+                                }[];
+                                vacatingSoon: {
+                                    /** Format: uuid */
+                                    tenancyId: string;
+                                    tenant: string | null;
+                                    hostel: string;
+                                    unitLabel: string;
+                                    moveOutDate: string;
+                                    daysLeft: number;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 403 */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/owner/reports/dues": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Rent still owed by how overdue it is, and who owes it */
+        get: {
+            parameters: {
+                query?: {
+                    hostelId?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Success */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data: {
+                                asOf: string;
+                                totals: {
+                                    tenants: number;
+                                    invoices: number;
+                                    owedPaise: number;
+                                    overduePaise: number;
+                                };
+                                buckets: {
+                                    /** @enum {string} */
+                                    key: "NOT_DUE" | "D1_7" | "D8_30" | "D31_60" | "D60_PLUS";
+                                    label: string;
+                                    invoices: number;
+                                    owedPaise: number;
+                                }[];
+                                rows: {
+                                    /** Format: uuid */
+                                    tenancyId: string;
+                                    tenant: string | null;
+                                    email: string;
+                                    hostel: string;
+                                    unitLabel: string;
+                                    invoices: number;
+                                    owedPaise: number;
+                                    oldestDueDate: string;
+                                    daysOverdue: number;
+                                }[];
+                            };
+                            meta: {
+                                requestId: string;
+                                nextCursor?: string | null;
+                                total?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 401 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 403 */
+                403: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 404 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 429 */
+                429: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+                /** @description Error 500 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            error: {
+                                code: string;
+                                message: string;
+                                details?: unknown;
+                                requestId: string;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;

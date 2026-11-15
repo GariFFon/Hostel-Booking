@@ -3,7 +3,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Bell, BellOff, CalendarCheck, CircleDollarSign, Info, MessageSquare, ShieldCheck, Trash2 } from "lucide-react";
+import { Bell, BellOff, CalendarCheck, CircleDollarSign, Info, MessageSquare, ShieldCheck, Trash2, House } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -26,6 +26,7 @@ function icon(type: string) {
   if (type.startsWith("BOOKING")) return CalendarCheck;
   if (type.startsWith("REVIEW")) return MessageSquare;
   if (type.startsWith("KYC") || type.startsWith("HOSTEL")) return ShieldCheck;
+  if (type.startsWith("TENANCY") || type.startsWith("RENT") || type.startsWith("DEPOSIT")) return House;
   return Info;
 }
 

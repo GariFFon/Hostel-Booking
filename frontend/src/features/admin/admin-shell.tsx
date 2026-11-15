@@ -1,5 +1,5 @@
 "use client";
-import { Building2, CalendarCheck, LayoutDashboard, MessageSquare, ScrollText, ShieldCheck, Sparkles, Tag } from "lucide-react";
+import { Building2, CalendarCheck, LayoutDashboard, MessageSquare, ScrollText, ShieldCheck, Sparkles, Tag, Users, Wrench, HardHat, Banknote } from "lucide-react";
 import { DashboardShell, type NavItem } from "@/components/layout/dashboard-shell";
 
 const NAV: NavItem[] = [
@@ -7,6 +7,10 @@ const NAV: NavItem[] = [
   { href: "/admin/hostels", label: "Listings", icon: Building2 },
   { href: "/admin/kyc", label: "Host verification", icon: ShieldCheck },
   { href: "/admin/bookings", label: "Bookings", icon: CalendarCheck },
+  { href: "/admin/tenancies", label: "Stays", icon: Users },
+  { href: "/admin/rent", label: "Rent", icon: Banknote },
+  { href: "/admin/complaints", label: "Complaints", icon: Wrench },
+  { href: "/admin/staff", label: "Staff & vendors", icon: HardHat },
   { href: "/admin/reviews", label: "Reviews", icon: MessageSquare },
   { href: "/admin/coupons", label: "Coupons", icon: Tag },
   { href: "/admin/amenities", label: "Amenities", icon: Sparkles },

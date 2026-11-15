@@ -37,7 +37,7 @@ export function AuthGate({ roles, children }: { roles?: Role[]; children: React.
     return (
       <div className="mx-auto max-w-xl px-4 py-20">
         <EmptyState icon={wantsOwner ? Building2 : ShieldAlert} title={wantsOwner ? "Become a host to list your property" : "You don't have access to this area"}
-          description={wantsOwner ? "Your account is set up for booking stays. Add hosting to list a hostel or PG, set prices and manage bookings." : "This section is for administrators."}
+          description={wantsOwner ? "Your account is set up for booking stays. Add hosting to list a hostel or PG, set prices and manage bookings." : roles.includes("STAFF") ? "This section is for maintenance staff. Ask a property owner to invite you, then open the invitation link from your email." : "This section is for administrators."}
           action={wantsOwner ? <Button loading={becomeOwner.isPending} onClick={() => becomeOwner.mutate()}>Start hosting</Button> : <Button asChild variant="outline"><Link href="/">Go home</Link></Button>} />
       </div>
     );

@@ -16,6 +16,7 @@ import { StatusBadge } from "@/components/common/status-badge";
 import { AmenityIcon } from "@/features/hostel/amenity-icon";
 import { api, unwrapData } from "@/lib/api/client";
 import { money, plural, titleCase } from "@/lib/format";
+import { propertyLabel } from "@/lib/property";
 
 type Act = "approve" | "reject" | "suspend" | "reinstate";
 
@@ -43,7 +44,7 @@ export function HostelReview() {
     <div className="grid gap-6">
       <Link href="/admin/hostels" className="inline-flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="size-4" />Listings</Link>
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <div><div className="flex flex-wrap items-center gap-2"><StatusBadge status={h.status} /><Badge tone="outline">{h.propertyType === "PG" ? "PG" : "Hostel"}</Badge></div><h1 className="mt-1.5 text-2xl font-semibold [overflow-wrap:anywhere] md:text-3xl">{h.name}</h1><p className="text-sm text-muted-foreground">{h.address.line1}, {h.address.city}, {h.address.state} {h.address.postalCode}</p></div>
+        <div><div className="flex flex-wrap items-center gap-2"><StatusBadge status={h.status} /><Badge tone="outline">{propertyLabel(h.propertyType)}</Badge></div><h1 className="mt-1.5 text-2xl font-semibold [overflow-wrap:anywhere] md:text-3xl">{h.name}</h1><p className="text-sm text-muted-foreground">{h.address.line1}, {h.address.city}, {h.address.state} {h.address.postalCode}</p></div>
         <div className="flex flex-wrap gap-2">
           {h.status === "PENDING_REVIEW" && <><Button onClick={() => setDlg("approve")}><Check />Approve</Button><Button variant="outline" onClick={() => setDlg("reject")}><X />Reject</Button></>}
           {h.status === "APPROVED" && <><Button variant="outline" asChild><Link href={`/hostels/${h.slug}`} target="_blank"><ExternalLink />View live</Link></Button><Button variant="outline" className="text-destructive" onClick={() => setDlg("suspend")}><Pause />Suspend</Button></>}

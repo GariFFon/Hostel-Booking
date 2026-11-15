@@ -9,7 +9,7 @@ export interface SearchFilters {
   q?: string; city?: string; lat?: number; lng?: number; radiusKm?: number;
   checkIn?: string; checkOut?: string; guests: number;
   minPrice?: number; maxPrice?: number; amenities: string[];
-  propertyType?: "HOSTEL" | "PG"; roomKind?: "DORM" | "PRIVATE"; gender?: "MALE" | "FEMALE";
+  propertyType?: "HOSTEL" | "PG" | "HOTEL"; roomKind?: "DORM" | "PRIVATE"; gender?: "MALE" | "FEMALE";
   minRating?: number; instantBook?: boolean; sort?: SortValue; view: "list" | "map";
   /** minLng,minLat,maxLng,maxLat: set by "Search this area" on the map. */
   bbox?: string;
@@ -32,7 +32,7 @@ export function parseFilters(sp: URLSearchParams): SearchFilters {
     guests,
     minPrice: num(sp.get("minPrice")), maxPrice: num(sp.get("maxPrice")),
     amenities: (sp.get("amenities") ?? "").split(",").map((s) => s.trim().toUpperCase()).filter(Boolean).slice(0, 20),
-    propertyType: oneOf(sp.get("propertyType"), ["HOSTEL", "PG"] as const),
+    propertyType: oneOf(sp.get("propertyType"), ["HOSTEL", "PG", "HOTEL"] as const),
     roomKind: oneOf(sp.get("roomKind"), ["DORM", "PRIVATE"] as const),
     gender: oneOf(sp.get("gender"), ["MALE", "FEMALE"] as const),
     minRating: num(sp.get("minRating")),
