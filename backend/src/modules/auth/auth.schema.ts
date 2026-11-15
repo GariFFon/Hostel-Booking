@@ -30,7 +30,7 @@ export const userDtoSchema = z.object({
   fullName: z.string().nullable(),
   phone: z.string().nullable(),
   avatarUrl: z.string().nullable(),
-  roles: z.array(z.enum(['GUEST', 'OWNER', 'ADMIN'])),
+  roles: z.array(z.enum(['GUEST', 'OWNER', 'ADMIN', 'STAFF'])),
   emailVerified: z.boolean(),
   hasPassword: z.boolean(),
   googleLinked: z.boolean(),

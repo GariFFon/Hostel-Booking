@@ -30,7 +30,7 @@ export const createRoomTypeSchema = fields
   .extend({
     gender: fields.shape.gender.default('MIXED'),
     maxOccupancyPerUnit: fields.shape.maxOccupancyPerUnit.default(1),
-    priceUnit: fields.shape.priceUnit.default('NIGHT'),
+    priceUnit: fields.shape.priceUnit.optional(), // defaults from the property's stay mode (NIGHT for hotels, MONTH for hostels/PGs)
     minStayNights: fields.shape.minStayNights.default(1),
     maxStayNights: fields.shape.maxStayNights.default(30),
     isActive: fields.shape.isActive.default(true),

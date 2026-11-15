@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { propertyTypeSchema } from '@/modules/hostels/property-mode';
 import { amenityDtoSchema, mediaDtoSchema } from '@/modules/listings.dto';
 
 export const publicRoomTypeSchema = z.strictObject({
@@ -8,7 +9,7 @@ export const publicRoomTypeSchema = z.strictObject({
 });
 
 export const publicHostelSchema = z.strictObject({
-  id: z.uuid(), slug: z.string(), name: z.string(), description: z.string(), propertyType: z.enum(['HOSTEL', 'PG']),
+  id: z.uuid(), slug: z.string(), name: z.string(), description: z.string(), propertyType: propertyTypeSchema,
   bookingMode: z.enum(['INSTANT', 'APPROVAL']), genderPolicy: z.enum(['MIXED', 'MALE_ONLY', 'FEMALE_ONLY']),
   cancellation: z.strictObject({ policy: z.enum(['FLEXIBLE', 'MODERATE', 'STRICT']), summary: z.string() }),
   address: z.strictObject({ line1: z.string(), line2: z.string().nullable(), locality: z.string().nullable(), city: z.string(), state: z.string(), postalCode: z.string(), country: z.string() }),

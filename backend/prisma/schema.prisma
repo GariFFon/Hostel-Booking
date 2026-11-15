@@ -19,6 +19,7 @@ enum Role {
   GUEST
   OWNER
   ADMIN
+  STAFF // maintenance / operations staff; scoped to hostels through StaffAssignment (phase 13)
 }
 
 enum UserStatus {
@@ -43,9 +44,131 @@ enum KycDocumentType {
   OTHER
 }
 
+// HOTEL = short-term nightly bookings. HOSTEL and PG = long-term tenancy with monthly rent (see stayModeOf in src/modules/hostels/property-mode.ts).
 enum PropertyType {
   HOSTEL
   PG
+  HOTEL
+}
+
+enum RoomUnitStatus {
+  ACTIVE
+  MAINTENANCE
+  RETIRED
+}
+
+enum TenancyApplicationStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  WITHDRAWN
+  EXPIRED
+}
+
+enum TenancyStatus {
+  INVITED // owner added the tenant; waiting for them to accept
+  PENDING_MOVE_IN // approved/accepted, bed reserved, not moved in yet
+  ACTIVE
+  NOTICE // notice period running (phase 14)
+  ENDED
+  CANCELLED
+}
+
+enum RentInvoiceStatus {
+  DUE
+  PARTIALLY_PAID
+  PAID
+  VOID
+}
+
+enum RentLineType {
+  RENT
+  ELECTRICITY
+  MAINTENANCE
+  LATE_FEE
+  ADJUSTMENT
+  CREDIT
+}
+
+enum StaffTrade {
+  ELECTRICIAN
+  PLUMBER
+  CARPENTER
+  CLEANER
+  COOK
+  SECURITY
+  WARDEN
+  NETWORK
+  OTHER
+}
+
+enum StaffStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ComplaintCategory {
+  ELECTRICAL
+  PLUMBING
+  CARPENTRY
+  CLEANING
+  FOOD
+  WIFI
+  SECURITY
+  BEHAVIOUR
+  OTHER
+}
+
+enum ComplaintPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ComplaintStatus {
+  OPEN
+  ACKNOWLEDGED
+  ASSIGNED
+  IN_PROGRESS
+  ON_HOLD
+  RESOLVED
+  CLOSED
+  REOPENED
+  REJECTED
+}
+
+enum CommentRole {
+  TENANT
+  OWNER
+  STAFF
+  ADMIN
+  SYSTEM
+}
+
+// How a payment was made. ONLINE goes through the gateway (phase 12); the rest are recorded by the owner.
+enum RentPayMethod {
+  CASH
+  UPI
+  BANK
+  ONLINE
+  DEPOSIT // rent settled out of the tenant's security deposit at move-out
+}
+
+enum DepositSettlementStatus {
+  DRAFT // the owner is itemising: the tenant has not seen it
+  PROPOSED // sent to the tenant, who has 7 days to accept or dispute
+  DISPUTED
+  AGREED // accepted (or auto-accepted after silence, or resolved by an admin): the refund is being paid out
+  COMPLETED
+}
+
+enum DeductionType {
+  UNPAID_RENT
+  DAMAGE
+  CLEANING
+  UTILITIES
+  OTHER
 }
 
 enum HostelStatus {
@@ -138,6 +261,7 @@ enum RefundStatus {
 enum LedgerAccount {
   GUEST
   PLATFORM_ESCROW
+  DEPOSIT_HELD
   PLATFORM_REVENUE
   OWNER_PAYABLE
   TAX_PAYABLE
@@ -186,6 +310,23 @@ enum NotificationType {
   HOSTEL_REJECTED
   KYC_APPROVED
   KYC_REJECTED
+  TENANCY_REQUESTED
+  TENANCY_APPROVED
+  TENANCY_REJECTED
+  TENANCY_INVITED
+  TENANCY_STARTED
+  TENANCY_NOTICE
+  TENANCY_ENDED
+  RENT_INVOICE_ISSUED
+  RENT_DUE_SOON
+  RENT_OVERDUE
+  RENT_PAID
+  DEPOSIT_SETTLED
+  COMPLAINT_CREATED
+  COMPLAINT_ASSIGNED
+  COMPLAINT_UPDATED
+  COMPLAINT_RESOLVED
+  STAFF_INVITED
   SYSTEM
 }
 
@@ -227,6 +368,12 @@ model User {
   hostels             Hostel[]
   bookings            Booking[]
   reviews             Review[]
+  tenancyApplications TenancyApplication[]
+  tenancies           Tenancy[]
+  rentInvoices        RentInvoice[]
+  staffProfile        StaffProfile?
+  complaintsRaised    Complaint[]              @relation("ComplaintRaisedBy")
+  complaintsAssigned  Complaint[]              @relation("ComplaintAssignedTo")
   wishlist            Wishlist[]
   notifications       Notification[]
   notificationPrefs   NotificationPreference?
@@ -385,6 +532,13 @@ model Hostel {
   checkOutTime       String             @default("11:00") @map("check_out_time")
   houseRules         String?            @map("house_rules")
   gstin              String?
+  // long-term (HOSTEL/PG) terms; defaults are copied onto each tenancy
+  depositMonths      Int                @default(2) @map("deposit_months")
+  noticeDays         Int                @default(30) @map("notice_days")
+  rentDueDay         Int                @default(1) @map("rent_due_day")
+  rentGraceDays      Int                @default(5) @map("rent_grace_days")
+  rentGstBps         Int                @default(0) @map("rent_gst_bps") // GST on rent; 0 by default (needs an accountant's sign-off)
+  rentLateFeePaise   Int                @default(0) @map("rent_late_fee_paise") // flat fee added once when an invoice goes overdue
   // denormalised read models, maintained by services/jobs
   avgRating          Float              @default(0) @map("avg_rating")
   reviewCount        Int                @default(0) @map("review_count")
@@ -397,15 +551,20 @@ model Hostel {
   updatedAt          DateTime           @updatedAt @map("updated_at")
   deletedAt          DateTime?          @map("deleted_at")
 
-  owner     User            @relation(fields: [ownerId], references: [id])
-  amenities HostelAmenity[]
-  media     Media[]
-  roomTypes RoomType[]
-  bookings  Booking[]
-  reviews   Review[]
-  wishlist  Wishlist[]
-  coupons   Coupon[]
-  payouts   Payout[]
+  owner               User                 @relation(fields: [ownerId], references: [id])
+  amenities           HostelAmenity[]
+  media               Media[]
+  roomTypes           RoomType[]
+  bookings            Booking[]
+  reviews             Review[]
+  tenancyApplications TenancyApplication[]
+  tenancies           Tenancy[]
+  rentInvoices        RentInvoice[]
+  complaints          Complaint[]
+  staffAssignments    StaffAssignment[]
+  wishlist            Wishlist[]
+  coupons             Coupon[]
+  payouts             Payout[]
 
   @@index([ownerId])
   @@index([status, city])
@@ -479,15 +638,38 @@ model RoomType {
   updatedAt           DateTime   @updatedAt @map("updated_at")
   deletedAt           DateTime?  @map("deleted_at")
 
-  hostel     Hostel           @relation(fields: [hostelId], references: [id], onDelete: Cascade)
-  priceRules PriceRule[]
-  blocked    BlockedDate[]
-  inventory  InventoryNight[]
-  items      BookingItem[]
-  media      Media[]
+  hostel              Hostel               @relation(fields: [hostelId], references: [id], onDelete: Cascade)
+  priceRules          PriceRule[]
+  blocked             BlockedDate[]
+  inventory           InventoryNight[]
+  items               BookingItem[]
+  media               Media[]
+  units               RoomUnit[]
+  tenancyApplications TenancyApplication[]
+  tenancies           Tenancy[]
 
   @@index([hostelId, isActive])
   @@map("room_types")
+}
+
+/// A physical bed (DORM) or room (PRIVATE) in a long-term property, e.g. label "204-B3". Nightly (HOTEL) properties keep using
+/// the per-night counters on RoomType/InventoryNight; tenancies (phase 11) are assigned to a unit.
+model RoomUnit {
+  id         String         @id @default(uuid(7)) @db.Uuid
+  roomTypeId String         @map("room_type_id") @db.Uuid
+  label      String
+  floor      Int?
+  status     RoomUnitStatus @default(ACTIVE)
+  notes      String?
+  createdAt  DateTime       @default(now()) @map("created_at")
+  updatedAt  DateTime       @updatedAt @map("updated_at")
+  deletedAt  DateTime?      @map("deleted_at")
+
+  roomType  RoomType  @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  tenancies Tenancy[]
+
+  @@index([roomTypeId, status])
+  @@map("room_units")
 }
 
 model PriceRule {
@@ -719,6 +901,9 @@ model LedgerEntry {
   bookingId     String?       @map("booking_id") @db.Uuid
   paymentId     String?       @map("payment_id") @db.Uuid
   refundId      String?       @map("refund_id") @db.Uuid
+  rentInvoiceId String?       @map("rent_invoice_id") @db.Uuid
+  rentRefundId  String?       @map("rent_refund_id") @db.Uuid
+  tenancyId     String?       @map("tenancy_id") @db.Uuid // deposit movements
   debitAccount  LedgerAccount @map("debit_account")
   creditAccount LedgerAccount @map("credit_account")
   amountPaise   Int           @map("amount_paise")
@@ -727,7 +912,13 @@ model LedgerEntry {
   booking       Booking?      @relation(fields: [bookingId], references: [id])
   payment       Payment?      @relation(fields: [paymentId], references: [id])
   refund        Refund?       @relation(fields: [refundId], references: [id])
+  rentInvoice   RentInvoice?  @relation(fields: [rentInvoiceId], references: [id])
+  rentRefund    RentRefund?   @relation(fields: [rentRefundId], references: [id])
+  tenancy       Tenancy?      @relation(fields: [tenancyId], references: [id])
 
+  @@index([rentInvoiceId])
+  @@index([rentRefundId])
+  @@index([tenancyId])
   @@index([groupId])
   @@index([bookingId])
   @@index([paymentId])
@@ -770,30 +961,30 @@ model Payout {
 // ───────────────────────── Engagement ─────────────────────────
 
 model Review {
-  id             String       @id @default(uuid(7)) @db.Uuid
-  bookingId      String       @unique @map("booking_id") @db.Uuid // one review per completed booking
-  hostelId       String       @map("hostel_id") @db.Uuid
-  guestId        String       @map("guest_id") @db.Uuid
-  overall        Int // 1..5 (CHECK in db_extras)
-  cleanliness    Int?
-  location       Int?
-  staff          Int?
-  valueForMoney  Int?         @map("value_for_money")
-  title          String?
-  comment        String?
-  ownerReply     String?      @map("owner_reply")
-  ownerRepliedAt DateTime?    @map("owner_replied_at")
-  status         ReviewStatus @default(PUBLISHED)
-  editedAt       DateTime?    @map("edited_at") // set when the guest changes a published review
+  id               String       @id @default(uuid(7)) @db.Uuid
+  bookingId        String       @unique @map("booking_id") @db.Uuid // one review per completed booking
+  hostelId         String       @map("hostel_id") @db.Uuid
+  guestId          String       @map("guest_id") @db.Uuid
+  overall          Int // 1..5 (CHECK in db_extras)
+  cleanliness      Int?
+  location         Int?
+  staff            Int?
+  valueForMoney    Int?         @map("value_for_money")
+  title            String?
+  comment          String?
+  ownerReply       String?      @map("owner_reply")
+  ownerRepliedAt   DateTime?    @map("owner_replied_at")
+  status           ReviewStatus @default(PUBLISHED)
+  editedAt         DateTime?    @map("edited_at") // set when the guest changes a published review
   // moderation (admin hides a review that breaks the content rules; the reason is shown to the guest)
-  moderationReason String?    @map("moderation_reason")
-  moderatedById    String?    @map("moderated_by_id") @db.Uuid
-  moderatedAt      DateTime?  @map("moderated_at")
-  createdAt      DateTime     @default(now()) @map("created_at")
-  updatedAt      DateTime     @updatedAt @map("updated_at")
-  booking        Booking      @relation(fields: [bookingId], references: [id])
-  hostel         Hostel       @relation(fields: [hostelId], references: [id])
-  guest          User         @relation(fields: [guestId], references: [id])
+  moderationReason String?      @map("moderation_reason")
+  moderatedById    String?      @map("moderated_by_id") @db.Uuid
+  moderatedAt      DateTime?    @map("moderated_at")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+  booking          Booking      @relation(fields: [bookingId], references: [id])
+  hostel           Hostel       @relation(fields: [hostelId], references: [id])
+  guest            User         @relation(fields: [guestId], references: [id])
 
   @@index([hostelId, status, createdAt])
   @@index([guestId])
@@ -866,6 +1057,8 @@ model Notification {
   data      Json?
   readAt    DateTime?        @map("read_at")
   createdAt DateTime         @default(now()) @map("created_at")
+  /// Set when a worker has taken this notification for push delivery (at most once). Partial index `notifications_unpushed_idx` is hand-written.
+  pushedAt  DateTime?        @map("pushed_at")
   user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, readAt, createdAt])
@@ -875,15 +1068,500 @@ model Notification {
 }
 
 model NotificationPreference {
-  userId         String   @id @map("user_id") @db.Uuid
-  emailBookings  Boolean  @default(true) @map("email_bookings")
-  emailMarketing Boolean  @default(false) @map("email_marketing")
-  inAppBookings  Boolean  @default(true) @map("in_app_bookings")
-  inAppReviews   Boolean  @default(true) @map("in_app_reviews")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String   @id @map("user_id") @db.Uuid
+  emailBookings   Boolean  @default(true) @map("email_bookings")
+  emailMarketing  Boolean  @default(false) @map("email_marketing")
+  inAppBookings   Boolean  @default(true) @map("in_app_bookings")
+  inAppReviews    Boolean  @default(true) @map("in_app_reviews")
+  inAppRent       Boolean  @default(true) @map("in_app_rent")
+  emailRent       Boolean  @default(true) @map("email_rent")
+  inAppComplaints Boolean  @default(true) @map("in_app_complaints")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notification_preferences")
+}
+
+// ───────────────────────── Long-term tenancies (phase 11) ─────────────────────────
+
+/// A student asks for a bed in a HOSTEL/PG. The owner approves (creating a Tenancy) or rejects.
+/// At most one REQUESTED application per applicant and hostel (partial unique index in the migration).
+model TenancyApplication {
+  id                    String                   @id @default(uuid(7)) @db.Uuid
+  hostelId              String                   @map("hostel_id") @db.Uuid
+  roomTypeId            String                   @map("room_type_id") @db.Uuid
+  applicantId           String                   @map("applicant_id") @db.Uuid
+  status                TenancyApplicationStatus @default(REQUESTED)
+  moveInDate            DateTime                 @map("move_in_date") @db.Date
+  tenureMonths          Int?                     @map("tenure_months")
+  gender                String? // MALE | FEMALE | OTHER, used for gender-restricted properties
+  occupation            String?
+  message               String?
+  emergencyContactName  String                   @map("emergency_contact_name")
+  emergencyContactPhone String                   @map("emergency_contact_phone")
+  decisionNote          String?                  @map("decision_note")
+  decidedAt             DateTime?                @map("decided_at")
+  decidedById           String?                  @map("decided_by_id") @db.Uuid
+  createdAt             DateTime                 @default(now()) @map("created_at")
+  updatedAt             DateTime                 @updatedAt @map("updated_at")
+
+  hostel    Hostel   @relation(fields: [hostelId], references: [id])
+  roomType  RoomType @relation(fields: [roomTypeId], references: [id])
+  applicant User     @relation(fields: [applicantId], references: [id])
+  tenancy   Tenancy?
+
+  @@index([hostelId, status, createdAt])
+  @@index([applicantId, createdAt])
+  @@map("tenancy_applications")
+}
+
+/// A tenant's right to one unit (bed/room). Money terms are snapshotted so later edits to the property never change them.
+model Tenancy {
+  id                    String         @id @default(uuid(7)) @db.Uuid
+  code                  String         @unique // TN-XXXXXX
+  hostelId              String         @map("hostel_id") @db.Uuid
+  roomTypeId            String         @map("room_type_id") @db.Uuid
+  unitId                String         @map("unit_id") @db.Uuid
+  tenantId              String?        @map("tenant_id") @db.Uuid // null while an invite for an unregistered email is pending
+  applicationId         String?        @unique @map("application_id") @db.Uuid
+  status                TenancyStatus
+  startDate             DateTime       @map("start_date") @db.Date
+  endDate               DateTime?      @map("end_date") @db.Date
+  rentPaise             Int            @map("rent_paise")
+  depositPaise          Int            @map("deposit_paise")
+  dueDay                Int            @map("due_day")
+  graceDays             Int            @map("grace_days")
+  noticeDays            Int            @map("notice_days")
+  gstRateBps            Int            @default(0) @map("gst_rate_bps")
+  lateFeePaise          Int            @default(0) @map("late_fee_paise")
+  depositReceivedAt     DateTime?      @map("deposit_received_at")
+  depositMethod         RentPayMethod? @map("deposit_method")
+  depositReference      String?        @map("deposit_reference")
+  emergencyContactName  String?        @map("emergency_contact_name")
+  emergencyContactPhone String?        @map("emergency_contact_phone")
+  inviteEmail           String?        @map("invite_email")
+  inviteTokenHash       String?        @unique @map("invite_token_hash")
+  inviteExpiresAt       DateTime?      @map("invite_expires_at")
+  activatedAt           DateTime?      @map("activated_at")
+  cancelledAt           DateTime?      @map("cancelled_at")
+  cancelReason          String?        @map("cancel_reason")
+  noticeGivenAt         DateTime?      @map("notice_given_at")
+  noticeBy              String?        @map("notice_by") // TENANT | OWNER
+  noticeReason          String?        @map("notice_reason")
+  movedOutAt            DateTime?      @map("moved_out_at")
+  createdById           String         @map("created_by_id") @db.Uuid
+  version               Int            @default(1)
+  createdAt             DateTime       @default(now()) @map("created_at")
+  updatedAt             DateTime       @updatedAt @map("updated_at")
+
+  hostel      Hostel              @relation(fields: [hostelId], references: [id])
+  roomType    RoomType            @relation(fields: [roomTypeId], references: [id])
+  unit        RoomUnit            @relation(fields: [unitId], references: [id])
+  tenant      User?               @relation(fields: [tenantId], references: [id])
+  application TenancyApplication? @relation(fields: [applicationId], references: [id])
+  invoices    RentInvoice[]
+  complaints  Complaint[]
+  orders      RentOrder[]
+  settlement  DepositSettlement?
+  ledger      LedgerEntry[]
+
+  @@index([hostelId, status])
+  @@index([tenantId, status])
+  @@map("tenancies")
+}
+
+// ───────────────────────── Rent (phase 12) ─────────────────────────
+
+/// One bill for one rent period of a tenancy. Amounts are the sum of its lines; tax applies to RENT lines only.
+/// Overdue is derived (due date + grace has passed with a balance), not stored.
+model RentInvoice {
+  id                String            @id @default(uuid(7)) @db.Uuid
+  number            String            @unique // INV-YYMM-XXXXXX
+  tenancyId         String            @map("tenancy_id") @db.Uuid
+  hostelId          String            @map("hostel_id") @db.Uuid
+  tenantId          String            @map("tenant_id") @db.Uuid
+  periodStart       DateTime          @map("period_start") @db.Date
+  periodEnd         DateTime          @map("period_end") @db.Date
+  dueDate           DateTime          @map("due_date") @db.Date
+  overdueAfter      DateTime          @map("overdue_after") @db.Date // due date + grace days: it counts as overdue after this day
+  status            RentInvoiceStatus @default(DUE)
+  subtotalPaise     Int               @map("subtotal_paise")
+  taxPaise          Int               @default(0) @map("tax_paise")
+  totalPaise        Int               @map("total_paise")
+  paidPaise         Int               @default(0) @map("paid_paise")
+  gstRateBps        Int               @default(0) @map("gst_rate_bps")
+  issuedAt          DateTime          @default(now()) @map("issued_at")
+  paidAt            DateTime?         @map("paid_at")
+  voidedAt          DateTime?         @map("voided_at")
+  voidReason        String?           @map("void_reason")
+  lateFeeAppliedAt  DateTime?         @map("late_fee_applied_at")
+  dueSoonNotifiedAt DateTime?         @map("due_soon_notified_at")
+  overdueNotifiedAt DateTime?         @map("overdue_notified_at")
+  version           Int               @default(1)
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
+
+  tenancy  Tenancy           @relation(fields: [tenancyId], references: [id])
+  hostel   Hostel            @relation(fields: [hostelId], references: [id])
+  tenant   User              @relation(fields: [tenantId], references: [id])
+  lines    RentInvoiceLine[]
+  payments RentPayment[]
+  orders   RentOrder[]
+  ledger   LedgerEntry[]
+
+  @@unique([tenancyId, periodStart])
+  @@index([hostelId, status, dueDate])
+  @@index([hostelId, status, overdueAfter])
+  @@index([tenantId, status])
+  @@map("rent_invoices")
+}
+
+model RentInvoiceLine {
+  id          String       @id @default(uuid(7)) @db.Uuid
+  invoiceId   String       @map("invoice_id") @db.Uuid
+  type        RentLineType
+  description String
+  amountPaise Int          @map("amount_paise") // negative only for CREDIT
+  createdById String?      @map("created_by_id") @db.Uuid
+  createdAt   DateTime     @default(now()) @map("created_at")
+
+  invoice RentInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+  @@map("rent_invoice_lines")
+}
+
+/// Money received against an invoice, online or recorded by the owner. Immutable except for an owner reversing a mistaken offline entry.
+model RentPayment {
+  id            String        @id @default(uuid(7)) @db.Uuid
+  receiptNo     String        @unique @map("receipt_no") // RCPT-YYMM-XXXXXX
+  invoiceId     String        @map("invoice_id") @db.Uuid
+  tenancyId     String        @map("tenancy_id") @db.Uuid
+  hostelId      String        @map("hostel_id") @db.Uuid
+  tenantId      String        @map("tenant_id") @db.Uuid
+  amountPaise   Int           @map("amount_paise")
+  method        RentPayMethod
+  reference     String?
+  note          String?
+  receivedOn    DateTime      @map("received_on") @db.Date
+  rentOrderId   String?       @unique @map("rent_order_id") @db.Uuid
+  recordedById  String?       @map("recorded_by_id") @db.Uuid
+  reversedAt    DateTime?     @map("reversed_at")
+  reversedById  String?       @map("reversed_by_id") @db.Uuid
+  reverseReason String?       @map("reverse_reason")
+  /// Money already returned to the tenant (online payments only). Never more than `amountPaise`.
+  refundedPaise Int           @default(0) @map("refunded_paise")
+  createdAt     DateTime      @default(now()) @map("created_at")
+
+  invoice RentInvoice  @relation(fields: [invoiceId], references: [id])
+  order   RentOrder?   @relation(fields: [rentOrderId], references: [id])
+  refunds RentRefund[]
+
+  @@index([invoiceId])
+  @@index([hostelId, createdAt])
+  @@map("rent_payments")
+}
+
+/// Money returned to a tenant for an online rent payment (by the owner or support). PENDING until the gateway confirms; mirrors Refund.
+model RentRefund {
+  id               String       @id @default(uuid(7)) @db.Uuid
+  paymentId        String       @map("payment_id") @db.Uuid
+  invoiceId        String       @map("invoice_id") @db.Uuid
+  hostelId         String       @map("hostel_id") @db.Uuid
+  tenantId         String       @map("tenant_id") @db.Uuid
+  amountPaise      Int          @map("amount_paise")
+  reason           String
+  status           RefundStatus @default(PENDING)
+  providerRefundId String?      @map("provider_refund_id")
+  idempotencyKey   String       @unique @map("idempotency_key")
+  initiatedById    String       @map("initiated_by_id") @db.Uuid
+  initiatedByRole  String       @map("initiated_by_role") // OWNER | ADMIN
+  processedAt      DateTime?    @map("processed_at")
+  createdAt        DateTime     @default(now()) @map("created_at")
+
+  payment RentPayment   @relation(fields: [paymentId], references: [id])
+  ledger  LedgerEntry[]
+
+  @@index([paymentId, status])
+  @@index([status, createdAt])
+  @@index([hostelId, createdAt])
+  @@map("rent_refunds")
+}
+
+/// An online (gateway) attempt to pay an invoice's balance. Mirrors Payment, kept separate so bookings are never affected.
+model RentOrder {
+  id                String        @id @default(uuid(7)) @db.Uuid
+  /// Exactly one of invoiceId (paying rent) or tenancyId (paying the security deposit) is set.
+  invoiceId         String?       @map("invoice_id") @db.Uuid
+  tenancyId         String?       @map("tenancy_id") @db.Uuid
+  tenantId          String        @map("tenant_id") @db.Uuid
+  provider          String
+  providerOrderId   String        @unique @map("provider_order_id")
+  providerPaymentId String?       @map("provider_payment_id")
+  amountPaise       Int           @map("amount_paise")
+  currency          String        @default("INR")
+  status            PaymentStatus @default(CREATED)
+  method            String?
+  failureCode       String?       @map("failure_code")
+  failureReason     String?       @map("failure_reason")
+  capturedAt        DateTime?     @map("captured_at")
+  version           Int           @default(1)
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+
+  invoice  RentInvoice?       @relation(fields: [invoiceId], references: [id], onDelete: Restrict)
+  tenancy  Tenancy?           @relation(fields: [tenancyId], references: [id], onDelete: Restrict)
+  attempts RentOrderAttempt[]
+  payment  RentPayment?
+
+  @@index([invoiceId, status])
+  @@index([tenancyId, status])
+  @@map("rent_orders")
+}
+
+model RentOrderAttempt {
+  id           String               @id @default(uuid(7)) @db.Uuid
+  orderId      String               @map("order_id") @db.Uuid
+  status       PaymentAttemptStatus @default(INITIATED)
+  instrument   String
+  method       String?
+  errorCode    String?              @map("error_code")
+  errorMessage String?              @map("error_message")
+  createdAt    DateTime             @default(now()) @map("created_at")
+
+  order RentOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId, status])
+  @@map("rent_order_attempts")
+}
+
+// ───────────────────────── Move-out and the security deposit (phase 14) ─────────────────────────
+
+/// What happens to the security deposit when a stay ends. One per tenancy that held a deposit. The owner itemises deductions
+/// (unpaid rent is pre-filled), the tenant accepts or disputes, and the rest is paid back: through the gateway when the deposit was
+/// paid online, or recorded by the owner when it was paid in cash/UPI/bank.
+model DepositSettlement {
+  id                   String                  @id @default(uuid(7)) @db.Uuid
+  tenancyId            String                  @unique @map("tenancy_id") @db.Uuid
+  hostelId             String                  @map("hostel_id") @db.Uuid
+  tenantId             String                  @map("tenant_id") @db.Uuid
+  status               DepositSettlementStatus @default(DRAFT)
+  depositPaise         Int                     @map("deposit_paise") // what was held
+  deductionsPaise      Int                     @default(0) @map("deductions_paise")
+  refundPaise          Int                     @map("refund_paise") // deposit - deductions
+  note                 String?
+  proposedAt           DateTime?               @map("proposed_at")
+  respondedAt          DateTime?               @map("responded_at")
+  disputeNote          String?                 @map("dispute_note")
+  agreedAt             DateTime?               @map("agreed_at")
+  autoAgreed           Boolean                 @default(false) @map("auto_agreed")
+  resolvedByAdminId    String?                 @map("resolved_by_admin_id") @db.Uuid
+  completedAt          DateTime?               @map("completed_at")
+  payoutMethod         RentPayMethod?          @map("payout_method")
+  payoutReference      String?                 @map("payout_reference")
+  refundIdempotencyKey String?                 @unique @map("refund_idempotency_key")
+  providerRefundId     String?                 @map("provider_refund_id")
+  version              Int                     @default(1)
+  createdAt            DateTime                @default(now()) @map("created_at")
+  updatedAt            DateTime                @updatedAt @map("updated_at")
+
+  tenancy    Tenancy            @relation(fields: [tenancyId], references: [id])
+  deductions DepositDeduction[]
+  proofs     DepositProof[]
+
+  @@index([hostelId, status])
+  @@index([tenantId, status])
+  @@index([status, proposedAt])
+  @@map("deposit_settlements")
+}
+
+model DepositDeduction {
+  id           String            @id @default(uuid(7)) @db.Uuid
+  settlementId String            @map("settlement_id") @db.Uuid
+  type         DeductionType
+  description  String
+  amountPaise  Int               @map("amount_paise")
+  invoiceId    String?           @map("invoice_id") @db.Uuid // for UNPAID_RENT: the invoice it settles
+  createdAt    DateTime          @default(now()) @map("created_at")
+
+  settlement DepositSettlement @relation(fields: [settlementId], references: [id], onDelete: Cascade)
+
+  @@index([settlementId])
+  @@map("deposit_deductions")
+}
+
+/// A photo the owner attaches as evidence for a deduction (damage, cleaning...).
+model DepositProof {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  settlementId String   @map("settlement_id") @db.Uuid
+  publicId     String   @unique @map("public_id")
+  url          String
+  uploadedById String   @map("uploaded_by_id") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  settlement DepositSettlement @relation(fields: [settlementId], references: [id], onDelete: Cascade)
+
+  @@index([settlementId])
+  @@map("deposit_proofs")
+}
+
+// ───────────────────────── Staff and complaints (phase 13) ─────────────────────────
+
+/// Someone who fixes things: an electrician, a plumber, a warden... `ownerId` set = the owner's own staff; null = a platform vendor
+/// that owners can engage. Access to a property comes from StaffAssignment, never from the role alone.
+model StaffProfile {
+  userId    String      @id @map("user_id") @db.Uuid
+  trade     StaffTrade
+  ownerId   String?     @map("owner_id") @db.Uuid
+  status    StaffStatus @default(ACTIVE)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignments StaffAssignment[]
+
+  @@index([ownerId, status])
+  @@index([trade, status])
+  @@map("staff_profiles")
+}
+
+/// A staff member may work at a property. Removing or deactivating hands their open complaints back to the owner.
+model StaffAssignment {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  staffUserId  String   @map("staff_user_id") @db.Uuid
+  hostelId     String   @map("hostel_id") @db.Uuid
+  assignedById String   @map("assigned_by_id") @db.Uuid
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  staff  StaffProfile @relation(fields: [staffUserId], references: [userId], onDelete: Cascade)
+  hostel Hostel       @relation(fields: [hostelId], references: [id])
+
+  @@unique([staffUserId, hostelId])
+  @@index([hostelId, active])
+  @@map("staff_assignments")
+}
+
+/// An emailed invitation to become staff. Only the hash of the token is stored.
+model StaffInvite {
+  id           String     @id @default(uuid(7)) @db.Uuid
+  email        String
+  tokenHash    String     @unique @map("token_hash")
+  trade        StaffTrade
+  ownerId      String?    @map("owner_id") @db.Uuid // null = a platform vendor invited by an admin
+  hostelIds    String[]   @map("hostel_ids") @db.Uuid
+  invitedById  String     @map("invited_by_id") @db.Uuid
+  expiresAt    DateTime   @map("expires_at")
+  acceptedAt   DateTime?  @map("accepted_at")
+  acceptedById String?    @map("accepted_by_id") @db.Uuid
+  cancelledAt  DateTime?  @map("cancelled_at")
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  @@index([ownerId, acceptedAt])
+  @@index([email])
+  @@map("staff_invites")
+}
+
+/// A tenant's report that something is wrong. Flows OPEN -> (ASSIGNED) -> IN_PROGRESS -> RESOLVED -> CLOSED, with an SLA by priority.
+model Complaint {
+  id                  String            @id @default(uuid(7)) @db.Uuid
+  code                String            @unique // CMP-XXXXXX
+  hostelId            String            @map("hostel_id") @db.Uuid
+  tenancyId           String            @map("tenancy_id") @db.Uuid
+  unitId              String?           @map("unit_id") @db.Uuid
+  raisedById          String            @map("raised_by_id") @db.Uuid
+  category            ComplaintCategory
+  priority            ComplaintPriority @default(MEDIUM)
+  title               String
+  description         String
+  location            String? // "Bathroom, room 204"
+  status              ComplaintStatus   @default(OPEN)
+  assignedStaffId     String?           @map("assigned_staff_id") @db.Uuid
+  slaDueAt            DateTime          @map("sla_due_at")
+  slaBreachNotifiedAt DateTime?         @map("sla_breach_notified_at")
+  acknowledgedAt      DateTime?         @map("acknowledged_at")
+  resolvedAt          DateTime?         @map("resolved_at")
+  resolutionNote      String?           @map("resolution_note")
+  closedAt            DateTime?         @map("closed_at")
+  reopenCount         Int               @default(0) @map("reopen_count")
+  rating              Int?
+  feedback            String?
+  // When the tenant is free to let someone in (mandatory for new complaints; null only on rows filed before this existed).
+  availableFrom       DateTime?         @map("available_from")
+  availableTo         DateTime?         @map("available_to")
+  allowEntryIfAway    Boolean           @default(false) @map("allow_entry_if_away")
+  // The visit staff booked inside that window.
+  visitStart          DateTime?         @map("visit_start")
+  visitEnd            DateTime?         @map("visit_end")
+  visitMissedNotifiedAt DateTime?       @map("visit_missed_notified_at")
+  version             Int               @default(1)
+  createdAt           DateTime          @default(now()) @map("created_at")
+  updatedAt           DateTime          @updatedAt @map("updated_at")
+
+  hostel   Hostel                   @relation(fields: [hostelId], references: [id])
+  tenancy  Tenancy                  @relation(fields: [tenancyId], references: [id])
+  raisedBy User                     @relation("ComplaintRaisedBy", fields: [raisedById], references: [id])
+  assigned User?                    @relation("ComplaintAssignedTo", fields: [assignedStaffId], references: [id])
+  media    ComplaintMedia[]
+  comments ComplaintComment[]
+  history  ComplaintStatusHistory[]
+
+  @@index([hostelId, status, createdAt])
+  @@index([raisedById, createdAt])
+  @@index([assignedStaffId, status])
+  @@index([status, slaDueAt])
+  @@map("complaints")
+}
+
+model ComplaintMedia {
+  id           String      @id @default(uuid(7)) @db.Uuid
+  complaintId  String      @map("complaint_id") @db.Uuid
+  publicId     String      @unique @map("public_id")
+  url          String
+  width        Int?
+  height       Int?
+  uploadedById String      @map("uploaded_by_id") @db.Uuid
+  uploaderRole CommentRole @map("uploader_role")
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  complaint Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+
+  @@index([complaintId])
+  @@map("complaint_media")
+}
+
+model ComplaintComment {
+  id          String      @id @default(uuid(7)) @db.Uuid
+  complaintId String      @map("complaint_id") @db.Uuid
+  authorId    String?     @map("author_id") @db.Uuid
+  authorRole  CommentRole @map("author_role")
+  authorName  String      @map("author_name") // the name at the time, so a thread reads the same later
+  body        String
+  internal    Boolean     @default(false) // visible to the owner, staff and admin only, never the tenant
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  complaint Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+
+  @@index([complaintId, createdAt])
+  @@map("complaint_comments")
+}
+
+/// Append-only (a trigger rejects UPDATE and DELETE): who moved a complaint, from where to where, and why.
+model ComplaintStatusHistory {
+  id          String           @id @default(uuid(7)) @db.Uuid
+  complaintId String           @map("complaint_id") @db.Uuid
+  fromStatus  ComplaintStatus? @map("from_status")
+  toStatus    ComplaintStatus  @map("to_status")
+  actorId     String?          @map("actor_id") @db.Uuid
+  actorRole   CommentRole      @map("actor_role")
+  note        String?
+  createdAt   DateTime         @default(now()) @map("created_at")
+
+  complaint Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+
+  @@index([complaintId, createdAt])
+  @@map("complaint_status_history")
 }
 
 // ───────────────────────── Audit & infra ─────────────────────────

@@ -24,7 +24,7 @@ export interface RoomSpec {
 export interface HostelSpec {
   ownerId?: string; name?: string; city?: string; state?: string; locality?: string | null; lat?: number; lng?: number;
   status?: 'APPROVED' | 'DRAFT' | 'PENDING_REVIEW' | 'SUSPENDED' | 'REJECTED'; deleted?: boolean;
-  propertyType?: 'HOSTEL' | 'PG'; bookingMode?: 'INSTANT' | 'APPROVAL'; genderPolicy?: 'MIXED' | 'MALE_ONLY' | 'FEMALE_ONLY';
+  propertyType?: 'HOSTEL' | 'PG' | 'HOTEL'; bookingMode?: 'INSTANT' | 'APPROVAL'; genderPolicy?: 'MIXED' | 'MALE_ONLY' | 'FEMALE_ONLY';
   cancellationPolicy?: 'FLEXIBLE' | 'MODERATE' | 'STRICT'; amenities?: string[]; rating?: number; reviews?: number; rooms?: RoomSpec[];
   photos?: number; approvedAt?: Date; timezone?: string;
 }
@@ -40,7 +40,7 @@ export async function publish(spec: HostelSpec = {}) {
   const hostel = await prisma.hostel.create({
     data: {
       ownerId, slug: `${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${uniq()}`, name, description: 'A lovely place to stay with friendly staff and clean rooms.',
-      propertyType: spec.propertyType ?? 'HOSTEL', status, bookingMode: spec.bookingMode ?? 'INSTANT', genderPolicy: spec.genderPolicy ?? 'MIXED',
+      propertyType: spec.propertyType ?? 'HOTEL', status, bookingMode: spec.bookingMode ?? 'INSTANT', genderPolicy: spec.genderPolicy ?? 'MIXED',
       cancellationPolicy: spec.cancellationPolicy ?? 'MODERATE', timezone: spec.timezone ?? 'Asia/Kolkata',
       addressLine1: '1 Test Road', phone: '+919800000000', locality: spec.locality === undefined ? 'Old Town' : spec.locality, city: spec.city ?? 'Testville', state: spec.state ?? 'Testland', postalCode: '403001',
       latitude: spec.lat ?? 15.5, longitude: spec.lng ?? 73.8, avgRating: spec.rating ?? 0, reviewCount: spec.reviews ?? 0,

@@ -8,6 +8,7 @@ import { transformUrl } from '@/infra/cloudinary/storage';
 import { taxPolicy } from '@/modules/pricing/pricing.config';
 import { nightlyUnitPrice } from '@/modules/pricing/pricing.engine';
 import { availabilityFor, stayNights, toRuleInput } from '@/modules/pricing/quote.service';
+import type { PropertyTypeName } from '@/modules/hostels/property-mode';
 import type { MapQuery, SearchFilters, SearchQuery, Sort } from './search.schema';
 
 const { sql, join, empty } = Prisma;
@@ -65,17 +66,25 @@ export function buildWhere(f: SearchFilters): Prisma.Sql[] {
   }
 
   if (f.checkIn && f.checkOut) {
-    // Enough free capacity across matching rooms for the whole stay (every night must have an inventory row).
+    // Hotels: enough free capacity across matching rooms for the whole stay (every night must have an inventory row).
+    // Hostels and PGs are long-term, so nightly inventory means nothing for them: they match when at least one matching bed is free.
     const nights = diffDays(f.checkIn, f.checkOut);
     where.push(sql`(
-      SELECT COALESCE(SUM(GREATEST(a.units, 0) * rt.max_occupancy_per_unit), 0)
-      FROM room_types rt
-      JOIN LATERAL (
-        SELECT min(i.total_units - i.held_units - i.booked_units - i.blocked_units)::int AS units, count(*)::int AS n
-        FROM inventory_nights i WHERE i.room_type_id = rt.id AND i.date >= ${f.checkIn}::date AND i.date < ${f.checkOut}::date
-      ) a ON a.n = ${nights}
-      WHERE ${join(roomPredicate(f), ' AND ')} AND ${nights} BETWEEN rt.min_stay_nights AND rt.max_stay_nights
-    ) >= ${f.guests}`);
+      (h.property_type = 'HOTEL'::"PropertyType" AND (
+        SELECT COALESCE(SUM(GREATEST(a.units, 0) * rt.max_occupancy_per_unit), 0)
+        FROM room_types rt
+        JOIN LATERAL (
+          SELECT min(i.total_units - i.held_units - i.booked_units - i.blocked_units)::int AS units, count(*)::int AS n
+          FROM inventory_nights i WHERE i.room_type_id = rt.id AND i.date >= ${f.checkIn}::date AND i.date < ${f.checkOut}::date
+        ) a ON a.n = ${nights}
+        WHERE ${join(roomPredicate(f), ' AND ')} AND ${nights} BETWEEN rt.min_stay_nights AND rt.max_stay_nights
+      ) >= ${f.guests})
+      OR (h.property_type <> 'HOTEL'::"PropertyType" AND EXISTS (
+        SELECT 1 FROM room_types rt JOIN room_units u ON u.room_type_id = rt.id AND u.deleted_at IS NULL AND u.status = 'ACTIVE'::"RoomUnitStatus"
+        WHERE ${join(roomPredicate(f), ' AND ')}
+          AND NOT EXISTS (SELECT 1 FROM tenancies t WHERE t.unit_id = u.id AND t.status IN ('INVITED'::"TenancyStatus", 'PENDING_MOVE_IN'::"TenancyStatus", 'ACTIVE'::"TenancyStatus", 'NOTICE'::"TenancyStatus"))
+      ))
+    )`);
   } else if (f.roomKind || f.gender) {
     where.push(sql`EXISTS (SELECT 1 FROM room_types rt WHERE ${join(roomPredicate(f), ' AND ')})`);
   }
@@ -120,7 +129,7 @@ const baseSelect = (f: SearchFilters, key: Prisma.Sql) => {
 };
 
 export interface SearchItem {
-  id: string; slug: string; name: string; propertyType: 'HOSTEL' | 'PG'; city: string; state: string; locality: string | null;
+  id: string; slug: string; name: string; propertyType: PropertyTypeName; city: string; state: string; locality: string | null;
   location: { latitude: number; longitude: number }; distanceKm: number | null; coverUrl: string | null; photoUrls: string[]; amenityCodes: string[];
   roomKinds: ('DORM' | 'PRIVATE')[]; fromPricePaise: number | null; stayFromPricePaise: number | null; currency: string; avgRating: number; reviewCount: number;
   bookingMode: 'INSTANT' | 'APPROVAL'; genderPolicy: 'MIXED' | 'MALE_ONLY' | 'FEMALE_ONLY'; cancellationPolicy: 'FLEXIBLE' | 'MODERATE' | 'STRICT';
@@ -141,7 +150,7 @@ async function hydrate(rows: Row[], f: SearchFilters): Promise<SearchItem[]> {
   // With dates, show the real average nightly price of the cheapest room that can host the stay.
   let avail: Map<string, number> | null = null;
   const nights = f.checkIn && f.checkOut ? stayNights(f.checkIn, f.checkOut) : null;
-  if (nights && f.checkIn && f.checkOut) avail = await availabilityFor(prisma, hostels.flatMap((h) => h.roomTypes.map((r) => r.id)), f.checkIn, f.checkOut);
+  if (nights && f.checkIn && f.checkOut) avail = await availabilityFor(prisma, hostels.filter((h) => h.propertyType === 'HOTEL').flatMap((h) => h.roomTypes.map((r) => r.id)), f.checkIn, f.checkOut);
 
   return rows.flatMap((row) => {
     const h = byId.get(row.id);
@@ -149,7 +158,7 @@ async function hydrate(rows: Row[], f: SearchFilters): Promise<SearchItem[]> {
     const perNightBase = (r: (typeof h.roomTypes)[number]) => (r.priceUnit === 'MONTH' ? Math.round(r.basePricePaise / 30) : r.basePricePaise);
     const fromPrice = h.roomTypes.length ? Math.min(...h.roomTypes.map(perNightBase)) : h.minPricePaise;
     let stayFrom: number | null = null;
-    if (nights && avail) {
+    if (nights && avail && h.propertyType === 'HOTEL') { // long-term properties have no nightly price for a date range
       const eligible = h.roomTypes.filter((r) => (avail!.get(r.id) ?? 0) >= 1 && nights.length >= r.minStayNights && nights.length <= r.maxStayNights);
       const avgs = eligible.map((r) => Math.round(nights.reduce((s, d) => s + nightlyUnitPrice({ basePricePaise: r.basePricePaise, priceUnit: r.priceUnit, rules: r.priceRules.map(toRuleInput) }, d).unitPricePaise, 0) / nights.length));
       stayFrom = avgs.length ? Math.min(...avgs) : null;

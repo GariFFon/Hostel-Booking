@@ -38,38 +38,41 @@ interface RoomSeed {
   name: string; kind: 'DORM' | 'PRIVATE'; gender?: 'MIXED' | 'MALE' | 'FEMALE'; units: number; price: number; occ?: number; weekend?: boolean;
 }
 interface HostelSeed {
-  name: string; type: 'HOSTEL' | 'PG'; city: string; state: string; locality: string; lat: number; lng: number; postal: string;
+  name: string; type: 'HOSTEL' | 'PG' | 'HOTEL'; city: string; state: string; locality: string; lat: number; lng: number; postal: string;
   owner: number; status: 'APPROVED' | 'PENDING_REVIEW' | 'DRAFT'; mode?: 'INSTANT' | 'APPROVAL'; policy?: 'FLEXIBLE' | 'MODERATE' | 'STRICT';
   gender?: 'MIXED' | 'MALE_ONLY' | 'FEMALE_ONLY'; amenities: string[]; rooms: RoomSeed[]; blurb: string;
 }
 
 const HOSTELS: HostelSeed[] = [
-  { name: 'Palolem Beach Nomads', type: 'HOSTEL', city: 'Goa', state: 'Goa', locality: 'Palolem', lat: 15.0100, lng: 74.0232, postal: '403702', owner: 0, status: 'APPROVED', policy: 'FLEXIBLE',
+  { name: 'Palolem Beach Nomads', type: 'HOTEL', city: 'Goa', state: 'Goa', locality: 'Palolem', lat: 15.0100, lng: 74.0232, postal: '403702', owner: 0, status: 'APPROVED', policy: 'FLEXIBLE',
     amenities: ['WIFI', 'AC', 'LOCKERS', 'CAFE', 'ROOFTOP', 'CCTV'], blurb: 'Steps from the sand: social dorms, a rooftop bar and daily sunset yoga.',
     rooms: [{ name: '8-bed mixed dorm', kind: 'DORM', units: 8, price: 80000, weekend: true }, { name: '4-bed female dorm', kind: 'DORM', gender: 'FEMALE', units: 4, price: 95000, weekend: true }, { name: 'Private sea-view room', kind: 'PRIVATE', units: 3, price: 320000, occ: 2, weekend: true }] },
-  { name: 'Old Manali Peaks Hostel', type: 'HOSTEL', city: 'Manali', state: 'Himachal Pradesh', locality: 'Old Manali', lat: 32.2530, lng: 77.1770, postal: '175131', owner: 0, status: 'APPROVED', mode: 'APPROVAL', policy: 'MODERATE',
+  { name: 'Old Manali Peaks Hostel', type: 'HOTEL', city: 'Manali', state: 'Himachal Pradesh', locality: 'Old Manali', lat: 32.2530, lng: 77.1770, postal: '175131', owner: 0, status: 'APPROVED', mode: 'APPROVAL', policy: 'MODERATE',
     amenities: ['WIFI', 'HOT_WATER', 'KITCHEN', 'COMMON_ROOM', 'POWER_BACKUP', 'LOCKERS'], blurb: 'Cosy wooden hostel with a fireplace lounge and valley views.',
     rooms: [{ name: '10-bed mixed dorm', kind: 'DORM', units: 10, price: 70000 }, { name: 'Double private room', kind: 'PRIVATE', units: 4, price: 240000, occ: 2, weekend: true }] },
-  { name: 'Laxman Jhula Riverside Stay', type: 'HOSTEL', city: 'Rishikesh', state: 'Uttarakhand', locality: 'Tapovan', lat: 30.1290, lng: 78.3200, postal: '249192', owner: 1, status: 'APPROVED', policy: 'FLEXIBLE',
+  { name: 'Laxman Jhula Riverside Stay', type: 'HOTEL', city: 'Rishikesh', state: 'Uttarakhand', locality: 'Tapovan', lat: 30.1290, lng: 78.3200, postal: '249192', owner: 1, status: 'APPROVED', policy: 'FLEXIBLE',
     amenities: ['WIFI', 'YOGA', 'CAFE', 'HOT_WATER', 'ROOFTOP'], blurb: 'Yoga-first hostel above the Ganga with a vegetarian cafe.',
     rooms: [{ name: '6-bed mixed dorm', kind: 'DORM', units: 6, price: 60000 }, { name: 'Single private room', kind: 'PRIVATE', units: 5, price: 150000, occ: 1 }] },
-  { name: 'Indiranagar Urban Hostel', type: 'HOSTEL', city: 'Bengaluru', state: 'Karnataka', locality: 'Indiranagar', lat: 12.9784, lng: 77.6408, postal: '560038', owner: 1, status: 'APPROVED', policy: 'MODERATE',
+  { name: 'Indiranagar Urban Hostel', type: 'HOTEL', city: 'Bengaluru', state: 'Karnataka', locality: 'Indiranagar', lat: 12.9784, lng: 77.6408, postal: '560038', owner: 1, status: 'APPROVED', policy: 'MODERATE',
     amenities: ['WIFI', 'AC', 'COWORK', 'LAUNDRY', 'LOCKERS', 'CCTV', 'POWER_BACKUP'], blurb: 'Work-friendly hostel in the heart of the city, minutes from the metro.',
     rooms: [{ name: '12-bed mixed dorm', kind: 'DORM', units: 12, price: 90000, weekend: true }, { name: '6-bed male dorm', kind: 'DORM', gender: 'MALE', units: 6, price: 85000 }, { name: 'Private studio', kind: 'PRIVATE', units: 4, price: 380000, occ: 2, weekend: true }] },
-  { name: 'Pink City Backpackers', type: 'HOSTEL', city: 'Jaipur', state: 'Rajasthan', locality: 'C-Scheme', lat: 26.9124, lng: 75.7873, postal: '302001', owner: 2, status: 'APPROVED', policy: 'STRICT',
+  { name: 'Pink City Backpackers', type: 'HOTEL', city: 'Jaipur', state: 'Rajasthan', locality: 'C-Scheme', lat: 26.9124, lng: 75.7873, postal: '302001', owner: 2, status: 'APPROVED', policy: 'STRICT',
     amenities: ['WIFI', 'AC', 'BREAKFAST', 'ROOFTOP', 'CCTV'], blurb: 'Heritage haveli turned hostel, with breakfast and walking-tour desk.',
     rooms: [{ name: '8-bed mixed dorm', kind: 'DORM', units: 8, price: 55000 }, { name: 'Haveli private room', kind: 'PRIVATE', units: 3, price: 210000, occ: 2 }] },
-  { name: 'Colaba Harbour Hostel', type: 'HOSTEL', city: 'Mumbai', state: 'Maharashtra', locality: 'Colaba', lat: 18.9067, lng: 72.8147, postal: '400005', owner: 2, status: 'APPROVED', policy: 'MODERATE',
+  { name: 'Colaba Harbour Hostel', type: 'HOTEL', city: 'Mumbai', state: 'Maharashtra', locality: 'Colaba', lat: 18.9067, lng: 72.8147, postal: '400005', owner: 2, status: 'APPROVED', policy: 'MODERATE',
     amenities: ['WIFI', 'AC', 'LOCKERS', 'LAUNDRY', 'CCTV'], blurb: 'Budget beds a short walk from the Gateway of India.',
     rooms: [{ name: '10-bed mixed dorm', kind: 'DORM', units: 10, price: 110000, weekend: true }, { name: '6-bed female dorm', kind: 'DORM', gender: 'FEMALE', units: 6, price: 120000, weekend: true }] },
   { name: 'Koregaon Park Students PG', type: 'PG', city: 'Pune', state: 'Maharashtra', locality: 'Koregaon Park', lat: 18.5362, lng: 73.8938, postal: '411001', owner: 2, status: 'APPROVED', mode: 'APPROVAL', gender: 'MALE_ONLY', policy: 'STRICT',
     amenities: ['WIFI', 'MESS', 'LAUNDRY', 'POWER_BACKUP', 'CCTV', 'HOT_WATER'], blurb: 'Furnished PG for working professionals and students, meals included.',
-    rooms: [{ name: 'Triple sharing', kind: 'DORM', gender: 'MALE', units: 12, price: 45000 }, { name: 'Single room', kind: 'PRIVATE', units: 6, price: 90000, occ: 1 }] },
-  { name: 'Hauz Khas Social Hostel', type: 'HOSTEL', city: 'New Delhi', state: 'Delhi', locality: 'Hauz Khas', lat: 28.5494, lng: 77.2001, postal: '110016', owner: 0, status: 'PENDING_REVIEW', policy: 'MODERATE',
+    rooms: [{ name: 'Triple sharing', kind: 'DORM', gender: 'MALE', units: 12, price: 750000 }, { name: 'Single room', kind: 'PRIVATE', units: 6, price: 1400000, occ: 1 }] },
+  { name: 'Hauz Khas Social Hostel', type: 'HOTEL', city: 'New Delhi', state: 'Delhi', locality: 'Hauz Khas', lat: 28.5494, lng: 77.2001, postal: '110016', owner: 0, status: 'PENDING_REVIEW', policy: 'MODERATE',
     amenities: ['WIFI', 'AC', 'CAFE', 'COMMON_ROOM'], blurb: 'New listing awaiting admin approval.',
     rooms: [{ name: '8-bed mixed dorm', kind: 'DORM', units: 8, price: 75000 }] },
-  { name: 'Varkala Cliff Cottage (draft)', type: 'HOSTEL', city: 'Varkala', state: 'Kerala', locality: 'North Cliff', lat: 8.7379, lng: 76.7163, postal: '695141', owner: 1, status: 'DRAFT', policy: 'FLEXIBLE',
+  { name: 'Varkala Cliff Cottage (draft)', type: 'HOTEL', city: 'Varkala', state: 'Kerala', locality: 'North Cliff', lat: 8.7379, lng: 76.7163, postal: '695141', owner: 1, status: 'DRAFT', policy: 'FLEXIBLE',
     amenities: ['WIFI'], blurb: 'Draft listing still being edited by the owner.', rooms: [{ name: '4-bed mixed dorm', kind: 'DORM', units: 4, price: 65000 }] },
+  { name: 'Kothrud Scholars Hostel', type: 'HOSTEL', city: 'Pune', state: 'Maharashtra', locality: 'Kothrud', lat: 18.5074, lng: 73.8077, postal: '411038', owner: 2, status: 'APPROVED', mode: 'APPROVAL', gender: 'FEMALE_ONLY', policy: 'MODERATE',
+    amenities: ['WIFI', 'MESS', 'LAUNDRY', 'CCTV', 'HOT_WATER', 'FEMALE_FLOOR'], blurb: 'Women-only student hostel near the university with a study hall and meals.',
+    rooms: [{ name: '4-bed sharing', kind: 'DORM', gender: 'FEMALE', units: 16, price: 650000 }, { name: 'Double room', kind: 'PRIVATE', units: 6, price: 1100000, occ: 2 }] },
 ];
 
 async function main() {
@@ -123,18 +126,24 @@ async function main() {
     for (const r of h.rooms) {
       const rt = await prisma.roomType.create({
         data: {
-          hostelId: hostel.id, name: r.name, kind: r.kind, gender: r.gender ?? 'MIXED', totalUnits: r.units, basePricePaise: r.price,
-          maxOccupancyPerUnit: r.occ ?? 1, description: `${r.name} at ${h.name}`, maxStayNights: h.type === 'PG' ? 180 : 30, minStayNights: h.type === 'PG' ? 7 : 1,
+          hostelId: hostel.id, name: r.name, kind: r.kind, gender: r.gender ?? 'MIXED', totalUnits: r.units, basePricePaise: r.price, priceUnit: h.type === 'HOTEL' ? 'NIGHT' : 'MONTH',
+          maxOccupancyPerUnit: r.occ ?? 1, description: `${r.name} at ${h.name}`, maxStayNights: h.type === 'HOTEL' ? 30 : 365, minStayNights: 1,
           priceRules: r.weekend ? { create: [{ type: 'WEEKEND', name: 'Fri/Sat uplift', weekdays: [5, 6], adjustmentBps: 2000, priority: 1 }] } : undefined,
         },
       });
       rooms.push(rt);
+      if (h.type !== 'HOTEL') {
+        // Long-term properties track physical beds/rooms (tenancies are assigned to a unit, phase 11).
+        const prefix = r.kind === 'DORM' ? 'B' : 'R';
+        await prisma.roomUnit.createMany({ data: Array.from({ length: r.units }, (_, i) => ({ roomTypeId: rt.id, label: `${prefix}${rooms.length}-${String(i + 1).padStart(2, '0')}`, floor: 1 + (i % 3) })) });
+      }
       if (h.status === 'APPROVED') {
         await prisma.inventoryNight.createMany({
           data: Array.from({ length: INVENTORY_DAYS }, (_, i) => ({ roomTypeId: rt.id, date: day(i), totalUnits: r.units })),
         });
       }
     }
+    if (h.type !== 'HOTEL') await prisma.hostel.update({ where: { id: hostel.id }, data: { minPricePaise: Math.min(...rooms.map((x) => x.basePricePaise)) } });
     created.push({ hostel, rooms, seed: h });
   }
 
@@ -149,7 +158,7 @@ async function main() {
   // ── Completed stays with payments, ledger and reviews (give search real ratings) ──
   const comments = ['Great vibe and super clean dorms!', 'Staff were wonderful, location is unbeatable.', 'Good value, a bit noisy on weekends.', 'Loved the rooftop. Would stay again.', 'Comfortable beds and fast Wi-Fi.', 'Felt safe and welcoming as a solo traveller.'];
   let r = 0;
-  for (const c of created.filter((x) => x.seed.status === 'APPROVED')) {
+  for (const c of created.filter((x) => x.seed.status === 'APPROVED' && x.seed.type === 'HOTEL')) {
     for (let k = 0; k < 3; k++) {
       const room = c.rooms[k % c.rooms.length]!;
       const guest = guests[(r + k) % guests.length]!;

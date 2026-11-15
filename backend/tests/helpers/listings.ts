@@ -6,6 +6,7 @@ import { call } from './http';
 import type { FakeStorage } from './fake-storage';
 
 export const hostelPayload = (over: object = {}) => ({
+  propertyType: 'HOTEL', // nightly by default; long-term (HOSTEL/PG) tests opt in
   name: 'Sunset Backpackers', description: 'A friendly hostel close to the beach with a rooftop bar.',
   addressLine1: '12 Beach Road', city: 'Goa', state: 'Goa', postalCode: '403001', latitude: 15.49, longitude: 73.82, ...over,
 });

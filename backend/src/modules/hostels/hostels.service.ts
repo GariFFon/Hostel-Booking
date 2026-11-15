@@ -9,6 +9,7 @@ import { recordAudit } from '@/modules/audit/audit.service';
 import { notifyAdmins } from '@/modules/notifications/notifications.service';
 import { hostelInclude, toHostelDto, toHostelSummary } from './hostels.mapper';
 import { hasLiveBookings, loadOwnedHostel } from './hostels.policy';
+import { stayModeOf } from './property-mode';
 import { OWNER_EDITABLE, assertHostelTransition } from './hostels.status';
 import { uniqueHostelSlug } from './slug';
 import type { CreateHostelInput, UpdateHostelInput } from './hostels.schema';
@@ -65,6 +66,10 @@ export const hostelsService = {
       if (!OWNER_EDITABLE.includes(existing.status)) throw Errors.conflict(existing.status === 'SUSPENDED' ? 'This listing is suspended. Contact support.' : 'Withdraw the listing from review before editing it');
       if (input.expectedVersion !== undefined && input.expectedVersion !== existing.version) throw Errors.conflict('This listing was changed elsewhere. Reload and try again.', { currentVersion: existing.version });
       const { expectedVersion: _v, amenityCodes, ...changes } = input;
+      if (changes.propertyType && stayModeOf(changes.propertyType) !== stayModeOf(existing.propertyType)) {
+        const [rooms, bookings] = await Promise.all([tx.roomType.count({ where: { hostelId, deletedAt: null } }), tx.booking.count({ where: { hostelId } })]);
+        if (rooms > 0 || bookings > 0) throw Errors.conflict('A property cannot switch between nightly (hotel) and long-term (hostel/PG) once it has rooms or bookings. Create a new listing instead.');
+      }
       const before = await tx.hostel.findUniqueOrThrow({ where: { id: hostelId }, include: hostelInclude });
       if (amenityCodes) {
         const ids = await amenityIds(tx, amenityCodes);

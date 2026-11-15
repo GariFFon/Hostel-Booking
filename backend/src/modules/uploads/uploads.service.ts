@@ -4,6 +4,7 @@ import { Errors } from '@/core/errors/app-error';
 import { mediaStorage } from '@/infra/cloudinary/storage';
 import { prisma } from '@/infra/db/prisma';
 import { loadOwnedHostel } from '@/modules/hostels/hostels.policy';
+import { loadViewable } from '@/modules/complaints/complaints.access';
 import { PURPOSE_POLICY, newPublicId, prefixFor } from './upload-policy';
 import type { SignatureRequest } from './uploads.schema';
 
@@ -33,6 +34,19 @@ export const uploadsService = {
         requireRole(actor, 'OWNER');
         prefix = prefixFor.kyc(actor.id);
         break;
+      case 'DEPOSIT_PROOF': {
+        requireRole(actor, 'OWNER');
+        const stay = await prisma.tenancy.findFirst({ where: { id: req.tenancyId!, hostel: { ownerId: actor.id } }, select: { id: true } });
+        if (!stay) throw Errors.notFound('Stay'); // someone else's stay looks exactly like a missing one
+        prefix = prefixFor.deposit(stay.id);
+        break;
+      }
+      case 'COMPLAINT_IMAGE': {
+        const { viewer } = await loadViewable(prisma, actor, req.complaintId!); // someone who cannot see the complaint cannot add to it
+        if (viewer === 'ADMIN') throw Errors.forbidden('Admins can read complaints but not add to them');
+        prefix = prefixFor.complaint(req.complaintId!);
+        break;
+      }
     }
     const signed = mediaStorage().signUpload({ publicId: newPublicId(prefix), type: policy.type, allowedFormats: policy.allowedFormats });
     return { ...signed, maxBytes: policy.maxBytes, allowedFormats: policy.allowedFormats };

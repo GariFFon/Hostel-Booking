@@ -1,5 +1,7 @@
 import type { Prisma, NotificationType } from '@/generated/prisma/client';
 import { prisma } from '@/infra/db/prisma';
+import { pushEnabled } from '@/infra/push/push';
+import { enqueue } from '@/infra/queue/queue';
 import { DEFAULT_PREFERENCES, NOTIFICATION_CATEGORY, inAppAllowed, type NotificationPreferences } from './notification-policy';
 
 type Db = Prisma.TransactionClient;
@@ -16,7 +18,10 @@ export interface NotifyInput {
 export async function loadPreferences(db: Db, userIds: string[]): Promise<Map<string, NotificationPreferences>> {
   const unique = [...new Set(userIds)];
   const rows = unique.length ? await db.notificationPreference.findMany({ where: { userId: { in: unique } } }) : [];
-  const saved = new Map(rows.map((r) => [r.userId, { emailBookings: r.emailBookings, emailMarketing: r.emailMarketing, inAppBookings: r.inAppBookings, inAppReviews: r.inAppReviews }]));
+  const saved = new Map(rows.map((r) => [r.userId, {
+    emailBookings: r.emailBookings, emailMarketing: r.emailMarketing, inAppBookings: r.inAppBookings, inAppReviews: r.inAppReviews,
+    inAppRent: r.inAppRent, emailRent: r.emailRent, inAppComplaints: r.inAppComplaints,
+  }]));
   return new Map(unique.map((id) => [id, saved.get(id) ?? DEFAULT_PREFERENCES]));
 }
 
@@ -34,6 +39,8 @@ export async function notify(input: NotifyInput | NotifyInput[], db: Db = prisma
   await db.notification.createMany({
     data: wanted.map((n) => ({ userId: n.userId, type: n.type, title: n.title, body: n.body, data: n.data as Prisma.InputJsonValue | undefined })),
   });
+  // Ask for a push shortly after (the writer may still be inside its transaction; the 30 s schedule catches anything missed).
+  if (pushEnabled()) await enqueue('push-dispatch', {}, { delayMs: 1500 }).catch(() => undefined);
 }
 
 export async function notifyAdmins(input: Omit<NotifyInput, 'userId'>, db: Db = prisma) {

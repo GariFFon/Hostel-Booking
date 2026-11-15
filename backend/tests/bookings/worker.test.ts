@@ -71,6 +71,6 @@ describe('BullMQ worker', () => {
   });
 
   it('every job name has a handler', () => {
-    expect(Object.keys(handlers).sort()).toEqual(['audit-verify', 'demo-webhook', 'expire-holds', 'extend-horizon', 'lifecycle-sweep', 'mail', 'process-refund', 'prune-notifications', 'reconcile-ratings', 'reminders', 'retry-refunds']);
+    expect(Object.keys(handlers).sort()).toEqual(['audit-verify', 'complaint-sweep', 'demo-webhook', 'expire-holds', 'extend-horizon', 'lifecycle-sweep', 'mail', 'process-refund', 'prune-notifications', 'push-dispatch', 'reconcile-ratings', 'reminders', 'rent-demo-webhook', 'rent-sweep', 'retry-refunds', 'tenancy-sweep']);
   });
 });

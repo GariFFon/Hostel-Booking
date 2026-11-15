@@ -20,3 +20,22 @@ export const auditEntrySchema = z.strictObject({
 });
 
 export const auditVerifySchema = z.strictObject({ intact: z.boolean(), rowsChecked: z.number().int(), broken: z.array(z.strictObject({ id: z.string(), reason: z.string() })) });
+
+/** An owner's view of the trail: always scoped to their own properties. */
+export const ownerAuditQuerySchema = z.object({
+  hostelId: z.uuid().optional(),
+  action: z.string().max(60).optional(),
+  entityType: z.string().max(40).optional(),
+  outcome: z.enum(['SUCCESS', 'FAILURE', 'DENIED']).optional(),
+  from: z.iso.datetime().optional(),
+  to: z.iso.datetime().optional(),
+  limit: z.coerce.number().int().min(1).max(100).default(50),
+  cursor: z.string().regex(/^\d{1,18}$/).optional(),
+});
+
+export const ownerAuditEntrySchema = z.strictObject({
+  id: z.string(), at: z.iso.datetime(), action: z.string(), entityType: z.string(), entityId: z.string().nullable(), outcome: z.enum(['SUCCESS', 'FAILURE', 'DENIED']),
+  actor: z.strictObject({ id: z.uuid().nullable(), name: z.string().nullable(), role: z.string().nullable() }),
+  hostel: z.strictObject({ id: z.uuid(), name: z.string() }).nullable(),
+  before: z.unknown().nullable(), after: z.unknown().nullable(), metadata: z.unknown().nullable(),
+});

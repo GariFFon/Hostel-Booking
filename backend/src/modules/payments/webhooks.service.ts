@@ -8,6 +8,7 @@ import { captureEntries, fullRefundEntries } from '@/modules/bookings/booking-le
 import { capturedPayment, failOpenPayments, holdItems, inventoryEffect, lockBooking, runEffects, stayDates, transition, writeLedger, type Effect, type Tx } from '@/modules/bookings/booking-core';
 import { notifyBooking } from '@/modules/bookings/booking-notify';
 import { confirmHold } from '@/modules/availability/holds';
+import { applyRentEvent } from '@/modules/rent/rent-online.service';
 import { demoWebhookEventSchema, type DemoWebhookEvent } from './payments.schema';
 import { refundsService } from './refunds.service';
 
@@ -54,6 +55,8 @@ async function applyEvent(event: DemoWebhookEvent, eventRowId: string, now: Date
     tx.webhookEvent.update({ where: { id: eventRowId }, data: { status, processedAt: now, error: error ?? null } });
 
   if (!payment) {
+    const rent = await applyRentEvent(event, eventRowId, now); // not a booking payment: it may be a rent payment
+    if (rent) return rent;
     await finish(prisma, 'IGNORED', 'unknown order');
     return 'ignored';
   }

@@ -22,12 +22,14 @@ const PUBLIC: Record<string, string[] | '*'> = {
   health: ['GET'],
   'health/ready': ['GET'],
   'openapi.json': '*',
+  'receipts/[token]': ['GET'], // the signed five-minute token in the path is the credential
   hostels: ['GET'],
   'hostels/map': ['GET'],
   'hostels/[idOrSlug]': ['GET'],
   'hostels/[idOrSlug]/availability': ['GET'],
   'hostels/[idOrSlug]/calendar': ['GET'],
   'hostels/[idOrSlug]/offers': ['GET'],
+  'hostels/[idOrSlug]/tenancy-terms': ['GET'], // what a student sees before applying
   'hostels/[idOrSlug]/reviews': ['GET'],
   'hostels/[idOrSlug]/reviews/summary': ['GET'],
   'payments/webhooks/demo': ['POST'], // authorised by the HMAC signature

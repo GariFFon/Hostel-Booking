@@ -14,7 +14,10 @@ const toDto = (n: Notification) => ({
   read: n.readAt !== null, readAt: n.readAt?.toISOString() ?? null, createdAt: n.createdAt.toISOString(),
 });
 
-const toPrefs = (p: NotificationPreferences): NotificationPreferences => ({ emailBookings: p.emailBookings, emailMarketing: p.emailMarketing, inAppBookings: p.inAppBookings, inAppReviews: p.inAppReviews });
+const toPrefs = (p: NotificationPreferences): NotificationPreferences => ({
+  emailBookings: p.emailBookings, emailMarketing: p.emailMarketing, inAppBookings: p.inAppBookings, inAppReviews: p.inAppReviews,
+  inAppRent: p.inAppRent, emailRent: p.emailRent, inAppComplaints: p.inAppComplaints,
+});
 
 /** The caller's own notifications. Every query is scoped by `userId`, so another user's id is just "not found". */
 export const notificationCenter = {

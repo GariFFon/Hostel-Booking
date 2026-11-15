@@ -8,6 +8,7 @@ import type { Mail } from '@/infra/mail/mailer';
 export interface JobMap {
   mail: Mail;
   'demo-webhook': { paymentId: string; attemptId: string; instrument: string; stage: 'primary' | 'settle' };
+  'rent-demo-webhook': { orderId: string; attemptId: string; instrument: string; stage: 'primary' | 'settle' };
   'process-refund': { refundId: string };
   'expire-holds': Record<string, never>;
   'lifecycle-sweep': Record<string, never>;
@@ -17,6 +18,10 @@ export interface JobMap {
   'audit-verify': Record<string, never>;
   'prune-notifications': Record<string, never>;
   'reconcile-ratings': Record<string, never>;
+  'tenancy-sweep': Record<string, never>;
+  'rent-sweep': Record<string, never>;
+  'complaint-sweep': Record<string, never>;
+  'push-dispatch': Record<string, never>;
 }
 export type JobName = keyof JobMap;
 

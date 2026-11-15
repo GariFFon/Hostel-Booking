@@ -10,6 +10,7 @@ import { GET as cities } from '@/app/api/v1/cities/route';
 import { searchItemSchema, mapMarkerSchema, suggestResponseSchema, cityItemSchema } from '@/modules/search/search.schema';
 import { call } from '../helpers/http';
 import { D, TODAY, consume, nextWeekday, publish, uniq } from '../helpers/publish';
+import { api, applyBody, makeStay, student } from '../helpers/tenancy';
 
 beforeAll(async () => {
   await redis.flushdb();
@@ -154,6 +155,45 @@ describe('dates and availability', () => {
     expect(res.body.data[0]).toMatchObject({ fromPricePaise: 100000, stayFromPricePaise: 150000 });
     const weekday = await find(`city=${city}&checkIn=${addDays(fri, 3)}&checkOut=${addDays(fri, 4)}`); // Monday
     expect(weekday.body.data[0].stayFromPricePaise).toBe(100000);
+  });
+});
+
+describe('dates and long-term properties', () => {
+  const stay = { checkIn: addDays(TODAY, 20), checkOut: addDays(TODAY, 23) };
+  const q = (city: string, extra = '') => `city=${city}&checkIn=${stay.checkIn}&checkOut=${stay.checkOut}${extra}`;
+
+  it('hotels match on nightly availability, hostels and PGs on a free bed, and only hotels get a stay price', async () => {
+    const city = uniq('Lt');
+    await publish({ city, name: 'Hotel', propertyType: 'HOTEL' });
+    const pg = await makeStay({ units: 2, city });
+    const found = await find(q(city));
+    expect(nameOf(found).sort()).toEqual([pg.hostel.name, 'Hotel'].sort());
+    const byName = Object.fromEntries(found.body.data.map((h: { name: string }) => [h.name, h]));
+    expect(byName['Hotel'].stayFromPricePaise).not.toBeNull();
+    expect(byName[pg.hostel.name].stayFromPricePaise).toBeNull(); // a date range has no nightly price for a monthly rent
+  });
+
+  it('a long-term property with no free bed drops out of dated results, and comes back when a bed frees up', async () => {
+    const city = uniq('Full');
+    const stayA = await makeStay({ units: 1, city });
+    expect(ids(await find(q(city, '&propertyType=PG')))).toEqual([stayA.hostel.id]);
+
+    const s = await student();
+    const req = await api.apply(s.token, stayA.hostel.id, applyBody(stayA.room.id));
+    await api.approve(stayA.owner.token, req.body.data.id);
+    expect(ids(await find(q(city, '&propertyType=PG')))).toEqual([]); // cached results are invalidated when the bed is taken
+
+    const t = (await api.myTenancies(s.token)).body.data[0];
+    await api.cancel(stayA.owner.token, t.id);
+    expect(ids(await find(q(city, '&propertyType=PG')))).toEqual([stayA.hostel.id]);
+  });
+
+  it('ignores the nightly stay limits for long-term properties, and respects room filters', async () => {
+    const city = uniq('Lim');
+    const pg = await makeStay({ units: 1, city, room: { kind: 'DORM', gender: 'FEMALE' } });
+    expect(ids(await find(q(city, '&propertyType=PG&roomKind=DORM')))).toEqual([pg.hostel.id]);
+    expect(ids(await find(q(city, '&propertyType=PG&roomKind=PRIVATE')))).toEqual([]);
+    expect(ids(await find(q(city, '&propertyType=PG&gender=MALE')))).toEqual([]);
   });
 });
 

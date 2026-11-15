@@ -2,7 +2,7 @@ import { signAccessToken } from '@/core/auth/tokens';
 import { prisma } from '@/infra/db/prisma';
 import type { KycStatus } from '@/generated/prisma/client';
 
-type RoleName = 'GUEST' | 'OWNER' | 'ADMIN';
+type RoleName = 'GUEST' | 'OWNER' | 'ADMIN' | 'STAFF';
 let n = 0;
 
 /** Creates a user straight in the DB (no argon2 cost) and mints a valid access token for it. */

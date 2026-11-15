@@ -107,3 +107,14 @@ describe('geo + trigram indexes', () => {
     expect(near.length).toBeGreaterThan(0);
   });
 });
+
+describe('room_units: labels are unique among live units only', () => {
+  it('rejects a duplicate label (case-insensitive) but frees it after a soft delete', async () => {
+    const { hostel } = await makeOwnerWithHostel();
+    const room = await prisma.roomType.create({ data: { hostelId: hostel.id, name: 'Dorm', kind: 'DORM', totalUnits: 4, basePricePaise: 600000, priceUnit: 'MONTH' } });
+    await prisma.roomUnit.create({ data: { roomTypeId: room.id, label: 'A-1' } });
+    await expect(prisma.roomUnit.create({ data: { roomTypeId: room.id, label: 'a-1' } })).rejects.toThrow();
+    await prisma.roomUnit.updateMany({ where: { roomTypeId: room.id, label: 'A-1' }, data: { deletedAt: new Date() } });
+    await expect(prisma.roomUnit.create({ data: { roomTypeId: room.id, label: 'a-1' } })).resolves.toBeTruthy();
+  });
+});

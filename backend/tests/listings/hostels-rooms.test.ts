@@ -187,10 +187,16 @@ describe('room types and inventory', () => {
     expect((await bad({ kind: 'DORM', maxOccupancyPerUnit: 2 })).status).toBe(422);
     expect((await bad({ kind: 'PRIVATE', gender: 'FEMALE' })).status).toBe(422);
     expect((await bad({ minStayNights: 5, maxStayNights: 2 })).status).toBe(422);
-    expect((await bad({ priceUnit: 'MONTH' })).status).toBe(422); // monthly = PG only
+    expect((await bad({ priceUnit: 'MONTH' })).status).toBe(422); // hotels are nightly
     expect((await bad({ basePricePaise: 5 })).status).toBe(422);
     const pg = await makeHostel(o.token, { propertyType: 'PG', name: 'PG Place' });
+    expect((await call(createRoom, { token: o.token, params: { id: pg.id }, body: roomPayload({ priceUnit: 'NIGHT' }) })).status).toBe(422); // long-term = monthly
     expect((await call(createRoom, { token: o.token, params: { id: pg.id }, body: roomPayload({ priceUnit: 'MONTH', basePricePaise: 600000 }) })).status).toBe(201);
+    const hostel = await makeHostel(o.token, { propertyType: 'HOSTEL', name: 'Student Hostel' });
+    const omitted = await call(createRoom, { token: o.token, params: { id: hostel.id }, body: roomPayload({ basePricePaise: 700000 }) });
+    expect(omitted.status).toBe(201);
+    expect(omitted.body.data.priceUnit).toBe('MONTH'); // omitted unit follows the property's stay mode
+    expect((await call(createRoom, { token: o.token, params: { id: h.id }, body: roomPayload({ name: 'Nightly default' }) })).body.data.priceUnit).toBe('NIGHT');
   });
 
   it('opens a year of inventory, tracks the "from" price, and kind is immutable', async () => {

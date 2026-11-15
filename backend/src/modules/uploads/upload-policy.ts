@@ -15,6 +15,8 @@ export const PURPOSE_POLICY: Record<UploadPurpose, PurposePolicy> = {
   ROOM_IMAGE: { type: 'upload', allowedFormats: ['jpg', 'jpeg', 'png', 'webp'], maxBytes: 10 * MB },
   AVATAR: { type: 'upload', allowedFormats: ['jpg', 'jpeg', 'png', 'webp'], maxBytes: 3 * MB },
   KYC_DOCUMENT: { type: 'authenticated', allowedFormats: ['jpg', 'jpeg', 'png', 'pdf'], maxBytes: 8 * MB },
+  COMPLAINT_IMAGE: { type: 'upload', allowedFormats: ['jpg', 'jpeg', 'png', 'webp'], maxBytes: 8 * MB },
+  DEPOSIT_PROOF: { type: 'upload', allowedFormats: ['jpg', 'jpeg', 'png', 'webp'], maxBytes: 8 * MB },
 };
 
 /** Environment-scoped root so local/test/prod never mix inside one Cloudinary cloud. */
@@ -25,6 +27,8 @@ export const prefixFor = {
   hostel: (hostelId: string) => `${root()}/hostels/${hostelId}/`,
   avatar: (userId: string) => `${root()}/users/${userId}/avatar/`,
   kyc: (userId: string) => `${root()}/kyc/${userId}/`,
+  complaint: (complaintId: string) => `${root()}/complaints/${complaintId}/`,
+  deposit: (tenancyId: string) => `${root()}/deposits/${tenancyId}/`,
 };
 
 export const newPublicId = (prefix: string) => `${prefix}${randomUUID()}`;

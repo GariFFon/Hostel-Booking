@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 
 export interface Actor {
   id: string;
-  roles: ('GUEST' | 'OWNER' | 'ADMIN')[];
+  roles: ('GUEST' | 'OWNER' | 'ADMIN' | 'STAFF')[];
   emailVerified: boolean;
 }
 

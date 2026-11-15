@@ -5,7 +5,8 @@ const hhmm = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Use 24-hour HH:mm');
 const gstin = z.string().trim().toUpperCase().regex(/^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/, 'Enter a valid 15-character GSTIN');
 const phone = z.string().trim().regex(/^\+?[1-9]\d{7,14}$/, 'Enter a phone number in international format');
 
-export const propertyTypeSchema = z.enum(['HOSTEL', 'PG']);
+export { propertyTypeSchema } from './property-mode';
+import { propertyTypeSchema } from './property-mode';
 export const hostelStatusSchema = z.enum(['DRAFT', 'PENDING_REVIEW', 'APPROVED', 'REJECTED', 'SUSPENDED']);
 
 /** Default-free fields: used as-is for updates (partial), and extended with defaults for creation. */

@@ -6,6 +6,7 @@ import { handlers } from '@/jobs/handlers';
 
 export const SCHEDULES: { name: JobName; everyMs: number }[] = [
   { name: 'expire-holds', everyMs: 30_000 },
+  { name: 'push-dispatch', everyMs: 30_000 }, // a safety net: notify() also asks for a dispatch a moment after it writes
   { name: 'retry-refunds', everyMs: 60_000 },
   { name: 'lifecycle-sweep', everyMs: 10 * 60_000 },
   { name: 'reminders', everyMs: 60 * 60_000 },
@@ -13,6 +14,9 @@ export const SCHEDULES: { name: JobName; everyMs: number }[] = [
   { name: 'audit-verify', everyMs: 24 * 3600_000 },
   { name: 'prune-notifications', everyMs: 24 * 3600_000 },
   { name: 'reconcile-ratings', everyMs: 24 * 3600_000 },
+  { name: 'tenancy-sweep', everyMs: 60 * 60_000 },
+  { name: 'rent-sweep', everyMs: 60 * 60_000 },
+  { name: 'complaint-sweep', everyMs: 60 * 60_000 },
 ];
 
 /** Upsert = idempotent: restarting the worker (or running several) never duplicates a schedule. */

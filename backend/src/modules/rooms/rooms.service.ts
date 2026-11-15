@@ -2,6 +2,7 @@ import type { Prisma } from '@/generated/prisma/client';
 import type { Actor } from '@/core/context/request-context';
 import { todayIn } from '@/core/dates';
 import { Errors } from '@/core/errors/app-error';
+import { priceUnitFor, stayModeOf, type PropertyTypeName } from '@/modules/hostels/property-mode';
 import { invalidateHostel, invalidateInventory } from '@/infra/cache/invalidation';
 import { prisma } from '@/infra/db/prisma';
 import { recordAudit } from '@/modules/audit/audit.service';
@@ -23,8 +24,12 @@ const assertEditable = (status: Parameters<typeof OWNER_EDITABLE.includes>[0]) =
   if (!OWNER_EDITABLE.includes(status)) throw Errors.conflict('Withdraw the listing from review before editing it');
 };
 
-function assertMonthlyOnlyForPg(priceUnit: string, propertyType: string) {
-  if (priceUnit === 'MONTH' && propertyType !== 'PG') throw Errors.validation([{ path: 'priceUnit', message: 'Monthly pricing is only available for PG listings' }]);
+/** Hotels are priced per night; hostels and PGs (long-term) per month. A room cannot mix the two. */
+function assertPriceUnitMatchesMode(priceUnit: string, propertyType: PropertyTypeName) {
+  const expected = priceUnitFor(stayModeOf(propertyType));
+  if (priceUnit !== expected) {
+    throw Errors.validation([{ path: 'priceUnit', message: expected === 'MONTH' ? 'Hostels and PGs are rented long-term, so rooms are priced per month' : 'Hotels are booked nightly, so rooms are priced per night' }]);
+  }
 }
 
 export const roomsService = {
@@ -41,9 +46,10 @@ export const roomsService = {
     const result = await prisma.$transaction(async (tx) => {
       const hostel = await loadOwnedHostel(tx, actor, hostelId);
       assertEditable(hostel.status);
-      assertMonthlyOnlyForPg(input.priceUnit, hostel.propertyType);
+      const priceUnit = input.priceUnit ?? priceUnitFor(stayModeOf(hostel.propertyType));
+      assertPriceUnitMatchesMode(priceUnit, hostel.propertyType);
       if ((await tx.roomType.count({ where: { hostelId, deletedAt: null } })) >= MAX_ROOM_TYPES) throw Errors.conflict(`A listing can have at most ${MAX_ROOM_TYPES} room types`);
-      const room = await tx.roomType.create({ data: { ...input, hostelId } });
+      const room = await tx.roomType.create({ data: { ...input, priceUnit, hostelId } });
       await ensureInventory(tx, room.id, room.totalUnits, todayIn(hostel.timezone));
       await refreshHostelAggregates(tx, hostelId);
       await recordAudit({ action: 'room_type.create', entityType: 'hostel', entityId: hostelId, after: toRoomTypeDto(room) }, tx);
@@ -62,7 +68,7 @@ export const roomsService = {
       const merged = { ...existing, ...changes };
       const issues = validateRoomShape(merged);
       if (issues.length) throw Errors.validation(issues);
-      assertMonthlyOnlyForPg(merged.priceUnit, existing.hostel.propertyType);
+      assertPriceUnitMatchesMode(merged.priceUnit, existing.hostel.propertyType);
 
       if (changes.totalUnits !== undefined && changes.totalUnits !== existing.totalUnits) {
         await setTotalUnits(tx, roomTypeId, changes.totalUnits, existing.hostel.timezone);

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { propertyTypeSchema } from '@/modules/hostels/property-mode';
 import { paginationSchema } from '@/core/http/pagination';
 
 export const wishlistQuerySchema = paginationSchema;
@@ -6,7 +7,7 @@ export const wishlistQuerySchema = paginationSchema;
 export const wishlistItemSchema = z.strictObject({
   savedAt: z.iso.datetime(),
   hostel: z.strictObject({
-    id: z.uuid(), slug: z.string(), name: z.string(), propertyType: z.enum(['HOSTEL', 'PG']), city: z.string(), state: z.string(), locality: z.string().nullable(),
+    id: z.uuid(), slug: z.string(), name: z.string(), propertyType: propertyTypeSchema, city: z.string(), state: z.string(), locality: z.string().nullable(),
     coverUrl: z.string().nullable(), fromPricePaise: z.number().int().nullable(), currency: z.string(), avgRating: z.number(), reviewCount: z.number().int(),
     bookingMode: z.enum(['INSTANT', 'APPROVAL']), genderPolicy: z.enum(['MIXED', 'MALE_ONLY', 'FEMALE_ONLY']),
   }),

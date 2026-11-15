@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { propertyTypeSchema } from '@/modules/hostels/property-mode';
 
 // Response contracts for listing-related endpoints. `strictObject` so tests catch undocumented fields.
 const ts = z.iso.datetime();
@@ -19,7 +20,7 @@ export const amenityDtoSchema = z.strictObject({ id: z.uuid(), code: z.string(),
 
 export const hostelDtoSchema = z.strictObject({
   id: z.uuid(), ownerId: z.uuid(), slug: z.string(), name: z.string(), description: z.string(),
-  propertyType: z.enum(['HOSTEL', 'PG']), status: z.enum(['DRAFT', 'PENDING_REVIEW', 'APPROVED', 'REJECTED', 'SUSPENDED']),
+  propertyType: propertyTypeSchema, status: z.enum(['DRAFT', 'PENDING_REVIEW', 'APPROVED', 'REJECTED', 'SUSPENDED']),
   bookingMode: z.enum(['INSTANT', 'APPROVAL']), cancellationPolicy: z.enum(['FLEXIBLE', 'MODERATE', 'STRICT']),
   genderPolicy: z.enum(['MIXED', 'MALE_ONLY', 'FEMALE_ONLY']), timezone: z.string(), currency: z.string(),
   address: z.strictObject({ line1: z.string(), line2: z.string().nullable(), locality: z.string().nullable(), city: z.string(), state: z.string(), postalCode: z.string(), country: z.string() }),
@@ -33,7 +34,7 @@ export const hostelDtoSchema = z.strictObject({
 });
 
 export const hostelSummarySchema = z.strictObject({
-  id: z.uuid(), slug: z.string(), name: z.string(), city: z.string(), propertyType: z.enum(['HOSTEL', 'PG']),
+  id: z.uuid(), slug: z.string(), name: z.string(), city: z.string(), propertyType: propertyTypeSchema,
   status: z.enum(['DRAFT', 'PENDING_REVIEW', 'APPROVED', 'REJECTED', 'SUSPENDED']), coverUrl: z.string().nullable(),
   roomTypeCount: z.number().int(), mediaCount: z.number().int(), minPricePaise: z.number().int().nullable(),
   avgRating: z.number(), reviewCount: z.number().int(), rejectionReason: z.string().nullable(), updatedAt: ts,

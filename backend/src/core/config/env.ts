@@ -34,6 +34,12 @@ const schema = z.object({
   SMTP_PORT: z.coerce.number().int().default(1025),
   RESEND_API_KEY: z.string().default(''),
 
+  /** Phone push notifications (Firebase Cloud Messaging). `off` sends nothing; `log` records in memory (tests); `fcm` really sends. */
+  PUSH_DRIVER: z.enum(['off', 'log', 'fcm']).default('off'),
+  /** The Firebase service-account key: either the JSON itself (Render secret) or a path to the file (local). */
+  FCM_SERVICE_ACCOUNT_JSON: z.string().default(''),
+  FCM_SERVICE_ACCOUNT_FILE: z.string().default(''),
+
   PAYMENT_PROVIDER: z.enum(['demo']).default('demo'),
   DEMO_WEBHOOK_SECRET: z.string().min(16),
   /** The demo gateway lets guests "pay" without money. Blocked in production unless this is set on purpose. */
@@ -49,6 +55,8 @@ const schema = z.object({
   GEOCODER_USER_AGENT: z.string().default('HostelBookingApp/1.0'),
   GEOCODER_COUNTRY_CODES: z.string().default('in'),
 
+  /** Platform commission on online rent, in basis points. 0 by default: rent is not commissioned unless you switch it on. */
+  RENT_COMMISSION_BPS: z.coerce.number().int().min(0).max(5000).default(0),
   PLATFORM_COMMISSION_BPS: z.coerce.number().int().min(0).max(5000).default(1000),
   // Request-to-book: how long an owner has to answer, and how long the guest then has to pay.
   APPROVAL_WINDOW_HOURS: z.coerce.number().int().min(1).max(168).default(24),

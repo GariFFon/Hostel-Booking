@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { propertyTypeSchema } from '@/modules/hostels/property-mode';
 import { addDays, diffDays, isDateString, todayIn } from '@/core/dates';
 import { MAX_STAY_NIGHTS } from '@/modules/pricing/quote.schema';
 
@@ -24,7 +25,7 @@ const filterShape = {
   minPrice: z.coerce.number().int().min(0).optional(), // paise per night
   maxPrice: z.coerce.number().int().min(0).optional(),
   amenities: csv.optional(),
-  propertyType: z.enum(['HOSTEL', 'PG']).optional(),
+  propertyType: propertyTypeSchema.optional(),
   roomKind: z.enum(['DORM', 'PRIVATE']).optional(),
   gender: z.enum(['MALE', 'FEMALE']).optional(),
   minRating: num(0, 5).optional(),
@@ -91,7 +92,7 @@ export type SearchFilters = Filters;
 
 // ---- response contracts ----
 export const searchItemSchema = z.strictObject({
-  id: z.uuid(), slug: z.string(), name: z.string(), propertyType: z.enum(['HOSTEL', 'PG']), city: z.string(), state: z.string(), locality: z.string().nullable(),
+  id: z.uuid(), slug: z.string(), name: z.string(), propertyType: propertyTypeSchema, city: z.string(), state: z.string(), locality: z.string().nullable(),
   location: z.strictObject({ latitude: z.number(), longitude: z.number() }), distanceKm: z.number().nullable(),
   coverUrl: z.string().nullable(), photoUrls: z.array(z.string()), amenityCodes: z.array(z.string()), roomKinds: z.array(z.enum(['DORM', 'PRIVATE'])),
   fromPricePaise: z.number().int().nullable(), stayFromPricePaise: z.number().int().nullable(), currency: z.string(),
@@ -99,7 +100,7 @@ export const searchItemSchema = z.strictObject({
   cancellationPolicy: z.enum(['FLEXIBLE', 'MODERATE', 'STRICT']),
 });
 export const mapMarkerSchema = z.strictObject({
-  id: z.uuid(), slug: z.string(), name: z.string(), propertyType: z.enum(['HOSTEL', 'PG']), latitude: z.number(), longitude: z.number(),
+  id: z.uuid(), slug: z.string(), name: z.string(), propertyType: propertyTypeSchema, latitude: z.number(), longitude: z.number(),
   fromPricePaise: z.number().int().nullable(), avgRating: z.number(), reviewCount: z.number().int(),
 });
 export const suggestResponseSchema = z.strictObject({

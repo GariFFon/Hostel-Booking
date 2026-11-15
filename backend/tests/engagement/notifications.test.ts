@@ -35,7 +35,7 @@ const unread = async (token: string) => (await call(unreadCount, { method: 'GET'
 const seed = (userId: string, over: Partial<{ type: NotificationType; title: string; readAt: Date | null; createdAt: Date; data: object }> = {}) =>
   prisma.notification.create({ data: { userId, type: over.type ?? 'SYSTEM', title: over.title ?? 'Hello', body: 'Body text', readAt: over.readAt ?? null, ...(over.createdAt ? { createdAt: over.createdAt } : {}), ...(over.data ? { data: over.data } : {}) } });
 const setPrefs = (token: string, body: object) => call(patchPrefs, { method: 'PATCH', token, body });
-const allOff = { emailBookings: false, emailMarketing: false, inAppBookings: false, inAppReviews: false };
+const allOff = { emailBookings: false, emailMarketing: false, inAppBookings: false, inAppReviews: false, inAppRent: false, emailRent: false, inAppComplaints: false };
 
 describe('the notification feed', () => {
   it('lists the newest first in the response contract, with deep-link data, and nobody else\'s', async () => {
@@ -162,8 +162,8 @@ describe('preferences', () => {
     const first = await setPrefs(user.token, { emailMarketing: true });
     expect(first.status).toBe(200);
     expect(first.body.data).toEqual({ ...DEFAULT_PREFERENCES, emailMarketing: true });
-    expect((await setPrefs(user.token, { inAppReviews: false })).body.data).toEqual({ emailBookings: true, emailMarketing: true, inAppBookings: true, inAppReviews: false }); // merged, not replaced
-    expect((await call(getPrefs, { method: 'GET', token: user.token })).body.data).toEqual({ emailBookings: true, emailMarketing: true, inAppBookings: true, inAppReviews: false });
+    expect((await setPrefs(user.token, { inAppReviews: false })).body.data).toEqual({ ...DEFAULT_PREFERENCES, emailMarketing: true, inAppReviews: false }); // merged, not replaced
+    expect((await call(getPrefs, { method: 'GET', token: user.token })).body.data).toEqual({ ...DEFAULT_PREFERENCES, emailMarketing: true, inAppReviews: false });
     const audit = await prisma.auditLog.findMany({ where: { entityId: user.id, action: 'notification.preferences.update' }, orderBy: { id: 'asc' } });
     expect(audit).toHaveLength(2);
     expect(audit[0]).toMatchObject({ before: DEFAULT_PREFERENCES, after: { emailMarketing: true } });
@@ -190,10 +190,12 @@ describe('what preferences actually control', () => {
     const types = Object.values(NotificationType);
     expect(types.length).toBeGreaterThan(15);
     for (const t of types) {
-      expect(['bookings', 'reviews', 'always']).toContain(NOTIFICATION_CATEGORY[t]);
+      expect(['bookings', 'reviews', 'rent', 'complaints', 'always']).toContain(NOTIFICATION_CATEGORY[t]);
       expect(inAppAllowed(t, allOff)).toBe(NOTIFICATION_CATEGORY[t] === 'always');
-      expect(inAppAllowed(t, { ...allOff, inAppBookings: true })).toBe(NOTIFICATION_CATEGORY[t] !== 'reviews');
-      expect(inAppAllowed(t, { ...allOff, inAppReviews: true })).toBe(NOTIFICATION_CATEGORY[t] !== 'bookings');
+      expect(inAppAllowed(t, { ...allOff, inAppBookings: true })).toBe(NOTIFICATION_CATEGORY[t] === 'bookings' || NOTIFICATION_CATEGORY[t] === 'always');
+      expect(inAppAllowed(t, { ...allOff, inAppReviews: true })).toBe(NOTIFICATION_CATEGORY[t] === 'reviews' || NOTIFICATION_CATEGORY[t] === 'always');
+      expect(inAppAllowed(t, { ...allOff, inAppRent: true })).toBe(NOTIFICATION_CATEGORY[t] === 'rent' || NOTIFICATION_CATEGORY[t] === 'always');
+      expect(inAppAllowed(t, { ...allOff, inAppComplaints: true })).toBe(NOTIFICATION_CATEGORY[t] === 'complaints' || NOTIFICATION_CATEGORY[t] === 'always');
       expect(inAppAllowed(t, DEFAULT_PREFERENCES)).toBe(true);
     }
     expect(Object.keys(NOTIFICATION_CATEGORY).sort()).toEqual([...types].sort());
@@ -243,6 +245,23 @@ describe('what preferences actually control', () => {
     expect(await prisma.notification.count({ where: { userId: chatty.id } })).toBe(1);
     expect(await prisma.notification.count({ where: { userId: fresh.id } })).toBe(1);
     await expect(notify([])).resolves.toBeUndefined();
+  });
+
+  it('the stay/rent/deposit switch and the complaints switch round-trip through the API and mute exactly their own types', async () => {
+    const user = await makeGuest();
+    const res = await setPrefs(user.token, { inAppRent: false, inAppComplaints: false, emailRent: false });
+    expect(res.status).toBe(200);
+    expect(issues(notificationPreferencesSchema, res.body.data)).toEqual([]);
+    expect(res.body.data).toMatchObject({ inAppRent: false, inAppComplaints: false, emailRent: false, inAppBookings: true });
+    const types = ['TENANCY_NOTICE', 'RENT_OVERDUE', 'DEPOSIT_SETTLED', 'COMPLAINT_UPDATED', 'COMPLAINT_RESOLVED', 'BOOKING_CONFIRMED', 'STAFF_INVITED'] as const;
+    await notify(types.map((type) => ({ userId: user.id, type, title: 'x', body: 'y' })));
+    expect((await notificationsFor(user.id)).map((n) => n.type).sort()).toEqual(['BOOKING_CONFIRMED', 'STAFF_INVITED']); // booking and staff-invite notices are not governed by them
+
+    await setPrefs(user.token, { inAppRent: true });
+    await notify(types.map((type) => ({ userId: user.id, type, title: 'x', body: 'y' })));
+    const now = (await notificationsFor(user.id)).map((n) => n.type);
+    expect(now).toEqual(expect.arrayContaining(['DEPOSIT_SETTLED', 'RENT_OVERDUE', 'TENANCY_NOTICE'])); // deposits follow the rent switch
+    expect(now).not.toContain('COMPLAINT_UPDATED'); // complaints stay muted
   });
 
   it('only the pre-stay reminder email honours the email switch', async () => {

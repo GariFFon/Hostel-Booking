@@ -2,6 +2,7 @@ import type { Prisma } from '@/generated/prisma/client';
 import { env } from '@/core/config/env';
 import { addDays, diffDays, todayIn, toDateString } from '@/core/dates';
 import { AppError, Errors } from '@/core/errors/app-error';
+import { stayModeOf } from '@/modules/hostels/property-mode';
 import { prisma } from '@/infra/db/prisma';
 import { INVENTORY_HORIZON_DAYS } from '@/modules/availability/inventory.service';
 import { SUMMARY, checkInInstant, freeCancellationUntil, policyTiers } from './cancellation-policy';
@@ -56,6 +57,7 @@ export async function computeQuote(db: Db, input: QuoteRequest, ctx: { userId?: 
     include: { roomTypes: { where: { isActive: true, deletedAt: null }, include: { priceRules: { where: { isActive: true } } } } },
   });
   if (!hostel) throw Errors.notFound('Hostel');
+  if (stayModeOf(hostel.propertyType) !== 'NIGHTLY') throw Errors.conflict('This property is rented monthly. Request a tenancy instead of booking nightly.');
 
   const today = todayIn(hostel.timezone, now);
   const nightCount = diffDays(input.checkIn, input.checkOut);
